@@ -325,6 +325,17 @@ class PlayState extends MusicBeatState
 	private var keysArray:Array<Dynamic>;
 	private var controlArray:Array<String>;
 
+
+	var twistShit:Float = 1;
+	var twistAmount:Float = 1;
+	var camTwistIntensity:Float = 0;
+	var camTwistIntensity2:Float = 3;
+	var camTwist:Bool = false;
+
+	var canBeat:Bool = true;
+
+	var barrelDistortion = new BarrelDistortionShader();
+
 	var precacheList:Map<String, String> = new Map<String, String>();
 	
 	// stores the last judgement object
@@ -1362,6 +1373,14 @@ class PlayState extends MusicBeatState
 		
 		CustomFadeTransition.nextCamera = camOther;
 		if(eventNotes.length < 1) checkEventNote();
+
+		if(ClientPrefs.shaders){
+			barrelDistortion.barrelDistortion1 = -0.10;
+			barrelDistortion.barrelDistortion2 = -0.10;
+			camGame.setFilters([new ShaderFilter(barrelDistortion)]);
+			camHUD.setFilters([new ShaderFilter(barrelDistortion)]);
+		}
+
 	}
 
 	#if (!flash && sys)
@@ -3397,6 +3416,64 @@ class PlayState extends MusicBeatState
 
 	public function triggerEventNote(eventName:String, value1:String, value2:String) {
 		switch(eventName) {
+			case 'Camera Twist':
+				camTwist = true;
+				var _intensity:Float = Std.parseFloat(value1);
+				if (Math.isNaN(_intensity))
+					_intensity = 0;
+				var _intensity2:Float = Std.parseFloat(value2);
+				if (Math.isNaN(_intensity2))
+					_intensity2 = 0;
+				camTwistIntensity = _intensity;
+				camTwistIntensity2 = _intensity2;
+				if (_intensity2 == 0)
+				{
+					camTwist = false;
+					FlxTween.tween(camHUD, {angle: 0}, 1, {ease: FlxEase.sineInOut});
+					FlxTween.tween(camGame, {angle: 0}, 1, {ease: FlxEase.sineInOut});
+				}
+
+			case 'Set barrel in':
+				var zoomthing:Float = Std.parseFloat(value1);
+				var duration:Float = Std.parseFloat(value2);
+
+				if(ClientPrefs.shaders) {
+					FlxTween.tween(barrelDistortion, {barrelDistortion1: zoomthing}, duration, {ease: FlxEase.expoIn,
+						onComplete: function(twn:FlxTween) {
+							FlxTween.tween(barrelDistortion, {barrelDistortion1: -0.15}, duration, {ease: FlxEase.expoOut});
+						}
+					});
+					FlxTween.tween(barrelDistortion, {barrelDistortion2: zoomthing}, duration, {ease: FlxEase.expoIn,
+						onComplete: function(twn:FlxTween) {
+							FlxTween.tween(barrelDistortion, {barrelDistortion2: -0.15}, duration, {ease: FlxEase.expoOut});
+						}
+					});
+				    camGame.setFilters([new ShaderFilter(barrelDistortion)]);
+					camHUD.setFilters([new ShaderFilter(barrelDistortion)]);
+			    }
+			case 'Set barrel out':
+				var zoomthing:Float = Std.parseFloat(value1);
+				var duration:Float = Std.parseFloat(value2);
+
+				if(ClientPrefs.shaders) {
+				    FlxTween.tween(barrelDistortion, {barrelDistortion1: zoomthing}, duration, {ease: FlxEase.expoOut});
+				    FlxTween.tween(barrelDistortion, {barrelDistortion2: zoomthing}, duration, {ease: FlxEase.expoOut});
+			    }
+				camGame.setFilters([new ShaderFilter(barrelDistortion)]);
+				camHUD.setFilters([new ShaderFilter(barrelDistortion)]);
+			case 'Barrel onBeat':
+				var val1:Null<Int> = Std.parseInt(value1);
+				if(val1 == null) val1 = 0;
+
+				switch(Std.parseInt(value1)) {
+					case 1:
+						canBeat = true;
+					default:
+						canBeat = false;
+						camGame.setFilters([]);
+						camHUD.setFilters([]);
+				}	
+
 			case 'Dadbattle Spotlight':
 				var val:Null<Int> = Std.parseInt(value1);
 				if(val == null) val = 0;
@@ -4975,6 +5052,21 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
+		if (camTwist)
+		{
+			if (curStep % 4 == 0)
+			{
+				FlxTween.tween(camHUD, {y: -6 * camTwistIntensity2}, Conductor.stepCrochet * 0.002, {ease: FlxEase.circOut});
+				FlxTween.tween(camGame.scroll, {y: 12}, Conductor.stepCrochet * 0.002, {ease: FlxEase.sineIn});
+			}
+		
+			if (curStep % 4 == 2)
+			{
+				FlxTween.tween(camHUD, {y: 0}, Conductor.stepCrochet * 0.002, {ease: FlxEase.sineIn});
+				FlxTween.tween(camGame.scroll, {y: 0}, Conductor.stepCrochet * 0.002, {ease: FlxEase.sineIn});
+			}
+		}	
+	
 		lastStepHit = curStep;
 		setOnLuas('curStep', curStep);
 		callOnLuas('onStepHit', []);
@@ -5018,60 +5110,32 @@ class PlayState extends MusicBeatState
 			dad.dance();
 		}
 
-		switch (curStage)
-		{
-			case 'tank':
-				if(!ClientPrefs.lowQuality) tankWatchtower.dance();
-				foregroundSprites.forEach(function(spr:BGSprite)
-				{
-					spr.dance();
-				});
-
-			case 'school':
-				if(!ClientPrefs.lowQuality) {
-					bgGirls.dance();
-				}
-
-			case 'mall':
-				if(!ClientPrefs.lowQuality) {
-					upperBoppers.dance(true);
-				}
-
-				if(heyTimer <= 0) bottomBoppers.dance(true);
-				santa.dance(true);
-
-			case 'limo':
-				if(!ClientPrefs.lowQuality) {
-					grpLimoDancers.forEach(function(dancer:BackgroundDancer)
-					{
-						dancer.dance();
-					});
-				}
-
-				if (FlxG.random.bool(10) && fastCarCanDrive)
-					fastCarDrive();
-			case "philly":
-				if (!trainMoving)
-					trainCooldown += 1;
-
-				if (curBeat % 4 == 0)
-				{
-					curLight = FlxG.random.int(0, phillyLightsColors.length - 1, [curLight]);
-					phillyWindow.color = phillyLightsColors[curLight];
-					phillyWindow.alpha = 1;
-				}
-
-				if (curBeat % 8 == 4 && FlxG.random.bool(30) && !trainMoving && trainCooldown > 8)
-				{
-					trainCooldown = FlxG.random.int(-4, 0);
-					trainStart();
-				}
+		if (camTwist) {
+			if (curBeat % 2 == 0) {
+				twistShit = twistAmount;
+			}
+			else {
+				twistShit = -twistAmount;
+			}
+			camHUD.angle = twistShit * camTwistIntensity2;
+			camGame.angle = twistShit * camTwistIntensity2;
+			FlxTween.tween(camHUD, {angle: twistShit * camTwistIntensity}, Conductor.stepCrochet * 0.002, {ease: FlxEase.circOut});
+			FlxTween.tween(camHUD, {x: -twistShit * camTwistIntensity}, Conductor.crochet * 0.001, {ease: FlxEase.linear});
+			FlxTween.tween(camGame, {angle: twistShit * camTwistIntensity}, Conductor.stepCrochet * 0.002, {ease: FlxEase.circOut});
+			FlxTween.tween(camGame, {x: -twistShit * camTwistIntensity}, Conductor.crochet * 0.001, {ease: FlxEase.linear});
 		}
 
-		if (curStage == 'spooky' && FlxG.random.bool(10) && curBeat > lightningStrikeBeat + lightningOffset)
-		{
-			lightningStrikeShit();
+		if(canBeat) {
+			if (curBeat % 2 == 0) {
+				barrelDistortion.barrelDistortion1 = -0.10;
+				barrelDistortion.barrelDistortion2 = -0.10;
+				FlxTween.tween(barrelDistortion, {barrelDistortion1: 0}, 0.5, {ease: FlxEase.circOut});
+				FlxTween.tween(barrelDistortion, {barrelDistortion2: 0}, 0.5, {ease: FlxEase.circOut});
+				camGame.setFilters([new ShaderFilter(barrelDistortion)]);
+				camHUD.setFilters([new ShaderFilter(barrelDistortion)]);
+			}
 		}
+	
 		lastBeatHit = curBeat;
 
 		setOnLuas('curBeat', curBeat); //DAWGG?????
