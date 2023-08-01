@@ -27,7 +27,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -75,6 +75,8 @@ import sys.io.File;
 import vlc.MP4Handler;
 #end
 
+using StringTools;
+
 typedef CoolEvent = {
 	var strumTime:Float;
 	var event:String;
@@ -82,7 +84,6 @@ typedef CoolEvent = {
 	var value2:String;
 }
 
-using StringTools;
 
 class PlayState extends MusicBeatState
 {
@@ -335,7 +336,7 @@ class PlayState extends MusicBeatState
 	function pushEvent(strumTime:Float, name:String, value1:String, value2:String) {
 		eventNotes.push({
 			strumTime: strumTime,
-			event: event,
+			event: name,
 			value1: value1,
 			value2: value2
 		});
@@ -2539,7 +2540,7 @@ class PlayState extends MusicBeatState
 		}*/
 
 		// nick use pushEvent() here
-		switch (song.SONG.toLowerCase()) {
+		switch (SONG.song.toLowerCase()) {
 			default:
 				// IM KILLING YOU
 		}
