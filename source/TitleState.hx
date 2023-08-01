@@ -35,6 +35,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.Assets;
+import flxgif.FlxGifSprite;
 
 using StringTools;
 typedef TitleData =
@@ -57,7 +58,7 @@ class TitleState extends MusicBeatState
 
 	public static var initialized:Bool = false;
 
-	var blackScreen:FlxSprite;
+	var blackScreen:FlxGifSprite;
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
@@ -377,7 +378,8 @@ class TitleState extends MusicBeatState
 		add(credGroup);
 		textGroup = new FlxGroup();
 
-		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		blackScreen:FlxGifSprite = new FlxGifSprite(0, 0);
+		blackScreen.loadGif('assets/images/titlebackground.gif');
 		credGroup.add(blackScreen);
 
 		credTextShit = new Alphabet(0, 0, "", true);
@@ -387,7 +389,9 @@ class TitleState extends MusicBeatState
 
 		credTextShit.visible = false;
 
-		ngSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('newgrounds_logo'));
+
+		var ngSpr:FlxGifSprite = new FlxGifSprite(0, FlxG.height * 0.52);
+		ngSpr.loadGif('assets/images/newgrounds.gif');
 		add(ngSpr);
 		ngSpr.visible = false;
 		ngSpr.setGraphicSize(Std.int(ngSpr.width * 0.8));
