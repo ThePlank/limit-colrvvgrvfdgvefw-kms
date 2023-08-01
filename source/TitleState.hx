@@ -62,7 +62,7 @@ class TitleState extends MusicBeatState
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
-	var ngSpr:FlxSprite;
+	var ngSpr:FlxGifSprite;
 	
 	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
 	var titleTextAlphas:Array<Float> = [1, .64];
@@ -363,41 +363,30 @@ class TitleState extends MusicBeatState
 		titleText.antialiasing = ClientPrefs.globalAntialiasing;
 		titleText.animation.play('idle');
 		titleText.updateHitbox();
-		// titleText.screenCenter(X);
 		add(titleText);
-
-		var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));
-		logo.screenCenter();
-		logo.antialiasing = ClientPrefs.globalAntialiasing;
-		// add(logo);
-
-		// FlxTween.tween(logoBl, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
-		// FlxTween.tween(logo, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.1});
 
 		credGroup = new FlxGroup();
 		add(credGroup);
 		textGroup = new FlxGroup();
 
-		blackScreen:FlxGifSprite = new FlxGifSprite(0, 0);
+		blackScreen = new FlxGifSprite(0, 0);
 		blackScreen.loadGif('assets/images/titlebackground.gif');
+		blackScreen.setGraphicSize(FlxG.width, FlxG.height);
 		credGroup.add(blackScreen);
 
 		credTextShit = new Alphabet(0, 0, "", true);
 		credTextShit.screenCenter();
 
-		// credTextShit.alignment = CENTER;
-
 		credTextShit.visible = false;
 
-
-		var ngSpr:FlxGifSprite = new FlxGifSprite(0, FlxG.height * 0.52);
+		ngSpr = new FlxGifSprite(0, FlxG.height * 0.52);
 		ngSpr.loadGif('assets/images/newgrounds.gif');
-		add(ngSpr);
 		ngSpr.visible = false;
 		ngSpr.setGraphicSize(Std.int(ngSpr.width * 0.8));
 		ngSpr.updateHitbox();
 		ngSpr.screenCenter(X);
 		ngSpr.antialiasing = ClientPrefs.globalAntialiasing;
+		add(ngSpr);
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
@@ -406,7 +395,6 @@ class TitleState extends MusicBeatState
 		else
 			initialized = true;
 
-		// credGroup.add(credTextShit);
 	}
 
 	function getIntroTextShit():Array<Array<String>>

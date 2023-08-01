@@ -134,7 +134,10 @@ class CoolUtil
 		#if linux
 		Sys.command('/usr/bin/xdg-open', [site]);
 		#else
-		FlxG.openURL(site);
+		if (site.contains('://')) // automatically appends http/https ONLY if http(s):// isnt found so if you use a differenct procotol you're screwed
+			openfl.Lib.getURL(new openfl.net.URLRequest(site), "_blank");
+		else
+			FlxG.openURL(site);
 		#end
 	}
 

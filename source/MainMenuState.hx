@@ -44,15 +44,6 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
-		// var process = new Process("tasklist", []);
-		// var output = process.stdout.readAll().toString().toLowerCase();
-		// var apps:Array<String> = ["discord.exe", "discordcanary.exe", "discordptb.exe"]; 
-		// for (i in 0...apps.length) {
-		// 	CreditsState.discord = output.contains(apps[i]);
-		// }
-		// process.close();
-
-
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
 		#end
