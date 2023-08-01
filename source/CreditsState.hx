@@ -29,10 +29,10 @@ class CreditsState extends MusicBeatState
 	private var iconArray:Array<AttachedSprite> = [];
 	private var creditsStuff:Array<Array<String>> = [];
 
+	public static var discord:Bool = false;
+
 	var bg:FlxSprite;
 	var descText:FlxText;
-	var intendedColor:Int;
-	var colorTween:FlxTween;
 	var descBox:AttachedSprite;
 
 	var offsetThing:Float = -75;
@@ -40,7 +40,6 @@ class CreditsState extends MusicBeatState
 	override function create()
 	{
 		#if discord_rpc
-		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
@@ -52,61 +51,38 @@ class CreditsState extends MusicBeatState
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		#if MODS_ALLOWED
-		var path:String = 'modsList.txt';
-		if(FileSystem.exists(path))
-		{
-			var leMods:Array<String> = CoolUtil.coolTextFile(path);
-			for (i in 0...leMods.length)
-			{
-				if(leMods.length > 1 && leMods[0].length > 0) {
-					var modSplit:Array<String> = leMods[i].split('|');
-					if(!Paths.ignoreModFolders.contains(modSplit[0].toLowerCase()) && !modsAdded.contains(modSplit[0]))
-					{
-						if(modSplit[1] == '1')
-							pushModCreditsToList(modSplit[0]);
-						else
-							modsAdded.push(modSplit[0]);
-					}
-				}
-			}
-		}
-
-		var arrayOfFolders:Array<String> = Paths.getModDirectories();
-		arrayOfFolders.push('');
-		for (folder in arrayOfFolders)
-		{
-			pushModCreditsToList(folder);
-		}
-		#end
-
-		var saygex:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+		var saygex:Array<Array<String>> = [ //Name - Icon name - Description - Link
+			['Skech Team'],
+			['Libing',		    'libing icon real',		'Director, Charter',							                               'https://twitter.com/_PlankDev'],
+			['PlankDev',		'plank icon real',		'Main Programmer',							                 	               'https://twitter.com/_PlankDev'],
+			['Nick',		    'nick icon real',		'Programmer, Artist, slave',        (discord ? 'discord://-/users/749249635968745502' : '@nickngc on discord')],
+			['Flying Felt Boot','ffb icon real',		'Artist',								                                       'https://twitter.com/_PlankDev'],
 			['Psych Engine Hashlinked'],
-			['PlankDev',		'plank icon real',		'Main Programmer of Hashlinked',								'https://twitter.com/_PlankDev',	'644816'],
+			['PlankDev',		'plank icon real',		'Main Programmer of Hashlinked',								               'https://twitter.com/_PlankDev'],
 			[''],
 			['Psych Engine Team'],
-			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
-			['RiverOaken',			'river',			'Main Artist/Animator of Psych Engine',							'https://twitter.com/RiverOaken',		'B42F71'],
-			['shubs',				'shubs',			'Additional Programmer of Psych Engine',						'https://twitter.com/yoshubs',			'5E99DF'],
+			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',						                   'https://twitter.com/Shadow_Mario_'],
+			['RiverOaken',			'river',			'Main Artist/Animator of Psych Engine',						                  'https://twitter.com/RiverOaken'],
+			['shubs',				'shubs',			'Additional Programmer of Psych Engine',						                 'https://twitter.com/yoshubs'],
 			[''],
 			['Former Engine Members'],
-			['bb-panzu',			'bb',				'Ex-Programmer of Psych Engine',								'https://twitter.com/bbsub3',			'3E813A'],
+			['bb-panzu',			'bb',				'Ex-Programmer of Psych Engine',								                  'https://twitter.com/bbsub3'],
 			[''],
 			['Engine Contributors'],
-			['iFlicky',				'flicky',			'Composer of Psync and Tea Time\nMade the Dialogue Sounds',		'https://twitter.com/flicky_i',			'9E29CF'],
-			['SqirraRNG',			'sqirra',			'Crash Handler and Base code for\nChart Editor\'s Waveform',	'https://twitter.com/gedehari',			'E1843A'],
-			['EliteMasterEric',		'mastereric',		'Runtime Shaders support',										'https://twitter.com/EliteMasterEric',	'FFBD40'],
-			['PolybiusProxy',		'proxy',			'.MP4 Video Loader Library (hxCodec)',							'https://twitter.com/polybiusproxy',	'DCD294'],
-			['KadeDev',				'kade',				'Fixed some cool stuff on Chart Editor\nand other PRs',			'https://twitter.com/kade0912',			'64A250'],
-			['Keoiki',				'keoiki',			'Note Splash Animations',										'https://twitter.com/Keoiki_',			'D2D2D2'],
-			['Nebula the Zorua',	'nebula',			'LUA JIT Fork and some Lua reworks',							'https://twitter.com/Nebula_Zorua',		'7D40B2'],
-			['Smokey',				'smokey',			'Sprite Atlas Support',											'https://twitter.com/Smokey_5_',		'483D92'],
+			['iFlicky',				'flicky',			'Composer of Psync and Tea Time\nMade the Dialogue Sounds',		                'https://twitter.com/flicky_i'],
+			['SqirraRNG',			'sqirra',			'Crash Handler and Base code for\nChart Editor\'s Waveform',	                'https://twitter.com/gedehari'],
+			['EliteMasterEric',		'mastereric',		'Runtime Shaders support',								                 'https://twitter.com/EliteMasterEric'],
+			['PolybiusProxy',		'proxy',			'.MP4 Video Loader Library (hxCodec)',					                   'https://twitter.com/polybiusproxy'],
+			['KadeDev',				'kade',				'Fixed some cool stuff on Chart Editor\nand other PRs',			                'https://twitter.com/kade0912'],
+			['Keoiki',				'keoiki',			'Note Splash Animations',										                 'https://twitter.com/Keoiki_'],
+			['Nebula the Zorua',	'nebula',			'LUA JIT Fork and some Lua reworks',						                'https://twitter.com/Nebula_Zorua'],
+			['Smokey',				'smokey',			'Sprite Atlas Support',											               'https://twitter.com/Smokey_5_'],
 			[''],
 			["Funkin' Crew"],
-			['ninjamuffin99',		'ninjamuffin99',	"Programmer of Friday Night Funkin'",							'https://twitter.com/ninja_muffin99',	'CF2D2D'],
-			['PhantomArcade',		'phantomarcade',	"Animator of Friday Night Funkin'",								'https://twitter.com/PhantomArcade3K',	'FADC45'],
-			['evilsk8r',			'evilsk8r',			"Artist of Friday Night Funkin'",								'https://twitter.com/evilsk8r',			'5ABD4B'],
-			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",								'https://twitter.com/kawaisprite',		'378FC7']
+			['ninjamuffin99',		'ninjamuffin99',	"Programmer of Friday Night Funkin'",					                  'https://twitter.com/ninja_muffin99'],
+			['PhantomArcade',		'phantomarcade',	"Animator of Friday Night Funkin'",						                 'https://twitter.com/PhantomArcade3K'],
+			['evilsk8r',			'evilsk8r',			"Artist of Friday Night Funkin'",							               	    'https://twitter.com/evilsk8r'],
+			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",							                 'https://twitter.com/kawaisprite']
 		];
 		
 		for(i in saygex){
@@ -158,8 +134,6 @@ class CreditsState extends MusicBeatState
 		descBox.sprTracker = descText;
 		add(descText);
 
-		bg.color = getCurrentBGColor();
-		intendedColor = bg.color;
 		changeSelection();
 		super.create();
 	}
@@ -212,9 +186,6 @@ class CreditsState extends MusicBeatState
 			}
 			if (controls.BACK)
 			{
-				if(colorTween != null) {
-					colorTween.cancel();
-				}
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
 				quitting = true;
@@ -252,19 +223,6 @@ class CreditsState extends MusicBeatState
 			if (curSelected >= creditsStuff.length)
 				curSelected = 0;
 		} while(unselectableCheck(curSelected));
-
-		var newColor:Int =  getCurrentBGColor();
-		if(newColor != intendedColor) {
-			if(colorTween != null) {
-				colorTween.cancel();
-			}
-			intendedColor = newColor;
-			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
-				onComplete: function(twn:FlxTween) {
-					colorTween = null;
-				}
-			});
-		}
 
 		var bullShit:Int = 0;
 
@@ -315,14 +273,6 @@ class CreditsState extends MusicBeatState
 		modsAdded.push(folder);
 	}
 	#end
-
-	function getCurrentBGColor() {
-		var bgColor:String = creditsStuff[curSelected][4];
-		if(!bgColor.startsWith('0x')) {
-			bgColor = '0xFF' + bgColor;
-		}
-		return Std.parseInt(bgColor);
-	}
 
 	private function unselectableCheck(num:Int):Bool {
 		return creditsStuff[num].length <= 1;
