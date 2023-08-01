@@ -34,9 +34,9 @@ class MainMenuState extends MusicBeatState
 	private var camAchievement:FlxCamera;
 	
 	var optionShit:Array<MainMenuButton> = [
-		{x: 50,  y: 250, scale: 0.75,   name:    'play'},
+		{x: 50,  y: 250, scale: 0.75,    name:    'play'},
 		{x: 450,  y: 250, scale: 0.75,   name: 'credits'},
-		{x: 1000,   y: 250, scale: 0.75,   name: 'options'}
+		{x: 1000,   y: 250, scale: 0.75, name: 'options'}
 	];
 
 	var magenta:FlxSprite;
@@ -44,13 +44,13 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
-		var process = new Process("tasklist", []);
-		var output = process.stdout.readAll().toString().toLowerCase();
-		var apps:Array<String> = ["discord.exe", "discordcanary.exe", "discordptb.exe"]; 
-		for (i in 0...apps.length) {
-			CreditsState.discord = output.contains(apps[i]);
-		}
-		process.close();
+		// var process = new Process("tasklist", []);
+		// var output = process.stdout.readAll().toString().toLowerCase();
+		// var apps:Array<String> = ["discord.exe", "discordcanary.exe", "discordptb.exe"]; 
+		// for (i in 0...apps.length) {
+		// 	CreditsState.discord = output.contains(apps[i]);
+		// }
+		// process.close();
 
 
 		#if MODS_ALLOWED
@@ -210,7 +210,7 @@ class MainMenuState extends MusicBeatState
 							switch (daChoice)
 							{
 								case 'play':
-									MusicBeatState.switchState(new StoryMenuState());
+									MusicBeatState.switchState(new DemoLoadState());
 								case 'credits':
 									MusicBeatState.switchState(new CreditsState());
 								case 'options':

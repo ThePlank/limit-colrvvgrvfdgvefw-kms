@@ -55,7 +55,7 @@ class CreditsState extends MusicBeatState
 			['Skech Team'],
 			['Libing',		    'libing icon real',		'Director, Charter',							                               'https://twitter.com/_PlankDev'],
 			['PlankDev',		'plank icon real',		'Main Programmer',							                 	               'https://twitter.com/_PlankDev'],
-			['Nick',		    'nick icon real',		'Programmer, Artist, slave',        (discord ? 'discord://-/users/749249635968745502' : '@nickngc on discord')],
+			['Nick',		    'nick icon real',		'Programmer, Artist, slave',(discord ? 'https://discord://-/users/749249635968745502' : 'https://@nickngc on discord')],
 			['Flying Felt Boot','ffb icon real',		'Artist',								                                       'https://twitter.com/_PlankDev'],
 			['Psych Engine Hashlinked'],
 			['PlankDev',		'plank icon real',		'Main Programmer of Hashlinked',								               'https://twitter.com/_PlankDev'],
