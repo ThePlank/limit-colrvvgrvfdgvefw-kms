@@ -61,6 +61,12 @@ import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
 
+//3d shit
+import flx3d.Flx3DView;
+import flx3d.Flx3DUtil;
+import flx3d.Flx3DCamera;
+import flx3d.FlxView3D;
+
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
 import openfl.filters.ShaderFilter;
@@ -333,6 +339,7 @@ class PlayState extends MusicBeatState
 	var camTwist:Bool = false;
 
 	var canBeat:Bool = true;
+	public var cam3D:Flx3DView;
 
 	var barrelDistortion = new BarrelDistortionShader();
 

@@ -110,6 +110,8 @@
 	<haxelib name="flxgif" />
 	<define name="hscriptPos" />
 
+	<haxelib name="away3d" />
+
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
 	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
