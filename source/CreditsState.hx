@@ -51,14 +51,14 @@ class CreditsState extends MusicBeatState
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		var saygex:Array<Array<String>> = [ //Name - Icon name - Description - Link
+		var saygex:Array<Array<String>> = [ //Name - Icon name - Description - Link - Antialias
 			['Skech Team'],
-			['Libing',		    'libing icon real',		'Director, Charter',							                               'https://twitter.com/_PlankDev'],
-			['PlankDev',		'plank icon real',		'Main Programmer',							                 	               'https://twitter.com/_PlankDev'],
-			['Nick',		    'nick icon real',		'Programmer, Artist, slave',        									'discord://-/users/749249635968745502'],
-			['Flying Felt Boot','ffb icon real',		'Artist',								                                       'https://twitter.com/_PlankDev'],
+			['libing',		    'theyaremanypastelcolors',		'director and charter',							                               'https://twitter.com/_PlankDev', 'false'],
+			['plankdev',		'plank icon real',		'main programmer\nalso 3d modeler but there are no 3d models used in this mod\ndefinitley',							                 	               'https://twitter.com/_PlankDev', 'true'],
+			['Nick',		    'nilk',		'Programmer, Artist, slave',        									'discord://-/users/749249635968745502', 'false'],
+			['Flying Felt Boot','fefefbee',		'Artist',								                                       'https://twitter.com/_PlankDev'],
 			['Psych Engine Hashlinked'],
-			['PlankDev',		'plank icon real',		'Main Programmer of Hashlinked',								               'https://twitter.com/_PlankDev'],
+			['PlankDev',		'plank icon fake',		'Main Programmer of Hashlinked',								               'https://twitter.com/_PlankDev'],
 			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',						                   'https://twitter.com/Shadow_Mario_'],
@@ -85,9 +85,8 @@ class CreditsState extends MusicBeatState
 			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",							                 'https://twitter.com/kawaisprite']
 		];
 		
-		for(i in saygex){
+		for(i in saygex)
 			creditsStuff.push(i);
-		}
 	
 		for (i in 0...creditsStuff.length)
 		{
@@ -108,6 +107,7 @@ class CreditsState extends MusicBeatState
 				var icon:AttachedSprite = new AttachedSprite('credits/' + creditsStuff[i][1]);
 				icon.xAdd = optionText.width + 10;
 				icon.sprTracker = optionText;
+				icon.antialiasing = !(creditsStuff[i][4] == 'false');
 	
 				// using a FlxGroup is too much fuss!
 				iconArray.push(icon);
