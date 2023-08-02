@@ -10,7 +10,7 @@ import haxe.Json;
 class DemoLoadState extends MusicBeatState {
 	override function update(elapsed:Float) {
         PlayState.isStoryMode = true;
-        PlayState.SONG = Song.loadFromJson('test', 'test');
+        PlayState.SONG = Song.loadFromJson('sublime', 'sublime');
         LoadingState.loadAndSwitchState(new PlayState());
     }
 }
