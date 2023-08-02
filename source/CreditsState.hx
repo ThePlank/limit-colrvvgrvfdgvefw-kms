@@ -53,12 +53,12 @@ class CreditsState extends MusicBeatState
 
 		var saygex:Array<Array<String>> = [ //Name - Icon name - Description - Link
 			['Skech Team'],
-			['libing',		    'libing icon real',		'Director, Charter',							                               'https://twitter.com/_PlankDev'],
-			['plankdev',		'plank icon real',		'Main Programmer',							                 	               'https://twitter.com/_PlankDev'],
+			['Libing',		    'libing icon real',		'Director, Charter',							                               'https://twitter.com/_PlankDev'],
+			['PlankDev',		'plank icon real',		'Main Programmer',							                 	               'https://twitter.com/_PlankDev'],
 			['Nick',		    'nick icon real',		'Programmer, Artist, slave',        									'discord://-/users/749249635968745502'],
 			['Flying Felt Boot','ffb icon real',		'Artist',								                                       'https://twitter.com/_PlankDev'],
 			['Psych Engine Hashlinked'],
-			['plankdev',		'plank icon real',		'Main Programmer of Hashlinked',								               'https://twitter.com/_PlankDev'],
+			['PlankDev',		'plank icon real',		'Main Programmer of Hashlinked',								               'https://twitter.com/_PlankDev'],
 			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',						                   'https://twitter.com/Shadow_Mario_'],
