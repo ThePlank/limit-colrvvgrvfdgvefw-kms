@@ -22,6 +22,7 @@
 
 	<!--These window settings apply to all targets-->
 	<window width="1280" height="720" fps="" background="#000000" hardware="true" vsync="false" />
+	<window allow-high-dpi="true"/> <!-- allow for high dpi shit for starling -->
 
 	<!--HTML5-specific-->
 	<window if="html5" resizable="true" />
@@ -112,8 +113,9 @@
 
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
-	<haxelib name="away3d" />
-	<haxelib name="flixel3D" />
+	<!-- <haxelib name="away3d" /> -->
+	<haxelib name="starling" />
+	<!-- <haxelib name="flixel3D" /> -->
 	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
 	<haxelib name="hxCodec" if="VIDEOS_ALLOWED"/>
 	<haxelib name="faxe" if='switch'/>
