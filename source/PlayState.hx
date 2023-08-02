@@ -1352,7 +1352,8 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.shaders){
 			barrelDistortion.barrelDistortion1 = -0.10;
 			barrelDistortion.barrelDistortion2 = -0.10;
-			bloom.amount = 0.5;
+			bloom.shaderAlpha = 0.4;
+			bloom.size = 5;
 			camHUD.setFilters([new ShaderFilter(barrelDistortion)]);
 			camGame.setFilters([new ShaderFilter(bloom), new ShaderFilter(barrelDistortion)]);
 		}
