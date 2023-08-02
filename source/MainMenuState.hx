@@ -21,7 +21,23 @@ import sys.io.Process;
 import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
-import starling.core.Starling;
+//3d shit
+import flx3d.Flx3DView;
+import flx3d.Flx3DUtil;
+import flx3d.Flx3DCamera;
+import flx3d.FlxView3D;
+import away3d.entities.Mesh;
+import openfl.system.System;
+import away3d.events.Asset3DEvent;
+import away3d.library.assets.Asset3DType;
+import away3d.lights.DirectionalLight;
+import away3d.loaders.Loader3D;
+import away3d.loaders.misc.AssetLoaderContext;
+import away3d.loaders.parsers.OBJParser;
+import away3d.materials.TextureMaterial;
+import away3d.materials.lightpickers.StaticLightPicker;
+import away3d.utils.Cast;
+import openfl.utils.Assets;
 
 using StringTools;
 
@@ -42,8 +58,9 @@ class MainMenuState extends MusicBeatState
 
 	var magenta:FlxSprite;
 	var debugKeys:Array<FlxKey>;
-	var shartling:Starling;
 
+	public var cam3D:Flx3DView;
+	public var rotY:Float;
 	override function create()
 	{
 		#if MODS_ALLOWED
@@ -88,7 +105,25 @@ class MainMenuState extends MusicBeatState
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
-		
+
+		cam3D = new Flx3DView(0, 0, 1280, 720); //make sure to keep width and height as 1600 and 900
+		cam3D.scrollFactor.set();
+		cam3D.screenCenter();
+		cam3D.antialiasing = true;
+		add(cam3D);
+
+		//when you add your model, choose the path that fits your model, like Paths.obj or Paths.md2
+
+		cam3D.addModel(Paths.obj("ground"), function(event) { 
+			trace("STAGE:" + Std.string(event.asset.assetType)); 
+			if (Std.string(event.asset.assetType) == "mesh") { 
+					var mesh:Mesh = cast(event.asset, Mesh);
+					mesh.scale(100);
+					mesh.rotationY = 90;
+					System.gc();
+			} 
+	}, "assets/models/nicecock.png", true);
+
 		// magenta.scrollFactor.set();
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
@@ -114,10 +149,6 @@ class MainMenuState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
-
-		shartling = new Starling(Ass, FlxG.stage);
-		shartling.supportHighResolutions = true;
-		shartling.start();
 
 		changeItem();
 
@@ -155,6 +186,15 @@ class MainMenuState extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 			if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
 		}
+
+		// this makes it move on camera movement
+		cam3D.view.camera.x = FlxG.camera.scroll.x;
+        cam3D.view.camera.y = -FlxG.camera.scroll.y + 250;
+        cam3D.view.camera.z = -1500 + (FlxG.camera.zoom * 1000);
+
+		//rotY will already be defined for you
+
+		cam3D.view.camera.rotationY = FlxMath.lerp(cam3D.view.camera.rotationY, rotY, 0.04);
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 
