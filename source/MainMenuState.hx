@@ -107,11 +107,53 @@ class MainMenuState extends MusicBeatState
 			trace("STAGE:" + Std.string(event.asset.assetType)); 
 			if (Std.string(event.asset.assetType) == "mesh") { 
 					var mesh:Mesh = cast(event.asset, Mesh);
-					mesh.scale(100);
+					mesh.scale(115);
+					mesh.z = -225;
+					mesh.y = -190;
 					mesh.rotationY = 90;
 					System.gc();
 			} 
 	}, "assets/models/nicecock.png", true);
+
+
+		cam3D.addModel(Paths.obj("popup"), function(event) { 
+			trace("STAGE:" + Std.string(event.asset.assetType)); 
+			if (Std.string(event.asset.assetType) == "mesh") { 
+					var mesh:Mesh = cast(event.asset, Mesh);
+					mesh.scale(275);
+					mesh.x = -200;
+					mesh.z = -50;
+					mesh.y = 250;
+					mesh.rotationY = 75;
+					System.gc();
+			} 
+	}, "assets/models/terrible.png", true);
+
+		cam3D.addModel(Paths.obj("popup"), function(event) { 
+			trace("STAGE:" + Std.string(event.asset.assetType)); 
+			if (Std.string(event.asset.assetType) == "mesh") { 
+					var mesh:Mesh = cast(event.asset, Mesh);
+					mesh.scale(275);
+					mesh.x = 250;
+					mesh.z = 60;
+					mesh.y = 250;
+					mesh.rotationY = 75;
+					System.gc();
+			} 
+	}, "assets/models/terrible.png", true);
+
+		cam3D.addModel(Paths.obj("popup"), function(event) { 
+			trace("STAGE:" + Std.string(event.asset.assetType)); 
+			if (Std.string(event.asset.assetType) == "mesh") { 
+					var mesh:Mesh = cast(event.asset, Mesh);
+					mesh.scale(275);
+					mesh.x = 700;
+					mesh.z = 170;
+					mesh.y = 250;
+					mesh.rotationY = 75;
+					System.gc();
+			} 
+	}, "assets/models/terrible.png", true);
 
 		// magenta.scrollFactor.set();
 
