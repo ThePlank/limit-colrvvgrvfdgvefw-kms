@@ -21,6 +21,7 @@ import sys.io.Process;
 import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
+import flx3D.FlxView3D;
 
 using StringTools;
 
@@ -41,6 +42,7 @@ class MainMenuState extends MusicBeatState
 
 	var magenta:FlxSprite;
 	var debugKeys:Array<FlxKey>;
+	var retardedView:FlxView3D;
 
 	override function create()
 	{
@@ -112,6 +114,8 @@ class MainMenuState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
+
+		add(retardedView = new FlxView3D(0, 0, FlxG.width, FlxG.height));
 
 
 		changeItem();
