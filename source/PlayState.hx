@@ -332,7 +332,7 @@ class PlayState extends MusicBeatState
 	var camTwistIntensity2:Float = 3;
 	var camTwist:Bool = false;
 
-	var canBeat:Bool = true;
+	var canBeat:Bool = false;
 
 	var barrelDistortion = new BarrelDistortionShader();
 	var bloom = new BloomShader();
@@ -1352,7 +1352,7 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.shaders){
 			barrelDistortion.barrelDistortion1 = -0.10;
 			barrelDistortion.barrelDistortion2 = -0.10;
-			bloom.amount = 1;
+			bloom.amount = 0.5;
 			camHUD.setFilters([new ShaderFilter(barrelDistortion)]);
 			camGame.setFilters([new ShaderFilter(bloom), new ShaderFilter(barrelDistortion)]);
 		}
