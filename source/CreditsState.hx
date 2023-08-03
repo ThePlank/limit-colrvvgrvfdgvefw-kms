@@ -53,37 +53,31 @@ class CreditsState extends MusicBeatState
 
 		var saygex:Array<Array<String>> = [ //Name - Icon name - Description - Link - Antialias
 			['Skech Team'],
-			['libing',		        'theyarelimitedcolors','director and charter',	               'https://www.youtube.com/channel/UCwH4gcjdN-gWPGunlBxAnQQ', 'false'],
-			['plankdev',	    	'plank icon real',	   'main programmer\nalso 3d modeler',                                 'https://twitter.com/_PlankDev', 'true'],
-			['Nick',		        'nilk',		 		   'Programmer, Artist, slave',        						   'discord://-/users/749249635968745502', 'false'],
-			['Flying Felt Boot',    'fefefbee',			   'Artist',								                            'discord://-/users/590206534076727307'],
-			['ItsWalker412',        'gwagwalker',		   'Composer',								                                'https://twitter.com/ItsWalker412'],
+			['libing',		        'theyarelimitedcolors','director and charter','https://www.youtube.com/channel/UCwH4gcjdN-gWPGunlBxAnQQ', 'false'],
+			['plankdev',	    	'plank icon real',	   'Main programmer\n3D modeler',                     'https://twitter.com/_PlankDev', 'true'],
+			['Nick',		        'nilk',		 		   'Programmer, Artist, slave',               'discord://-/users/749249635968745502', 'false'],
+			['Flying Felt Boot',    'fefefbee',			   'Artist',								           'discord://-/users/590206534076727307'],
+			['ItsWalker412',        'gwagwalker',		   'Composer',								               'https://twitter.com/ItsWalker412'],
 			['Psych Engine Hashlinked'],
-			['PlankDev',		    'plank icon fake',  'Main Programmer of Hashlinked',								               'https://twitter.com/_PlankDev'],
+			['PlankDev',		    'plank icon fake',  'Main Programmer of Hashlinked',						      'https://twitter.com/_PlankDev'],
 			[''],
 			['Psych Engine Team'],
-			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',						                   'https://twitter.com/Shadow_Mario_'],
-			['RiverOaken',			'river',			'Main Artist/Animator of Psych Engine',						                  'https://twitter.com/RiverOaken'],
-			['shubs',				'shubs',			'Additional Programmer of Psych Engine',						                 'https://twitter.com/yoshubs'],
+			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',				          'https://twitter.com/Shadow_Mario_'],
+			['RiverOaken',			'river',			'Main Artist/Animator of Psych Engine',						 'https://twitter.com/RiverOaken'],
+			['shubs',				'shubs',			'Additional Programmer of Psych Engine',					    'https://twitter.com/yoshubs'],
 			[''],
 			['Former Engine Members'],
-			['bb-panzu',			'bb',				'Ex-Programmer of Psych Engine',								                  'https://twitter.com/bbsub3'],
+			['bb-panzu',			'bb',				'Ex-Programmer of Psych Engine',								 'https://twitter.com/bbsub3'],
 			[''],
 			['Engine Contributors'],
-			['iFlicky',				'flicky',			'Composer of Psync and Tea Time\nMade the Dialogue Sounds',		                'https://twitter.com/flicky_i'],
-			['SqirraRNG',			'sqirra',			'Crash Handler and Base code for\nChart Editor\'s Waveform',	                'https://twitter.com/gedehari'],
-			['EliteMasterEric',		'mastereric',		'Runtime Shaders support',								                 'https://twitter.com/EliteMasterEric'],
-			['PolybiusProxy',		'proxy',			'.MP4 Video Loader Library (hxCodec)',					                   'https://twitter.com/polybiusproxy'],
-			['KadeDev',				'kade',				'Fixed some cool stuff on Chart Editor\nand other PRs',			                'https://twitter.com/kade0912'],
-			['Keoiki',				'keoiki',			'Note Splash Animations',										                 'https://twitter.com/Keoiki_'],
-			['Nebula the Zorua',	'nebula',			'LUA JIT Fork and some Lua reworks',						                'https://twitter.com/Nebula_Zorua'],
-			['Smokey',				'smokey',			'Sprite Atlas Support',											               'https://twitter.com/Smokey_5_'],
-			[''],
-			["Funkin' Crew"],
-			['ninjamuffin99',		'ninjamuffin99',	"Programmer of Friday Night Funkin'",					                  'https://twitter.com/ninja_muffin99'],
-			['PhantomArcade',		'phantomarcade',	"Animator of Friday Night Funkin'",						                 'https://twitter.com/PhantomArcade3K'],
-			['evilsk8r',			'evilsk8r',			"Artist of Friday Night Funkin'",							               	    'https://twitter.com/evilsk8r'],
-			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",							                 'https://twitter.com/kawaisprite']
+			['iFlicky',				'flicky',			'Composer of Psync and Tea Time\nMade the Dialogue Sounds',    'https://twitter.com/flicky_i'],
+			['SqirraRNG',			'sqirra',			'Crash Handler and Base code for\nChart Editor\'s Waveform',   'https://twitter.com/gedehari'],
+			['EliteMasterEric',		'mastereric',		'Runtime Shaders support',							    'https://twitter.com/EliteMasterEric'],
+			['PolybiusProxy',		'proxy',			'.MP4 Video Loader Library (hxCodec)',			          'https://twitter.com/polybiusproxy'],
+			['KadeDev',				'kade',				'Fixed some cool stuff on Chart Editor\nand other PRs',		   'https://twitter.com/kade0912'],
+			['Keoiki',				'keoiki',			'Note Splash Animations',								        'https://twitter.com/Keoiki_'],
+			['Nebula the Zorua',	'nebula',			'LUA JIT Fork and some Lua reworks',					   'https://twitter.com/Nebula_Zorua'],
+			['Smokey',				'smokey',			'Sprite Atlas Support',									      'https://twitter.com/Smokey_5_']
 		];
 		
 		for(i in saygex)
@@ -249,31 +243,6 @@ class CreditsState extends MusicBeatState
 		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
 		descBox.updateHitbox();
 	}
-
-	#if MODS_ALLOWED
-	private var modsAdded:Array<String> = [];
-	function pushModCreditsToList(folder:String)
-	{
-		if(modsAdded.contains(folder)) return;
-
-		var creditsFile:String = null;
-		if(folder != null && folder.trim().length > 0) creditsFile = Paths.mods(folder + '/data/credits.txt');
-		else creditsFile = Paths.mods('data/credits.txt');
-
-		if (FileSystem.exists(creditsFile))
-		{
-			var firstarray:Array<String> = File.getContent(creditsFile).split('\n');
-			for(i in firstarray)
-			{
-				var arr:Array<String> = i.replace('\\n', '\n').split("::");
-				if(arr.length >= 5) arr.push(folder);
-				creditsStuff.push(arr);
-			}
-			creditsStuff.push(['']);
-		}
-		modsAdded.push(folder);
-	}
-	#end
 
 	private function unselectableCheck(num:Int):Bool {
 		return creditsStuff[num].length <= 1;
