@@ -75,7 +75,7 @@ class Flx3DCamera extends FlxCamera {
 
 		var material:TextureMaterial = null;
 		if (texturePath != null)
-			material = new TextureMaterial(Cast.bitmapTexture(Assets.getBitmapData(texturePath, true)), smoothTexture);
+			material = new TextureMaterial(Cast.bitmapTexture(Assets.getBitmapData(texturePath, true)), smoothTexture, true, false, NONE);
 
 		return loadData(model, context, switch(Path.extension(assetPath).toLowerCase()) {
 			case "dae": new DAEParser();
@@ -124,17 +124,18 @@ class Flx3DCamera extends FlxCamera {
 					case Asset3DType.SEGMENT_SET:
 						obj = #if (haxe_ver >= 4.2) Std.isOfType #else Std.is #end(event.asset, SegmentSet) ? cast event.asset : null;
 				}
-				if (obj != null && obj.parent == null)
-					view.scene.addChild(obj);
+
+				// if (obj != null && obj.parent == null)
+					// view.scene.addChild(obj);
 			}
 
 			if (onAssetCallback != null)
 				onAssetCallback(event);
 		});
 
-		token.addEventListener(LoaderEvent.RESOURCE_COMPLETE, (_) -> {
-			trace("Loader Finished...");
-		});
+		// token.addEventListener(LoaderEvent.RESOURCE_COMPLETE, (_) -> {
+		// 	trace("Loader Finished...");
+		// });
 
 		_loaders.set(lib,token);
 
