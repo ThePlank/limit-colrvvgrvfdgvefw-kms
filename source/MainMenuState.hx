@@ -115,7 +115,7 @@ class MainMenuState extends MusicBeatState
 			ground = cast(event.asset, Mesh);
 			ground.scale(115);
 			ground.x = 50;
-			ground.y = -400;
+			ground.y = -410;
 			ground.z = -750;
 			ground.rotationY = 90;
 			System.gc();
