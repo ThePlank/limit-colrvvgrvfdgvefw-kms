@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="enter.png">
+<SubTexture name="enter idle0000" x="84" y="0" width="77" height="86" frameX="0" frameY="0" frameWidth="57" frameHeight="66" />
+<SubTexture name="enter press0000" x="0" y="0" width="84" height="90" frameX="0" frameY="0" frameWidth="64" frameHeight="70" />
+<SubTexture name="enter press0001" x="0" y="0" width="84" height="90" frameX="0" frameY="0" frameWidth="64" frameHeight="70" />
+<SubTexture name="enter press0002" x="84" y="0" width="77" height="86" frameX="0" frameY="0" frameWidth="57" frameHeight="66" />
+<SubTexture name="enter press0003" x="84" y="0" width="77" height="86" frameX="0" frameY="0" frameWidth="57" frameHeight="66" />
+<SubTexture name="enter press0004" x="84" y="0" width="77" height="86" frameX="0" frameY="0" frameWidth="57" frameHeight="66" />
+<SubTexture name="enter press0005" x="84" y="0" width="77" height="86" frameX="0" frameY="0" frameWidth="57" frameHeight="66" />
+<SubTexture name="enter press0006" x="84" y="0" width="77" height="86" frameX="0" frameY="0" frameWidth="57" frameHeight="66" />
+<SubTexture name="enter press0007" x="84" y="0" width="77" height="86" frameX="0" frameY="0" frameWidth="57" frameHeight="66" />
+<SubTexture name="enter press0008" x="84" y="0" width="77" height="86" frameX="0" frameY="0" frameWidth="57" frameHeight="66" />
+<SubTexture name="enter press0009" x="84" y="0" width="77" height="86" frameX="0" frameY="0" frameWidth="57" frameHeight="66" />
+<SubTexture name="enter press0010" x="84" y="0" width="77" height="86" frameX="0" frameY="0" frameWidth="57" frameHeight="66" />
+</TextureAtlas>
