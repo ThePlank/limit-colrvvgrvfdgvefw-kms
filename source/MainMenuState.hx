@@ -22,6 +22,8 @@ import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxTimer;
+import openfl.events.MouseEvent;
+import openfl.geom.Vector3D;
 //3d shit
 import flx3d.Flx3DView;
 import flx3d.Flx3DUtil;
@@ -61,7 +63,9 @@ class MainMenuState extends MusicBeatState
 	var debugKeys:Array<FlxKey>;
 
 	public var cam3D:Flx3DView;
-	public var rotY:Float;
+	public var ground:Mesh;
+	public var popups:Array<Mesh> = [];
+
 	override function create()
 	{
 		#if MODS_ALLOWED
@@ -96,64 +100,46 @@ class MainMenuState extends MusicBeatState
 		add(bg);
 
 		cam3D = new Flx3DView(0, 0, 1280, 720); //make sure to keep width and height as 1600 and 900
+		// cam3D.view.camera = new FunnyCamera();
 		cam3D.scrollFactor.set();
 		cam3D.screenCenter();
-		cam3D.antialiasing = true;
+		cam3D.antialiasing = false;
 		add(cam3D);
+		cam3D.view.camera.rotationY = 5;
 
 		//when you add your model, choose the path that fits your model, like Paths.obj or Paths.md2
 
 		cam3D.addModel(Paths.obj("ground"), function(event) { 
-			trace("STAGE:" + Std.string(event.asset.assetType)); 
-			if (Std.string(event.asset.assetType) == "mesh") { 
-					var mesh:Mesh = cast(event.asset, Mesh);
-					mesh.scale(115);
-					mesh.z = -225;
-					mesh.y = -190;
-					mesh.rotationY = 90;
-					System.gc();
-			} 
-	}, "assets/models/nicecock.png", true);
+			if (Std.string(event.asset.assetType) != "mesh") return;
+
+			ground = cast(event.asset, Mesh);
+			ground.scale(115);
+			ground.x = 50;
+			ground.y = -400;
+			ground.z = -750;
+			ground.rotationY = 90;
+			System.gc();
+			cam3D.view.scene.addChild(ground);
+			// FlxTween.tween(ground, {rotationZ: 360}, 1, {type: LOOPING});
+			
+		}, "assets/models/nicecock.png", false);
 
 
 		cam3D.addModel(Paths.obj("popup"), function(event) { 
-			trace("STAGE:" + Std.string(event.asset.assetType)); 
-			if (Std.string(event.asset.assetType) == "mesh") { 
-					var mesh:Mesh = cast(event.asset, Mesh);
-					mesh.scale(275);
-					mesh.x = -200;
-					mesh.z = -50;
-					mesh.y = 250;
-					mesh.rotationY = 75;
-					System.gc();
-			} 
-	}, "assets/models/terrible.png", true);
+			if (Std.string(event.asset.assetType) != "mesh") return;
+			var basePopup:Mesh = cast(event.asset, Mesh);
+			basePopup.scale(110);
+			basePopup.y = 10;
 
-		cam3D.addModel(Paths.obj("popup"), function(event) { 
-			trace("STAGE:" + Std.string(event.asset.assetType)); 
-			if (Std.string(event.asset.assetType) == "mesh") { 
-					var mesh:Mesh = cast(event.asset, Mesh);
-					mesh.scale(275);
-					mesh.x = 250;
-					mesh.z = 60;
-					mesh.y = 250;
-					mesh.rotationY = 75;
-					System.gc();
-			} 
-	}, "assets/models/terrible.png", true);
+			for (i in 0...3) {
+				var popup = basePopup.clone();
+				popup.rotationY = 90;
+				popups.push(popup);
+				cam3D.view.scene.addChild(popup);
+			}
 
-		cam3D.addModel(Paths.obj("popup"), function(event) { 
-			trace("STAGE:" + Std.string(event.asset.assetType)); 
-			if (Std.string(event.asset.assetType) == "mesh") { 
-					var mesh:Mesh = cast(event.asset, Mesh);
-					mesh.scale(275);
-					mesh.x = 700;
-					mesh.z = 170;
-					mesh.y = 250;
-					mesh.rotationY = 75;
-					System.gc();
-			} 
-	}, "assets/models/terrible.png", true);
+			System.gc();
+		}, "assets/models/terrible.png", false);
 
 		// magenta.scrollFactor.set();
 
@@ -178,7 +164,7 @@ class MainMenuState extends MusicBeatState
 
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Psych Engine v" + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.BLACK, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
 		add(versionShit);
 
 		changeItem();
@@ -210,24 +196,19 @@ class MainMenuState extends MusicBeatState
 
 	var selectedSomethin:Bool = false;
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 			if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
 		}
-
-		// this makes it move on camera movement
-		cam3D.view.camera.x = FlxG.camera.scroll.x;
-        cam3D.view.camera.y = -FlxG.camera.scroll.y + 250;
-        cam3D.view.camera.z = -1500 + (FlxG.camera.zoom * 1000);
-
-		//rotY will already be defined for you
-
-		cam3D.view.camera.rotationY = FlxMath.lerp(cam3D.view.camera.rotationY, rotY, 0.04);
-
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
+
+		for (popup in popups) {
+			popup.x = FlxMath.lerp(popup.x, (popups.indexOf(popup) - curSelected) * 150, lerpVal);
+			popup.z = FlxMath.lerp(popup.z, ((popups.indexOf(popup) - curSelected) * 110) + -780, lerpVal);
+		}
+
 
 		if (!selectedSomethin)
 		{
@@ -329,4 +310,38 @@ typedef MainMenuButton = {
 	var y:Int;
 	var scale:Float;
 	var name:String;
+}
+
+
+class FunnyCamera extends away3d.cameras.Camera3D {
+    var oldX:Float = 0;
+    var oldY:Float = 0;
+    var sensitivity:Float = 0.51;
+    public function new() {
+        super();
+        FlxG.stage.addEventListener(MouseEvent.MOUSE_MOVE, (ae:MouseEvent) -> {
+            var x:Float = ae.stageY * sensitivity;
+            var y:Float = FlxMath.wrap(Std.int(ae.stageX * sensitivity), -180, 180);
+            var deltaX:Float = oldX - x;
+            var deltaY:Float = oldY - y;
+            rotationX -= deltaX;
+            rotationY -= deltaY;
+            oldX = x;
+            oldY = y;
+        });
+        FlxG.stage.addEventListener(openfl.events.Event.ENTER_FRAME, (ev:openfl.events.Event) -> {
+            if (FlxG.keys.pressed.A)
+                translateLocal(Vector3D.X_AXIS, -5);
+            if (FlxG.keys.pressed.D)
+                translateLocal(Vector3D.X_AXIS, 5);
+            if (FlxG.keys.pressed.W)
+                translateLocal(Vector3D.Z_AXIS, 5);
+            if (FlxG.keys.pressed.S)
+                translateLocal(Vector3D.Z_AXIS, -5);
+            if (FlxG.keys.pressed.E)
+                translateLocal(Vector3D.Y_AXIS, 5);
+            if (FlxG.keys.pressed.Q)
+                translateLocal(Vector3D.Y_AXIS, -5);
+        });
+    }
 }
