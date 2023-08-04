@@ -214,14 +214,10 @@ class TitleState extends MusicBeatState
 		// bg.updateHitbox();
 		add(bg);
 
-		logoBl = new FlxSprite(0, 0);
-		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
-		logoBl.screenCenter();
-		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
-		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
-		logoBl.animation.play('bump');
+		logoBl = new FlxSprite(700, 75).loadGraphic(Paths.image('logoBump'));
+		logoBl.scale.set(2, 2);
+		logoBl.antialiasing = false;
 		logoBl.updateHitbox();
-		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
 
 		swagShader = new ColorSwap();
@@ -229,7 +225,7 @@ class TitleState extends MusicBeatState
 		add(logoBl);
 		logoBl.shader = swagShader.shader;
 
-		titleText = new FlxSprite(0, 0);
+		titleText = new FlxSprite(1075, 500);
 		titleText.frames = Paths.getSparrowAtlas('enter');	
 		titleText.animation.addByPrefix('idle', "enter idle", 24);
 		titleText.animation.addByPrefix('press', "enter press", 24);
@@ -243,7 +239,7 @@ class TitleState extends MusicBeatState
 		add(credGroup);
 		textGroup = new FlxGroup();
 
-		blackScreen = new FlxGifSprite(300, 180);
+		blackScreen = new FlxGifSprite(350, 180);
 		blackScreen.loadGif('assets/images/titlebackground.gif');
 		blackScreen.setGraphicSize(FlxG.width, FlxG.height);
 		credGroup.add(blackScreen);
@@ -391,9 +387,6 @@ class TitleState extends MusicBeatState
 	override function beatHit()
 	{
 		super.beatHit();
-
-		if(logoBl != null)
-			logoBl.animation.play('bump', true);
 
 		if(!closedState) {
 			sickBeats++;

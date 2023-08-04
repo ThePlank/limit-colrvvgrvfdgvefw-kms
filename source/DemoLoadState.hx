@@ -9,7 +9,6 @@ import haxe.Json;
 
 class DemoLoadState extends MusicBeatState {
 	override function create() {
-        PlayState.isStoryMode = true;
         PlayState.SONG = Song.loadFromJson('sublime', 'sublime');
         LoadingState.loadAndSwitchState(new PlayState());
     }

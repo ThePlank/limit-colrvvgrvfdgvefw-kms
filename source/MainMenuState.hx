@@ -17,6 +17,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import lime.app.Application;
+import flixel.addons.display.FlxBackdrop;
 import sys.io.Process;
 import Achievements;
 import editors.MasterEditorMenu;
@@ -42,6 +43,11 @@ import away3d.materials.lightpickers.StaticLightPicker;
 import away3d.utils.Cast;
 import openfl.utils.Assets;
 
+#if !flash 
+import flixel.addons.display.FlxRuntimeShader;
+import openfl.filters.ShaderFilter;
+#end
+
 using StringTools;
 
 class MainMenuState extends MusicBeatState
@@ -50,6 +56,7 @@ class MainMenuState extends MusicBeatState
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
+	private var camDots:FlxCamera;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	
@@ -61,6 +68,7 @@ class MainMenuState extends MusicBeatState
 
 	var magenta:FlxSprite;
 	var debugKeys:Array<FlxKey>;
+	var barrelDistortion = new BarrelDistortionShader();
 
 	public var cam3D:Flx3DView;
 	public var ground:Mesh;
@@ -82,9 +90,11 @@ class MainMenuState extends MusicBeatState
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
 		camAchievement.bgColor.alpha = 0;
+		camDots = new FlxCamera();
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement, false);
+		FlxG.cameras.add(camDots, true);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 
 		transIn = FlxTransitionableState.defaultTransIn;
@@ -93,11 +103,21 @@ class MainMenuState extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('dots'));
+
+		var bg:FlxBackdrop = new FlxBackdrop(Paths.image('dots'), XY);
+		bg.scale.set = (1.4, 1.4);
+		bg.velocity.set(40, 40);
+		bg.cameras = [camDots];
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
+
+		if(ClientPrefs.shaders){
+			barrelDistortion.barrelDistortion1 = -0.1;
+			barrelDistortion.barrelDistortion2 = -0.1;
+			camDots.setFilters([new ShaderFilter(barrelDistortion)]);
+		}
 
 		cam3D = new Flx3DView(0, 0, 1280, 720); //make sure to keep width and height as 1600 and 900
 		// cam3D.view.camera = new FunnyCamera();
@@ -107,11 +127,7 @@ class MainMenuState extends MusicBeatState
 		add(cam3D);
 		cam3D.view.camera.rotationY = 5;
 
-		//when you add your model, choose the path that fits your model, like Paths.obj or Paths.md2
-
-		cam3D.addModel(Paths.obj("ground"), function(event) { 
-			if (Std.string(event.asset.assetType) != "mesh") return;
-
+		cam3D.addModel(Paths.obj("ground"), function(event) { if (Std.string(event.asset.assetType) != "mesh") return;
 			ground = cast(event.asset, Mesh);
 			ground.scale(115);
 			ground.x = 50;
@@ -120,7 +136,7 @@ class MainMenuState extends MusicBeatState
 			ground.rotationY = 90;
 			System.gc();
 			cam3D.view.scene.addChild(ground);
-			// FlxTween.tween(ground, {rotationZ: 360}, 1, {type: LOOPING});
+			// FlxTween.tween(ground, {rotationY: 360}, 1, {type: LOOPING});
 			
 		}, "assets/models/nicecock.png", false);
 
