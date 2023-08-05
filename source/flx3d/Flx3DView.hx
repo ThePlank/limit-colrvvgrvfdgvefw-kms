@@ -99,18 +99,18 @@ class Flx3DView extends FlxView3D {
 					case Asset3DType.SEGMENT_SET:
 						obj = #if (haxe_ver >= 4.2) Std.isOfType #else Std.is #end(event.asset, SegmentSet) ? cast event.asset : null;
 				}
-				// if (obj != null && obj.parent == null)
-				// 	view.scene.addChild(obj);
+				if (obj != null && obj.parent == null)
+					view.scene.addChild(obj);
 			}
 
 			if (onAssetCallback != null)
 				onAssetCallback(event);
 		});
 
-		// token.addEventListener(LoaderEvent.RESOURCE_COMPLETE, (_) -> {
-		// 	trace("Loader Finished...");
+		token.addEventListener(LoaderEvent.RESOURCE_COMPLETE, (_) -> {
+			trace("Loader Finished...");
 
-		// });
+		});
 
 		_loaders.set(lib,token);
 
@@ -136,6 +136,6 @@ class Flx3DView extends FlxView3D {
 		super.destroy();
 	}
 
-	public inline function addChild(c)
+	public function addChild(c)
 		view.scene.addChild(c);
 }

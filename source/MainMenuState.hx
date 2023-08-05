@@ -105,7 +105,7 @@ class MainMenuState extends MusicBeatState
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 
 		var bg:FlxBackdrop = new FlxBackdrop(Paths.image('dots'), XY);
-		bg.scale.set = (1.4, 1.4);
+		bg.scale.set(1.4, 1.4);
 		bg.velocity.set(40, 40);
 		bg.cameras = [camDots];
 		bg.updateHitbox();
@@ -114,8 +114,8 @@ class MainMenuState extends MusicBeatState
 		add(bg);
 
 		if(ClientPrefs.shaders){
-			barrelDistortion.barrelDistortion1 = -0.1;
-			barrelDistortion.barrelDistortion2 = -0.1;
+			barrelDistortion.barrelDistortion1 = -0.15;
+			barrelDistortion.barrelDistortion2 = -0.15;
 			camDots.setFilters([new ShaderFilter(barrelDistortion)]);
 		}
 
