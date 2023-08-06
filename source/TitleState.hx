@@ -36,6 +36,12 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.Assets;
 import flxgif.FlxGifSprite;
+import flixel.addons.display.FlxBackdrop;
+
+#if !flash 
+import flixel.addons.display.FlxRuntimeShader;
+import openfl.filters.ShaderFilter;
+#end
 
 using StringTools;
 typedef TitleData =
@@ -65,7 +71,7 @@ class TitleState extends MusicBeatState
 	var curWacky:Array<String> = [];
 
 	var wackyImage:FlxSprite;
-
+	var barrelDistortion = new BarrelDistortionShader();
 	var mustUpdate:Bool = false;
 
 	var titleJSON:TitleData;
@@ -201,19 +207,16 @@ class TitleState extends MusicBeatState
 		Conductor.changeBPM(titleJSON.bpm);
 		persistentUpdate = true;
 
-		var bg:FlxSprite = new FlxSprite();
-
-		if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none"){
-			bg.loadGraphic(Paths.image(titleJSON.backgroundSprite));
-		}else{
-			bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		}
-
-		// bg.antialiasing = ClientPrefs.globalAntialiasing;
-		// bg.setGraphicSize(Std.int(bg.width * 0.6));
-		// bg.updateHitbox();
+		var bg:FlxBackdrop = new FlxBackdrop(Paths.image('cubes'), XY);
+		bg.velocity.set(30, 30);
+		bg.updateHitbox();
+		bg.screenCenter();
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.shader = barrelDistortion;
+		barrelDistortion.barrelDistortion1 = -0.15;
+		barrelDistortion.barrelDistortion2 = -0.15;
 		add(bg);
-
+	
 		logoBl = new FlxSprite(700, 75).loadGraphic(Paths.image('logoBump'));
 		logoBl.scale.set(2, 2);
 		logoBl.antialiasing = false;
