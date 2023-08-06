@@ -200,6 +200,7 @@ class MainMenuState extends MusicBeatState
 		#end
 
 		super.create();
+		FlxG.fixedTimestep = false; // fix lagging with 3d main menu
 	}
 
 	#if ACHIEVEMENTS_ALLOWED
@@ -279,6 +280,7 @@ class MainMenuState extends MusicBeatState
 								case 'options':
 									LoadingState.loadAndSwitchState(new options.OptionsState());
 							}
+							FlxG.fixedTimestep = true; // fix lagging with 3d main menu
 						});
 					}
 				});	

@@ -91,7 +91,6 @@ class Main extends Sprite
 	
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
-		FlxG.fixedTimestep = false; // fix lagging with 3d main menu
 
 		lime.utils.Log.throwErrors = false;
 		#if !mobile
