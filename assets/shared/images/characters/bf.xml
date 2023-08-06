@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="bf.png">
+	<!-- Created with Adobe Animate version 18.0.2.126 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Bf down instance 10000" x="1772" y="2762" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10001" x="1772" y="2762" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10002" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10003" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10004" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10005" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10006" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10007" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10008" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10009" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10010" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10011" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10012" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10013" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10014" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10015" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10016" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10017" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10018" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10019" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10020" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10021" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10022" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10023" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf down instance 10024" x="1772" y="3398" width="571" height="626"/>
+	<SubTexture name="Bf idle instance 10000" x="1248" y="0" width="581" height="666"/>
+	<SubTexture name="Bf idle instance 10001" x="1248" y="0" width="581" height="666"/>
+	<SubTexture name="Bf idle instance 10002" x="0" y="2027" width="581" height="666"/>
+	<SubTexture name="Bf idle instance 10003" x="0" y="2027" width="581" height="666"/>
+	<SubTexture name="Bf idle instance 10004" x="1839" y="0" width="581" height="666"/>
+	<SubTexture name="Bf idle instance 10005" x="1839" y="0" width="581" height="666"/>
+	<SubTexture name="Bf idle instance 10006" x="0" y="2703" width="581" height="666"/>
+	<SubTexture name="Bf idle instance 10007" x="0" y="2703" width="581" height="666"/>
+	<SubTexture name="Bf idle instance 10008" x="0" y="3379" width="581" height="666"/>
+	<SubTexture name="Bf idle instance 10009" x="0" y="3379" width="581" height="666"/>
+	<SubTexture name="Bf idle instance 10010" x="0" y="3379" width="581" height="666"/>
+	<SubTexture name="Bf idle instance 10011" x="0" y="3379" width="581" height="666"/>
+	<SubTexture name="Bf idle instance 10012" x="0" y="3379" width="581" height="666"/>
+	<SubTexture name="Bf idle instance 10013" x="0" y="3379" width="581" height="666"/>
+	<SubTexture name="Bf left instance 10000" x="2309" y="1404" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10001" x="2309" y="1404" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10002" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10003" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10004" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10005" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10006" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10007" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10008" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10009" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10010" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10011" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10012" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10013" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10014" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10015" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10016" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10017" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10018" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10019" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10020" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10021" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10022" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10023" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf left instance 10024" x="2309" y="2083" width="558" height="669"/>
+	<SubTexture name="Bf miss down instance 10000" x="1169" y="2859" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10001" x="1706" y="1403" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10002" x="1706" y="1403" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10003" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10004" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10005" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10006" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10007" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10008" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10009" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10010" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10011" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10012" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10013" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10014" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10015" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10016" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10017" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10018" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10019" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10020" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10021" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10022" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10023" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss down instance 10024" x="1706" y="2044" width="593" height="631"/>
+	<SubTexture name="Bf miss left instance 10000" x="591" y="2027" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10001" x="591" y="2708" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10002" x="591" y="2708" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10003" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10004" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10005" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10006" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10007" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10008" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10009" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10010" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10011" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10012" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10013" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10014" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10015" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10016" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10017" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10018" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10019" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10020" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10021" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10022" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10023" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss left instance 10024" x="591" y="3389" width="568" height="671"/>
+	<SubTexture name="Bf miss right instance 10000" x="0" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10001" x="0" y="677" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10002" x="0" y="677" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10003" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10004" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10005" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10006" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10007" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10008" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10009" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10010" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10011" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10012" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10013" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10014" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10015" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10016" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10017" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10018" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10019" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10020" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10021" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10022" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10023" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss right instance 10024" x="624" y="0" width="614" height="667"/>
+	<SubTexture name="Bf miss up instance 10000" x="2319" y="676" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10001" x="1169" y="1403" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10002" x="1169" y="1403" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10003" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10004" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10005" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10006" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10007" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10008" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10009" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10010" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10011" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10012" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10013" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10014" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10015" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10016" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10017" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10018" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10019" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10020" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10021" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10022" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10023" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf miss up instance 10024" x="1169" y="2131" width="527" height="718"/>
+	<SubTexture name="Bf right instance 10000" x="0" y="1354" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10001" x="0" y="1354" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10002" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10003" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10004" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10005" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10006" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10007" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10008" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10009" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10010" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10011" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10012" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10013" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10014" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10015" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10016" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10017" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10018" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10019" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10020" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10021" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10022" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10023" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf right instance 10024" x="624" y="677" width="603" height="663"/>
+	<SubTexture name="Bf up instance 10000" x="1237" y="677" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10001" x="1237" y="677" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10002" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10003" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10004" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10005" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10006" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10007" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10008" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10009" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10010" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10011" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10012" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10013" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10014" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10015" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10016" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10017" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10018" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10019" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10020" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10021" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10022" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10023" x="1778" y="676" width="531" height="716"/>
+	<SubTexture name="Bf up instance 10024" x="1778" y="676" width="531" height="716"/>
+</TextureAtlas>
