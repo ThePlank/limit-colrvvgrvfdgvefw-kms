@@ -2798,9 +2798,28 @@ class FunkinLua {
 			return true;
 		}
 
-		Reflect.setProperty(instance, variable, value);
+		setPropertyButItActuallyCastsTheValuesCorrectly(instance, variable, value);
 		return true;
 	}
+
+	public static function setPropertyButItActuallyCastsTheValuesCorrectly(o:Dynamic, field:String, value:Dynamic) {
+		var correctlyTyped:Dynamic = value;
+
+		switch (Type.typeof(Reflect.getProperty(o, field))) {
+			case TNull:
+				correctlyTyped = null;
+			case TInt:
+				correctlyTyped = Std.parseInt(value);
+			case TFloat:
+				correctlyTyped = Std.parseFloat(value);
+			case TBool:
+				correctlyTyped = cast (value, Bool);
+			default: // cant do shit :pensive:
+		}
+		
+		Reflect.setProperty(o, field, correctlyTyped);
+	}
+
 	public static function getVarInArray(instance:Dynamic, variable:String):Any
 	{
 		var shit:Array<String> = variable.split('[');
@@ -3265,8 +3284,7 @@ class FunkinLua {
 		#end
 	}
 
-	public static inline function getInstance()
-	{
+	public static inline function getInstance() {
 		return PlayState.instance.isDead ? GameOverSubstate.instance : PlayState.instance;
 	}
 }

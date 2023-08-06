@@ -30,7 +30,6 @@ import flixel.group.FlxSpriteGroup;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
-import flixel.sound.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -46,6 +45,7 @@ import openfl.media.Sound;
 import openfl.net.FileReference;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.utils.ByteArray;
+import flixel.sound.FlxSound;
 
 using StringTools;
 #if sys
@@ -55,9 +55,8 @@ import sys.io.File;
 #end
 
 
-@:access(flixel.sound.FlxSound._sound)
-@:access(openfl.media.Sound.__buffer)
-
+@:access(flixel.sound.FlxSound)
+@:access(openfl.media.Sound)
 class ChartingState extends MusicBeatState
 {
 	public static var noteTypeList:Array<String> = //Used for backwards compatibility with 0.1 - 0.3.2 charts, though, you should add your hardcoded custom note types here too.
@@ -236,7 +235,7 @@ class ChartingState extends MusicBeatState
 
 		#if discord_rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Chart Editor", StringTools.replace(_song.song, '-', ' '));
+		DiscordClient.changePresence("charting rn idfk", StringTools.replace(_song.song, '-', ' '));
 		#end
 
 		vortex = FlxG.save.data.chart_vortex;
@@ -1685,15 +1684,12 @@ class ChartingState extends MusicBeatState
 				LoadingState.loadAndSwitchState(new PlayState());
 			}
 
-			if(curSelectedNote != null && curSelectedNote[1] > -1) {
+			if(curSelectedNote != null && !Std.isOfType(curSelectedNote[1], Array)) {
 				if (FlxG.keys.justPressed.E)
-				{
 					changeNoteSustain(Conductor.stepCrochet);
-				}
+
 				if (FlxG.keys.justPressed.Q)
-				{
 					changeNoteSustain(-Conductor.stepCrochet);
-				}
 			}
 
 
@@ -2192,6 +2188,8 @@ class ChartingState extends MusicBeatState
 		var st:Float = sectionStartTime();
 		var et:Float = st + (Conductor.stepCrochet * steps);
 
+		@:privateAccess {
+
 		if (FlxG.save.data.chart_waveformInst) {
 			var sound:FlxSound = FlxG.sound.music;
 			if (sound._sound != null && sound._sound.__buffer != null) {
@@ -2225,6 +2223,7 @@ class ChartingState extends MusicBeatState
 				);
 			}
 		}
+	}
 
 		// Draws
 		var gSize:Int = Std.int(GRID_SIZE * 8);
@@ -2668,12 +2667,13 @@ class ChartingState extends MusicBeatState
 
 	function setupNoteData(i:Array<Dynamic>, isNextSection:Bool):Note
 	{
-		var daNoteInfo = i[1];
+		var daNoteInfo:Dynamic = i[1];
 		var daStrumTime = i[0];
 		var daSus:Dynamic = i[2];
 
-		var note:Note = new Note(daStrumTime, daNoteInfo % 4, null, null, true);
+		var note:Note;
 		if(daSus != null) { //Common note
+			note = new Note(daStrumTime, Std.int(daNoteInfo) % 4, null, null, true);
 			if(!Std.isOfType(i[3], String)) //Convert old note type to new note type format
 			{
 				i[3] = noteTypeIntMap.get(i[3]);
@@ -2685,6 +2685,7 @@ class ChartingState extends MusicBeatState
 			note.sustainLength = daSus;
 			note.noteType = i[3];
 		} else { //Event note
+			note = new Note(daStrumTime, 0, null, null, true);
 			note.loadGraphic(Paths.image('eventArrow'));
 			note.eventName = getEventName(i[1]);
 			note.eventLength = i[1].length;

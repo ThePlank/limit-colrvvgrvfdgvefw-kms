@@ -45,7 +45,7 @@ class Flx3DView extends FlxView3D {
 
 		var context = new AssetLoaderContext();
 		var noExt = Path.withoutExtension(assetPath);
-		trace(noExt);
+		// trace(noExt);
 		context.mapUrlToData('${Path.withoutDirectory(noExt)}.mtl', '$noExt.mtl');
 
 		var material:TextureMaterial = null;
@@ -107,10 +107,9 @@ class Flx3DView extends FlxView3D {
 				onAssetCallback(event);
 		});
 
-		token.addEventListener(LoaderEvent.RESOURCE_COMPLETE, (_) -> {
-			trace("Loader Finished...");
-
-		});
+		// token.addEventListener(LoaderEvent.RESOURCE_COMPLETE, (_) -> {
+		// 	trace("Loader Finished...");
+		// });
 
 		_loaders.set(lib,token);
 

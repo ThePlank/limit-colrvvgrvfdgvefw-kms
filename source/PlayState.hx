@@ -78,14 +78,6 @@ import hxcodec.VideoSprite;
 
 using StringTools;
 
-typedef CoolEvent = {
-	var strumTime:Float;
-	var event:String;
-	var value1:String;
-	var value2:String;
-}
-
-
 class PlayState extends MusicBeatState
 {
 	public static var STRUM_X = 42;
@@ -166,7 +158,7 @@ class PlayState extends MusicBeatState
 
 	public var notes:FlxTypedGroup<Note>;
 	public var unspawnNotes:Array<Note> = [];
-	public var eventNotes:Array<CoolEvent> = [];
+	public var eventNotes:Array<EventNote> = [];
 
 	private var strumLine:FlxSprite;
 
@@ -345,15 +337,6 @@ class PlayState extends MusicBeatState
 	public static var lastCombo:FlxSprite;
 	// stores the last combo score objects in an array
 	public static var lastScore:Array<FlxSprite> = [];
-
-	function pushEvent(strumTime:Float, name:String, value1:String, value2:String) {
-		eventNotes.push({
-			strumTime: strumTime,
-			event: name,
-			value1: value1,
-			value2: value2
-		});
-	}
 
 	override public function create()
 	{
@@ -2412,7 +2395,7 @@ class PlayState extends MusicBeatState
 		var daBeats:Int = 0; // Not exactly representative of 'daBeats' lol, just how much it has looped
 
 		var songName:String = Paths.formatToSongPath(SONG.song);
-		/*var file:String = Paths.json(songName + '/events');
+		var file:String = Paths.json(songName + '/events');
 		#if MODS_ALLOWED
 		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(file)) {
 		#else
@@ -2424,17 +2407,17 @@ class PlayState extends MusicBeatState
 				for (i in 0...event[1].length)
 				{
 					var newEventNote:Array<Dynamic> = [event[0], event[1][i][0], event[1][i][1], event[1][i][2]];
-					var subEvent:EventNote = {
+					var domEvent:EventNote = {
 						strumTime: newEventNote[0] + ClientPrefs.noteOffset,
 						event: newEventNote[1],
 						value1: newEventNote[2],
 						value2: newEventNote[3]
 					};
-					eventNotes.push(subEvent);
-					eventPushed(subEvent);
+					eventNotes.push(domEvent);
+					eventPushed(domEvent);
 				}
 			}
-		}*/
+		}
 
 		for (section in noteData)
 		{
@@ -2519,7 +2502,7 @@ class PlayState extends MusicBeatState
 			}
 			daBeats += 1;
 		}
-		/*for (event in songData.events) //Event Notes
+		for (event in songData.events) //Event Notes
 		{
 			for (i in 0...event[1].length)
 			{
@@ -2533,12 +2516,6 @@ class PlayState extends MusicBeatState
 				eventNotes.push(subEvent);
 				eventPushed(subEvent);
 			}
-		}*/
-
-		// nick use pushEvent() here
-		switch (SONG.song.toLowerCase()) {
-			default:
-				// IM KILLING YOU
 		}
 
 		// trace(unspawnNotes.length);
@@ -2548,7 +2525,7 @@ class PlayState extends MusicBeatState
 		generatedMusic = true;
 	}
 
-	function eventPushed(event:CoolEvent) {
+	function eventPushed(event:EventNote) {
 		switch(event.event) {
 			case 'Change Character':
 				var charType:Int = 0;
@@ -2627,8 +2604,8 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	function eventNoteEarlyTrigger(event:CoolEvent):Float {
-		var returnedValue:Null<Float> = callOnLuas('eventEarlyTrigger', [event.event, event.value1, event.value2, event.strumTime], [], [0]);
+	function eventNoteEarlyTrigger(event:EventNote):Float {
+		var returnedValue:Null<Float> = Std.parseFloat(callOnLuas('eventEarlyTrigger', [event.event, event.value1, event.value2, event.strumTime], [], [0]));
 		if(returnedValue != null && returnedValue != 0 && returnedValue != FunkinLua.Function_Continue) {
 			return returnedValue;
 		}
