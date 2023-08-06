@@ -53,13 +53,11 @@ class CreditsState extends MusicBeatState
 
 		var saygex:Array<Array<String>> = [ //Name - Icon name - Description - Link - Antialias
 			['Skech Team'],
-			['libing',		        'theyarelimitedcolors','director and charter','https://www.youtube.com/channel/UCwH4gcjdN-gWPGunlBxAnQQ', 'false'],
-			['plankdev',	    	'plank icon real',	   'Main programmer\n3D modeler',                     'https://twitter.com/_PlankDev', 'true'],
+			['libing',		        'theyarelimitedcolors','Director, Charter',   'https://www.youtube.com/channel/UCwH4gcjdN-gWPGunlBxAnQQ', 'false'],
+			['plankdev',	    	'plank icon real',	   'Main programmer, 3D modeler\nMain Programmer of Hashlinked','https://twitter.com/_PlankDev', 'true'],
 			['Nick',		        'nilk',		 		   'Programmer, Artist, slave',               'discord://-/users/749249635968745502', 'false'],
 			['Flying Felt Boot',    'fefefbee',			   'Artist',								           'discord://-/users/590206534076727307'],
 			['ItsWalker412',        'gwagwalker',		   'Composer',								               'https://twitter.com/ItsWalker412'],
-			['Psych Engine Hashlinked'],
-			['PlankDev',		    'plank icon fake',  'Main Programmer of Hashlinked',						      'https://twitter.com/_PlankDev'],
 			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',				          'https://twitter.com/Shadow_Mario_'],

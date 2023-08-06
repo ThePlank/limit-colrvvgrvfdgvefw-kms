@@ -280,7 +280,9 @@ class MainMenuState extends MusicBeatState
 								case 'options':
 									LoadingState.loadAndSwitchState(new options.OptionsState());
 							}
-							FlxG.fixedTimestep = true; // fix lagging with 3d main menu
+							new FlxTimer().start(1, function(tmr:FlxTimer) {
+								FlxG.fixedTimestep = true;
+							});
 						});
 					}
 				});	
