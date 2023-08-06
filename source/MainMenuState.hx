@@ -56,7 +56,7 @@ class MainMenuState extends MusicBeatState
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
-	private var camDots:FlxCamera;
+	private var camOther:FlxCamera;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	
@@ -90,12 +90,12 @@ class MainMenuState extends MusicBeatState
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
 		camAchievement.bgColor.alpha = 0;
-		camDots = new FlxCamera();
+		camOther = new FlxCamera();
+		camOther.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement, false);
-		FlxG.cameras.add(camDots, true);
-		FlxG.cameras.setDefaultDrawTarget(camGame, true);
+		FlxG.cameras.add(camOther, false);
 
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
@@ -107,7 +107,6 @@ class MainMenuState extends MusicBeatState
 		var bg:FlxBackdrop = new FlxBackdrop(Paths.image('dots'), XY);
 		bg.scale.set(1.4, 1.4);
 		bg.velocity.set(40, 40);
-		bg.cameras = [camDots];
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -116,7 +115,7 @@ class MainMenuState extends MusicBeatState
 		if(ClientPrefs.shaders){
 			barrelDistortion.barrelDistortion1 = -0.15;
 			barrelDistortion.barrelDistortion2 = -0.15;
-			camDots.setFilters([new ShaderFilter(barrelDistortion)]);
+			camGame.setFilters([new ShaderFilter(barrelDistortion)]);
 		}
 
 		cam3D = new Flx3DView(0, 0, 1280, 720); //make sure to keep width and height as 1600 and 900
@@ -172,6 +171,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', option.name + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
+			menuItem.cameras = [camOther];
 			menuItem.antialiasing = false;
 			menuItem.scale.set(option.scale, option.scale);
 			menuItem.updateHitbox();
@@ -181,6 +181,7 @@ class MainMenuState extends MusicBeatState
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Psych Engine v" + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.BLACK, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+		versionShit.cameras = [camOther];
 		add(versionShit);
 
 		changeItem();

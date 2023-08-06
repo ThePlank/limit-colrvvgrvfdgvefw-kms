@@ -134,7 +134,7 @@ class CoolUtil
 		#if linux
 		Sys.command('/usr/bin/xdg-open', [site]);
 		#else
-		if (site.contains('://')) // automatically appends http/https ONLY if http(s):// isnt found so if you use a differenct procotol you're screwed
+		if (site.contains('://')) // automatically appends http ONLY if http(s):// isnt found so if you use a differenct procotol you're screwed
 			openfl.Lib.getURL(new openfl.net.URLRequest(site), "_blank");
 		else
 			FlxG.openURL(site);
@@ -146,7 +146,7 @@ class CoolUtil
 		so Base Psych saves won't conflict with yours
 		@BeastlyGabi
 	**/
-	public static function getSavePath(folder:String = 'ShadowMario'):String {
+	public static function getSavePath(folder:String = 'skech'):String {
 		@:privateAccess
 		return #if (flixel < "5.0.0") folder #else FlxG.stage.application.meta.get('company')
 			+ '/'

@@ -30,8 +30,8 @@ using flixel.util.FlxColorTransformUtil;
 
 private typedef FlxDrawItem = #if FLX_DRAW_QUADS flixel.graphics.tile.FlxDrawQuadsItem; #else flixel.graphics.tile.FlxDrawTilesItem; #end
 
-//Yoinked from Plank Engine, go check it out https://github.com/ThePlank/PlankEngine
-// nick plank engine doesent have a gender >:(
+// Yoinked from Plank Engine, go check it out https://github.com/ThePlank/PlankEngine
+// nick plank engine doesent have a gender >:( (context nick typed "him" instead of "it"
 // also i should probabbly mention that this is a implementation of Raltyro's ZCameraFix in source
 class FlxCamera extends FlxBasic
 {

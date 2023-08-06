@@ -1,73 +1,77 @@
 package openfl.display;
 
-import haxe.Timer;
-import openfl.events.Event;
-import openfl.text.TextField;
-import openfl.text.TextFormat;
-import flixel.math.FlxMath;
-#if gl_stats
-import openfl.display._internal.stats.Context3DStats;
-import openfl.display._internal.stats.DrawCallContext;
-#end
-#if flash
+import flixel.util.FlxStringUtil;
 import openfl.Lib;
-#end
+import flixel.FlxG;
+import flixel.tweens.FlxEase;
+import flixel.util.FlxColor;
+import flixel.math.FlxMath;
+import openfl.Memory;
+import lime.system.System;
+import openfl.text.TextFormat;
+import openfl.text.TextField;
+import openfl.display.Sprite;
 
-#if openfl
-import openfl.system.System;
-#end
+class FPS extends Sprite {
+	//The current frame rate, expressed using frames-per-second
 
-/**
-	The FPS class provides an easy-to-use monitor to display
-	the current frame rate of an OpenFL project
-**/
-#if !openfl_debug
-@:fileXml('tags="haxe,release"')
-@:noDebug
-#end
-class FPS extends TextField
-{
-	/**
-		The current frame rate, expressed using frames-per-second
-	**/
 	public var currentFPS(default, null):Int;
 
-	@:noCompletion private var cacheCount:Int;
-	@:noCompletion private var currentTime:Float;
-	@:noCompletion private var times:Array<Float>;
+	private var currentMemory:Float;
+	private var maxMemory:Float;
 
-	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000)
-	{
+	private var outlineColor:FlxColor = 0xFFFFFFFF;
+
+	public var baseText:TextField;
+	public var outlineTexts:Array<TextField> = [];
+	private var outlineWidth:Int = 2;
+	private var outlineQuality:Int = 8;
+	var defaultTextFormat:TextFormat;
+
+	@:noCompletion private var cacheCount:Int = 0;
+	@:noCompletion private var currentTime:Float = 0;
+	@:noCompletion private var times:Array<Float> = [];
+
+	public var text(default, set):String; 
+
+	public function new(x:Float = 10, y:Float = 10) {
 		super();
 
 		this.x = x;
 		this.y = y;
 
+		this.defaultTextFormat = new TextFormat("VCR OSD Mono", 18, 0xFF000000);
+
+		baseText = new TextField();
+		baseText.defaultTextFormat = this.defaultTextFormat;
+		baseText.selectable = false;
+		baseText.mouseEnabled = false;
+		baseText.width = FlxG.width;
+
 		currentFPS = 0;
-		selectable = false;
-		mouseEnabled = false;
-		defaultTextFormat = new TextFormat("VCR OSD Mono", 18, color);
-		autoSize = LEFT;
-		multiline = true;
+		currentMemory = 0;
+		maxMemory = 0;
+
+
+		for (i in 0...outlineQuality) {
+			var otext:TextField = new TextField();
+			otext.x = Math.sin(i) *outlineWidth;
+			otext.y = Math.cos(i) *outlineWidth;
+			otext.defaultTextFormat = this.defaultTextFormat;
+			otext.textColor = outlineColor;
+			otext.width = baseText.width;
+			outlineTexts.push(otext);
+			addChild(otext);
+		}
+
+		addChild(baseText);
+
 		text = "FPS: ";
 
-		cacheCount = 0;
-		currentTime = 0;
-		times = [];
-
-		#if flash
-		addEventListener(Event.ENTER_FRAME, function(e)
-		{
-			var time = Lib.getTimer();
-			__enterFrame(time - currentTime);
-		});
-		#end
 	}
 
 	// Event Handlers
-	@:noCompletion
-	private #if !flash override #end function __enterFrame(deltaTime:Float):Void
-	{
+	private override function __enterFrame(deltaTime:Float):Void {
 		currentTime += deltaTime;
 		times.push(currentTime);
 
@@ -80,31 +84,32 @@ class FPS extends TextField
 		currentFPS = Math.round((currentCount + cacheCount) / 2);
 		if (currentFPS > ClientPrefs.framerate) currentFPS = ClientPrefs.framerate;
 
-		if (currentCount != cacheCount /*&& visible*/)
-		{
-			text = "FPS: " + currentFPS;
-			var memoryMegas:Float = 0;
-			
-			#if openfl
-			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
-			text += "\nMemory: " + memoryMegas + " MB";
-			#end
-
-			textColor = 0xFFFFFFFF;
-			if (memoryMegas > 3000 || currentFPS <= ClientPrefs.framerate / 2)
-			{
-				textColor = 0xFFFF0000;
-			}
-
+		if (currentCount != cacheCount /*&& visible*/) {
 			#if (gl_stats && !disable_cffi && (!html5 || !canvas))
 			text += "\ntotalDC: " + Context3DStats.totalDrawCalls();
 			text += "\nstageDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE);
 			text += "\nstage3DDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE3D);
 			#end
 
-			text += "\n";
-		}
+			var stats:{currentMemory:Float, totalAllocated:Float, allocationCount:Float} = hl.Gc.stats();
+			currentMemory = stats.currentMemory;
+			if (currentMemory > maxMemory)
+				maxMemory = currentMemory;
 
+			baseText.textColor = 0xFF000000;
+			if (currentMemory > 3221225472 || currentFPS <= ClientPrefs.framerate / 2) // why 3221225472? idk.
+				baseText.textColor = 0xFFFF0000;
+
+			text = 'FPS: ${currentFPS}\nMEM: ${FlxStringUtil.formatBytes(currentMemory)} / ${FlxStringUtil.formatBytes(maxMemory)}';
+		}
 		cacheCount = currentCount;
+	}
+
+	private function set_text(value:String):String {
+		baseText.text = value;
+		for (text in outlineTexts) {
+			text.text = value;
+		}
+		return value;
 	}
 }
