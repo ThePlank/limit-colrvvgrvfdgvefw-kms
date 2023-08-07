@@ -84,7 +84,7 @@ class BarrelDistortionShader extends FlxShader {
     ')
     public function new() {
         super();
-		dis1.value = [0.0];
-		dis2.value = [0.0];
+		dis1.value = [0];
+		dis2.value = [0];
     }
 }

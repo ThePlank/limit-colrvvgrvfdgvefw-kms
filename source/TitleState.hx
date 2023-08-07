@@ -18,6 +18,7 @@ import openfl.display.BitmapData;
 import sys.FileSystem;
 import sys.io.File;
 #end
+import flixel.FlxCamera;
 import options.GraphicsSettingsSubState;
 //import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -62,6 +63,9 @@ class TitleState extends MusicBeatState
 
 	public static var initialized:Bool = false;
 
+	private var camOther:FlxCamera;
+	private var camGame:FlxCamera;
+
 	var blackScreen:FlxGifSprite;
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
@@ -105,6 +109,19 @@ class TitleState extends MusicBeatState
 			}
 		}
 		#end*/
+
+		camGame = new FlxCamera();
+		camOther = new FlxCamera();
+		camOther.bgColor.alpha = 0;
+
+		FlxG.cameras.reset(camGame);
+		FlxG.cameras.add(camOther, false);
+
+		if(ClientPrefs.shaders){
+			barrelDistortion.barrelDistortion1 = -0.15;
+			barrelDistortion.barrelDistortion2 = -0.15;
+			camGame.setFilters([new ShaderFilter(barrelDistortion)]);
+		}
 
 		FlxG.game.focusLostFramerate = 60;
 		FlxG.sound.muteKeys = muteKeys;
@@ -211,20 +228,17 @@ class TitleState extends MusicBeatState
 		bg.velocity.set(30, 30);
 		bg.updateHitbox();
 		bg.screenCenter();
+		bg.useFramePixels = true;
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		bg.shader = barrelDistortion;
-		barrelDistortion.barrelDistortion1 = -0.15;
-		barrelDistortion.barrelDistortion2 = -0.15;
+		bg.cameras = [camGame];
 		add(bg);
 	
 		logoBl = new FlxSprite(700, 75).loadGraphic(Paths.image('logoBump'));
 		logoBl.scale.set(2, 2);
 		logoBl.antialiasing = false;
 		logoBl.updateHitbox();
-		// logoBl.color = FlxColor.BLACK;
-
+		logoBl.cameras = [camOther];
 		swagShader = new ColorSwap();
-
 		add(logoBl);
 		logoBl.shader = swagShader.shader;
 
@@ -234,6 +248,7 @@ class TitleState extends MusicBeatState
 		titleText.animation.addByPrefix('press', "enter press", 24);
 		titleText.antialiasing = false;
 		titleText.scale.set(2, 2);
+		titleText.cameras = [camOther];
 		titleText.animation.play('idle');
 		titleText.updateHitbox();
 		add(titleText);
@@ -242,12 +257,14 @@ class TitleState extends MusicBeatState
 		add(credGroup);
 		textGroup = new FlxGroup();
 
-		blackScreen = new FlxGifSprite(350, 180);
+		blackScreen = new FlxGifSprite(320, 180);
 		blackScreen.loadGif('assets/images/titlebackground.gif');
+		blackScreen.cameras = [camOther];
 		blackScreen.setGraphicSize(FlxG.width, FlxG.height);
 		credGroup.add(blackScreen);
 
 		credTextShit = new Alphabet(0, 0, "", true);
+		credTextShit.cameras = [camOther];
 		credTextShit.screenCenter();
 
 		credTextShit.visible = false;
@@ -256,6 +273,7 @@ class TitleState extends MusicBeatState
 		ngSpr.loadGif('assets/images/newgrounds.gif');
 		ngSpr.visible = false;
 		ngSpr.y += 750;
+		ngSpr.cameras = [camOther];
 		ngSpr.setGraphicSize(Std.int(ngSpr.width * 0.8));
 		ngSpr.updateHitbox();
 		ngSpr.screenCenter(X);
@@ -327,7 +345,6 @@ class TitleState extends MusicBeatState
 					titleText.animation.play('idle');
 				});
 
-				FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF, 1);
 				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
 				transitioning = true;
@@ -335,10 +352,8 @@ class TitleState extends MusicBeatState
 
 				new FlxTimer().start(1, function(tmr:FlxTimer) {  
 					MusicBeatState.switchState(new MainMenuState());
-					
 					closedState = true;
 				});
-				// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 			}
 		}
 
@@ -360,6 +375,7 @@ class TitleState extends MusicBeatState
 		for (i in 0...textArray.length) {
 			var money:Alphabet = new Alphabet(0, 0, textArray[i], true);
 			money.screenCenter(X);
+			money.cameras = [camOther];
 			money.y += (i * 60) + 200 + offset;
 			if(credGroup != null && textGroup != null) {
 				credGroup.add(money);
@@ -374,6 +390,7 @@ class TitleState extends MusicBeatState
 		if(textGroup != null && credGroup != null) {
 			var coolText:Alphabet = new Alphabet(0, 0, text, true);
 			coolText.screenCenter(X);
+			coolText.cameras = [camOther];
 			coolText.y += (textGroup.length * 60) + 200 + offset;
 			credGroup.add(coolText);
 			textGroup.add(coolText);
@@ -478,7 +495,7 @@ class TitleState extends MusicBeatState
 			{
 				remove(ngSpr);
 				remove(credGroup);
-				FlxG.camera.flash(FlxColor.WHITE, 4);
+				camOther.flash(FlxColor.WHITE, 4);
 			}
 			skippedIntro = true;
 		}
