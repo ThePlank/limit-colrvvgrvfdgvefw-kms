@@ -45,7 +45,9 @@ class CreditsState extends MusicBeatState
 	var descBox:AttachedSprite;
 
 	var offsetThing:Float = -75;
+	var bgn:FlxBackdrop;
 	var barrelDistortion = new BarrelDistortionShader();
+	var canTween:Bool = false;
 	override function create()
 	{
 		camGame = new FlxCamera();
@@ -68,6 +70,15 @@ class CreditsState extends MusicBeatState
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
+
+		bgn = new FlxBackdrop(Paths.image('nickcubes'), XY);
+		bgn.scale.set(1.4, 1.4);
+		bgn.velocity.set(30, 30);
+		bgn.updateHitbox();
+		bgn.screenCenter();
+		bgn.alpha = 0;
+		bgn.antialiasing = ClientPrefs.globalAntialiasing;
+		add(bgn);
 		
 		if(ClientPrefs.shaders){
 			barrelDistortion.barrelDistortion1 = -0.15;
@@ -76,7 +87,6 @@ class CreditsState extends MusicBeatState
 		}
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
-		grpOptions.cameras = [camOther];
 		add(grpOptions);
 
 		var saygex:Array<Array<String>> = [ //Name - Icon name - Description - Link - Antialias
@@ -115,7 +125,6 @@ class CreditsState extends MusicBeatState
 			var optionText:Alphabet = new Alphabet(FlxG.width / 2, 300, creditsStuff[i][0], !isSelectable);
 			optionText.isMenuItem = true;
 			optionText.targetY = i;
-			optionText.cameras = [camOther];
 			optionText.changeX = false;
 			optionText.snapToPosition();
 			grpOptions.add(optionText);
@@ -129,7 +138,6 @@ class CreditsState extends MusicBeatState
 				var icon:AttachedSprite = new AttachedSprite('credits/' + creditsStuff[i][1]);
 				icon.xAdd = optionText.width + 10;
 				icon.sprTracker = optionText;
-				icon.cameras = [camOther];
 				icon.antialiasing = !(creditsStuff[i][4] == 'false');
 	
 				// using a FlxGroup is too much fuss!
@@ -141,6 +149,14 @@ class CreditsState extends MusicBeatState
 			}
 			else optionText.alignment = CENTERED;
 		}
+
+		if(creditsStuff[5]) {
+			canTween = true;
+			FlxTween.tween(bgn, {alpha: 1}, 1, {ease: FlxEase.sineOut});
+		} else {
+			FlxTween.tween(bgn, {alpha: 0}, 1, {ease: FlxEase.sineOut, onComplete: function(twn:FlxTween) {canTween = false;}});
+		}
+
 		
 		descBox = new AttachedSprite();
 		descBox.makeGraphic(1, 1, FlxColor.BLACK);
@@ -151,7 +167,7 @@ class CreditsState extends MusicBeatState
 		descBox.alpha = 0.6;
 		add(descBox);
 
-		descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32);
+		descText = new FlxText(50, FlxG.height + 75 - 25, 1180, "", 32);
 		descText.cameras = [camOther];
 		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER/*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
 		descText.scrollFactor.set();
@@ -160,6 +176,22 @@ class CreditsState extends MusicBeatState
 		add(descText);
 
 		changeSelection();
+
+		var eventThing:FlxSprite = new FlxSprite(0, 610).loadGraphic(Paths.image('eventThing'));
+		eventThing.updateHitbox();
+		eventThing.color = 0xFF000000;
+		eventThing.cameras = [camOther];
+		eventThing.antialiasing = ClientPrefs.globalAntialiasing;
+		add(eventThing);
+
+		var eventThing2:FlxSprite = new FlxSprite().loadGraphic(Paths.image('eventThing'));
+		eventThing2.updateHitbox();
+		eventThing2.flipY = true;
+		eventThing2.color = 0xFF000000;
+		eventThing2.cameras = [camOther];
+		eventThing2.antialiasing = ClientPrefs.globalAntialiasing;
+		add(eventThing2);
+
 		super.create();
 	}
 
@@ -226,7 +258,6 @@ class CreditsState extends MusicBeatState
 				{
 					var lastX:Float = item.x;
 					item.screenCenter(X);
-					item.cameras = [camOther];
 					item.x = FlxMath.lerp(lastX, item.x - 70, lerpVal);
 				}
 				else
@@ -269,7 +300,7 @@ class CreditsState extends MusicBeatState
 		descText.y = FlxG.height - descText.height + offsetThing - 60;
 
 		if(moveTween != null) moveTween.cancel();
-		moveTween = FlxTween.tween(descText, {y : descText.y + 75}, 0.25, {ease: FlxEase.sineOut});
+		moveTween = FlxTween.tween(descText, {y : descText.y + 15}, 0.25, {ease: FlxEase.sineOut});
 
 		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
 		descBox.updateHitbox();
