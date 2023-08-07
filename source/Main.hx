@@ -49,7 +49,7 @@ class Main extends Sprite
 	public static function main():Void
 	{
 		Lib.current.addChild(new Main());
-		#if (!debug) hl.Api.closeConsole(); #end // close console window on release builds
+		#if (!debug) hl.UI.closeConsole(); #end // close console window on release builds
 	}
 
 	public function new()
