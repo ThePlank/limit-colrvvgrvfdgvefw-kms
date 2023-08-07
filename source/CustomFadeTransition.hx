@@ -19,7 +19,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
 	private var leTween:FlxTween = null;
 	public static var nextCamera:FlxCamera;
 	var isTransIn:Bool = false;
-	var transBlack:FlxSprite;
+	var cisBlack:FlxSprite;
 	var transGradient:FlxSprite;
 
 	public function new(duration:Float, isTransIn:Bool) {
@@ -29,55 +29,46 @@ class CustomFadeTransition extends MusicBeatSubstate {
 		var zoom:Float = CoolUtil.boundTo(FlxG.camera.zoom, 0.05, 1);
 		var width:Int = Std.int(FlxG.width / zoom);
 		var height:Int = Std.int(FlxG.height / zoom);
-		transGradient = FlxGradient.createGradientFlxSprite(width, height, (isTransIn ? [0x0, FlxColor.BLACK] : [FlxColor.BLACK, 0x0]));
+		transGradient = new FlxSprite(0, 0, Paths.image('enbyition'));
+		transGradient.setGraphicSize(0, height);
 		transGradient.scrollFactor.set();
+		transGradient.color = 0xFF000000;
 		add(transGradient);
 
-		transBlack = new FlxSprite().makeGraphic(width, height + 400, FlxColor.BLACK);
-		transBlack.scrollFactor.set();
-		add(transBlack);
+		cisBlack = new FlxSprite().makeGraphic(width + 400, height, FlxColor.BLACK);
+		cisBlack.scrollFactor.set();
+		add(cisBlack);
 
-		transGradient.x -= (width - FlxG.width) / 2;
-		transBlack.x = transGradient.x;
+		transGradient.x = width;
 
 		if(isTransIn) {
-			transGradient.y = transBlack.y - transBlack.height;
-			FlxTween.tween(transGradient, {y: transGradient.height + 50}, duration, {
+			transGradient.flipY = true;
+			FlxTween.tween(transGradient, {x: -width}, duration, {
 				onComplete: function(twn:FlxTween) {
 					close();
 				},
-			ease: FlxEase.linear});
+			ease: FlxEase.expoOut});
 		} else {
-			transGradient.y = -transGradient.height;
-			transBlack.y = transGradient.y - transBlack.height + 50;
-			leTween = FlxTween.tween(transGradient, {y: transGradient.height + 50}, duration, {
+			transGradient.flipX = true;
+			leTween = FlxTween.tween(transGradient, {x: -width}, duration, {
 				onComplete: function(twn:FlxTween) {
 					if(finishCallback != null) {
 						finishCallback();
 					}
 				},
-			ease: FlxEase.linear});
+			ease: FlxEase.expoOut});
 		}
 
-		if(nextCamera != null) {
-			transBlack.cameras = [nextCamera];
-			transGradient.cameras = [nextCamera];
-		}
-		nextCamera = null;
+		cisBlack.cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+		transGradient.cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
 
 	override function update(elapsed:Float) {
-		if(isTransIn) {
-			transBlack.y = transGradient.y + transGradient.height;
-		} else {
-			transBlack.y = transGradient.y - transBlack.height;
-		}
 		super.update(elapsed);
-		if(isTransIn) {
-			transBlack.y = transGradient.y + transGradient.height;
-		} else {
-			transBlack.y = transGradient.y - transBlack.height;
-		}
+		if(isTransIn)
+			cisBlack.x = transGradient.x - transGradient.width;
+		else
+			cisBlack.x = transGradient.x + transGradient.width;
 	}
 
 	override function destroy() {

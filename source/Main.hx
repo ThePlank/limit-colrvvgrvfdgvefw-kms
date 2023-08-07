@@ -103,6 +103,10 @@ class Main extends Sprite
 		}
 		#end
 
+		#if debug
+		FlxG.console.registerClass(Paths);
+		#end
+
 		#if html5
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;

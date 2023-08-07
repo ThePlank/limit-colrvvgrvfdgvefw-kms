@@ -51,6 +51,9 @@ class Paths
 	];
 	#end
 
+	public static function dumpMemory()
+		hl.Gc.dumpMemory();
+
 	public static function excludeAsset(key:String) {
 		if (!dumpExclusions.contains(key))
 			dumpExclusions.push(key);
