@@ -225,6 +225,7 @@ class TitleState extends MusicBeatState
 		persistentUpdate = true;
 
 		var bg:FlxBackdrop = new FlxBackdrop(Paths.image('cubes'), XY);
+		bg.scale.set(1.4, 1.4);
 		bg.velocity.set(30, 30);
 		bg.updateHitbox();
 		bg.screenCenter();

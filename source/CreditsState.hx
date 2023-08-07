@@ -5,10 +5,12 @@ import Discord.DiscordClient;
 #end
 import flash.text.TextField;
 import flixel.FlxG;
+import flixel.FlxCamera;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
+import flixel.addons.display.FlxBackdrop;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
@@ -19,11 +21,19 @@ import sys.io.File;
 #end
 import lime.utils.Assets;
 
+#if !flash 
+import flixel.addons.display.FlxRuntimeShader;
+import openfl.filters.ShaderFilter;
+#end
+
 using StringTools;
 
 class CreditsState extends MusicBeatState
 {
 	var curSelected:Int = -1;
+
+	private var camOther:FlxCamera;
+	private var camGame:FlxCamera;
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private var iconArray:Array<AttachedSprite> = [];
@@ -31,24 +41,42 @@ class CreditsState extends MusicBeatState
 
 	public static var discord:Bool = false;
 
-	var bg:FlxSprite;
 	var descText:FlxText;
 	var descBox:AttachedSprite;
 
 	var offsetThing:Float = -75;
-
+	var barrelDistortion = new BarrelDistortionShader();
 	override function create()
 	{
+		camGame = new FlxCamera();
+		camOther = new FlxCamera();
+		camOther.bgColor.alpha = 0;
+
+		FlxG.cameras.reset(camGame);
+		FlxG.cameras.add(camOther, false);
+
 		#if discord_rpc
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
 		persistentUpdate = true;
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		add(bg);
+
+		var bg:FlxBackdrop = new FlxBackdrop(Paths.image('whitecubes'), XY);
+		bg.scale.set(1.4, 1.4);
+		bg.velocity.set(30, 30);
+		bg.updateHitbox();
 		bg.screenCenter();
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		add(bg);
 		
+		if(ClientPrefs.shaders){
+			barrelDistortion.barrelDistortion1 = -0.15;
+			barrelDistortion.barrelDistortion2 = -0.15;
+			camGame.setFilters([new ShaderFilter(barrelDistortion)]);
+		}
+
 		grpOptions = new FlxTypedGroup<Alphabet>();
+		grpOptions.cameras = [camOther];
 		add(grpOptions);
 
 		var saygex:Array<Array<String>> = [ //Name - Icon name - Description - Link - Antialias
@@ -87,6 +115,7 @@ class CreditsState extends MusicBeatState
 			var optionText:Alphabet = new Alphabet(FlxG.width / 2, 300, creditsStuff[i][0], !isSelectable);
 			optionText.isMenuItem = true;
 			optionText.targetY = i;
+			optionText.cameras = [camOther];
 			optionText.changeX = false;
 			optionText.snapToPosition();
 			grpOptions.add(optionText);
@@ -100,6 +129,7 @@ class CreditsState extends MusicBeatState
 				var icon:AttachedSprite = new AttachedSprite('credits/' + creditsStuff[i][1]);
 				icon.xAdd = optionText.width + 10;
 				icon.sprTracker = optionText;
+				icon.cameras = [camOther];
 				icon.antialiasing = !(creditsStuff[i][4] == 'false');
 	
 				// using a FlxGroup is too much fuss!
@@ -116,11 +146,13 @@ class CreditsState extends MusicBeatState
 		descBox.makeGraphic(1, 1, FlxColor.BLACK);
 		descBox.xAdd = -10;
 		descBox.yAdd = -10;
+		descBox.cameras = [camOther];
 		descBox.alphaMult = 0.6;
 		descBox.alpha = 0.6;
 		add(descBox);
 
 		descText = new FlxText(50, FlxG.height + offsetThing - 25, 1180, "", 32);
+		descText.cameras = [camOther];
 		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER/*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
 		descText.scrollFactor.set();
 		//descText.borderSize = 2.4;
@@ -194,6 +226,7 @@ class CreditsState extends MusicBeatState
 				{
 					var lastX:Float = item.x;
 					item.screenCenter(X);
+					item.cameras = [camOther];
 					item.x = FlxMath.lerp(lastX, item.x - 70, lerpVal);
 				}
 				else

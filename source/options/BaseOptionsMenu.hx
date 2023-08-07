@@ -54,12 +54,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		#if discord_rpc
 		DiscordClient.changePresence(rpcTitle, null);
 		#end
-		
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = 0xFFea71fd;
-		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bg);
 
 		// avoids lagspikes while scrolling through menus!
 		grpOptions = new FlxTypedGroup<Alphabet>();
@@ -71,28 +65,17 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		checkboxGroup = new FlxTypedGroup<CheckboxThingie>();
 		add(checkboxGroup);
 
-		descBox = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
-		descBox.alpha = 0.6;
-		add(descBox);
-
 		var titleText:Alphabet = new Alphabet(75, 40, title, true);
 		titleText.scaleX = 0.6;
 		titleText.scaleY = 0.6;
 		titleText.alpha = 0.4;
 		add(titleText);
 
-		descText = new FlxText(50, 600, 1180, "", 32);
-		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		descText.scrollFactor.set();
-		descText.borderSize = 2.4;
-		add(descText);
-
 		for (i in 0...optionsArray.length)
 		{
-			var optionText:Alphabet = new Alphabet(290, 260, optionsArray[i].name, false);
-			optionText.isMenuItem = true;
-			/*optionText.forceX = 300;
-			optionText.yMult = 90;*/
+			var optionText:Alphabet = new Alphabet(0, 70 * i, optionsArray[i].name, false);
+			optionText.isMenuItemChecker = true;
+			optionText.x = 200;
 			optionText.targetY = i;
 			grpOptions.add(optionText);
 
@@ -121,6 +104,16 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			updateTextFrom(optionsArray[i]);
 		}
 
+		descBox = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
+		descBox.alpha = 0.6;
+		add(descBox);
+
+		descText = new FlxText(750, -100, 500, "", 32);
+		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		descText.scrollFactor.set();
+		descText.borderSize = 2.5;
+		add(descText);
+
 		changeSelection();
 		reloadCheckboxes();
 	}
@@ -146,6 +139,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		if (controls.BACK) {
 			close();
+			OptionsState.canClick = true;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
@@ -295,7 +289,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		descText.text = optionsArray[curSelected].description;
 		descText.screenCenter(Y);
-		descText.y += 270;
 
 		var bullShit:Int = 0;
 

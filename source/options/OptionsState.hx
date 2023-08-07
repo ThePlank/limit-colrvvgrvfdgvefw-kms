@@ -14,6 +14,7 @@ import flixel.util.FlxColor;
 import lime.utils.Assets;
 import flixel.FlxSubState;
 import flash.text.TextField;
+import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxSave;
@@ -24,6 +25,12 @@ import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
+import flixel.addons.display.FlxBackdrop;
+
+#if !flash 
+import flixel.addons.display.FlxRuntimeShader;
+import openfl.filters.ShaderFilter;
+#end
 
 using StringTools;
 
@@ -33,7 +40,11 @@ class OptionsState extends MusicBeatState
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
+	private var camOther:FlxCamera;
+	private var camGame:FlxCamera;
 
+	var barrelDistortion = new BarrelDistortionShader();
+	public static var canClick:Bool = true;
 	function openSelectedSubstate(label:String) {
 		switch(label) {
 			case 'Controls':
@@ -57,13 +68,27 @@ class OptionsState extends MusicBeatState
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = 0xFFea71fd;
-		bg.updateHitbox();
+		camGame = new FlxCamera();
+		camOther = new FlxCamera();
+		camOther.bgColor.alpha = 0;
 
+		FlxG.cameras.reset(camGame);
+		FlxG.cameras.add(camOther, false);
+
+		persistentUpdate = true;
+		var bg:FlxBackdrop = new FlxBackdrop(Paths.image('whitecubes'), XY);
+		bg.scale.set(1.4, 1.4);
+		bg.velocity.set(30, 30);
+		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
+
+		if(ClientPrefs.shaders){
+			barrelDistortion.barrelDistortion1 = -0.15;
+			barrelDistortion.barrelDistortion2 = -0.15;
+			camGame.setFilters([new ShaderFilter(barrelDistortion)]);
+		}
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
@@ -77,12 +102,29 @@ class OptionsState extends MusicBeatState
 		}
 
 		selectorLeft = new Alphabet(0, 0, '>', true);
+		selectorLeft.cameras = [camOther];
 		add(selectorLeft);
 		selectorRight = new Alphabet(0, 0, '<', true);
+		selectorRight.cameras = [camOther];
 		add(selectorRight);
 
 		changeSelection();
 		ClientPrefs.saveSettings();
+
+		var eventThing:FlxSprite = new FlxSprite(0, 610).loadGraphic(Paths.image('eventThing'));
+		eventThing.updateHitbox();
+		eventThing.color = 0xFF000000;
+		eventThing.cameras = [camOther];
+		eventThing.antialiasing = ClientPrefs.globalAntialiasing;
+		add(eventThing);
+
+		var eventThing2:FlxSprite = new FlxSprite().loadGraphic(Paths.image('eventThing'));
+		eventThing2.updateHitbox();
+		eventThing2.flipY = true;
+		eventThing2.color = 0xFF000000;
+		eventThing2.cameras = [camOther];
+		eventThing2.antialiasing = ClientPrefs.globalAntialiasing;
+		add(eventThing2);
 
 		super.create();
 	}
@@ -95,6 +137,13 @@ class OptionsState extends MusicBeatState
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
+		if (FlxG.sound.music != null)
+			Conductor.songPosition = FlxG.sound.music.time;
+
+		FlxG.camera.zoom = FlxMath.lerp(1, FlxG.camera.zoom, 0.95);
+
+	if(canClick)
+	{
 		if (controls.UI_UP_P) {
 			changeSelection(-1);
 		}
@@ -107,9 +156,29 @@ class OptionsState extends MusicBeatState
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
+
 		if (controls.ACCEPT) {
+			canClick = false;
 			openSelectedSubstate(options[curSelected]);
+			for (item in grpOptions.members) {
+				item.visible = false;
+				selectorLeft.visible = false;
+				selectorRight.visible = false;
+			}
+		} else {
+			canClick = true;
+			for (item in grpOptions.members) {
+				item.visible = true;
+				selectorLeft.visible = true;
+				selectorRight.visible = true;
+
+		    	item.alpha = 0.6;
+		    	if (item.targetY == 0) {
+		    		item.alpha = 1;
+			    }
+		    }
 		}
+	}
 	}
 	
 	function changeSelection(change:Int = 0) {
@@ -125,9 +194,7 @@ class OptionsState extends MusicBeatState
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
-			item.alpha = 0.6;
 			if (item.targetY == 0) {
-				item.alpha = 1;
 				selectorLeft.x = item.x - 63;
 				selectorLeft.y = item.y;
 				selectorRight.x = item.x + item.width + 15;
