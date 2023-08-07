@@ -15,6 +15,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
+import flixel.util.FlxTimer;
 #if MODS_ALLOWED
 import sys.FileSystem;
 import sys.io.File;
@@ -47,7 +48,6 @@ class CreditsState extends MusicBeatState
 	var offsetThing:Float = -75;
 	var bgn:FlxBackdrop;
 	var barrelDistortion = new BarrelDistortionShader();
-	var canTween:Bool = false;
 	override function create()
 	{
 		camGame = new FlxCamera();
@@ -149,14 +149,6 @@ class CreditsState extends MusicBeatState
 			}
 			else optionText.alignment = CENTERED;
 		}
-
-		if(creditsStuff[5]) {
-			canTween = true;
-			FlxTween.tween(bgn, {alpha: 1}, 1, {ease: FlxEase.sineOut});
-		} else {
-			FlxTween.tween(bgn, {alpha: 0}, 1, {ease: FlxEase.sineOut, onComplete: function(twn:FlxTween) {canTween = false;}});
-		}
-
 		
 		descBox = new AttachedSprite();
 		descBox.makeGraphic(1, 1, FlxColor.BLACK);
@@ -202,6 +194,12 @@ class CreditsState extends MusicBeatState
 		if (FlxG.sound.music.volume < 0.7)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+		}
+		//pwease make dis code gud pwank :3
+		if (curSelected == 3) {
+			bgn.alpha = FlxMath.lerp(1, 0.95, 0.5);
+		} else {
+			bgn.alpha = FlxMath.lerp(0, 0, 0.95);
 		}
 
 		if(!quitting)
