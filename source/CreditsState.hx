@@ -196,11 +196,8 @@ class CreditsState extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 		//pwease make dis code gud pwank :3
-		if (curSelected == 3) {
-			bgn.alpha = FlxMath.lerp(1, 0.95, 0.5);
-		} else {
-			bgn.alpha = FlxMath.lerp(0, 0, 0.95);
-		}
+		// oki :3
+		bgn.alpha = FlxMath.lerp(bgn.alpha, ((curSelected == 3) ? 0.95 : 0), 0.12);
 
 		if(!quitting)
 		{
