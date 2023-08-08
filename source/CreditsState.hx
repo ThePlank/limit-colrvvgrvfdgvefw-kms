@@ -62,10 +62,13 @@ class CreditsState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
+		FlxG.camera.zoom = 0.75;
+
 		persistentUpdate = true;
 
 		var bg:FlxBackdrop = new FlxBackdrop(Paths.image('whitecubes'), XY);
 		bg.scale.set(1.4, 1.4);
+		bg.scale.add(0.25, 0.25);
 		bg.velocity.set(30, 30);
 		bg.updateHitbox();
 		bg.screenCenter();
@@ -74,6 +77,7 @@ class CreditsState extends MusicBeatState
 
 		bgn = new FlxBackdrop(Paths.image('nickcubes'), XY);
 		bgn.scale.set(1.4, 1.4);
+		bgn.scale.add(0.25, 0.25);
 		bgn.velocity.set(30, 30);
 		bgn.updateHitbox();
 		bgn.screenCenter();
@@ -83,6 +87,7 @@ class CreditsState extends MusicBeatState
 
 		bgk = new FlxBackdrop(Paths.image('keoikicubes'), XY);
 		bgk.scale.set(1.4, 1.4);
+		bgk.scale.add(0.25, 0.25);
 		bgk.velocity.set(30, 30);
 		bgk.updateHitbox();
 		bgk.screenCenter();
@@ -101,29 +106,29 @@ class CreditsState extends MusicBeatState
 
 		var saygex:Array<Array<String>> = [ //Name - Icon name - Description - Link - Antialias
 			['Skech Team'],
-			['libing',		        'theyarelimitedcolors','Director, Charter',            'https://www.youtube.com/channel/UCwH4gcjdN-gWPGunlBxAnQQ'],
-			['plankdev',	    	'plank icon real',	   'Main programmer, 3D modeler.\nMain Programmer of Hashlinked','https://twitter.com/_PlankDev'],
-			['Nick',		        'nilk',		 		   'Programmer, Artist, slave',                'discord://-/users/749249635968745502', 'true'],
-			['Flying Felt Boot',    'fefefbee',			   'Artist',								           'discord://-/users/590206534076727307'],
-			['ItsWalker412',        'gwagwalker',		   'Composer',								               'https://twitter.com/ItsWalker412'],
+			['libing',		        'theyarelimitedcolors','Director, Charter',            'https://www.youtube.com/channel/UCwH4gcjdN-gWPGunlBxAnQQ', 'true'],
+			['plankdev',	    	'plank icon real',	   'Main programmer, 3D modeler.\nMain Programmer of Hashlinked','https://twitter.com/_PlankDev', 'true'],
+			['Nick',		        'nilk',		 		   'Programmer, Artist, slave',                'discord://-/users/749249635968745502', 'false'],
+			['Flying Felt Boot',    'fefefbee',			   'Artist',								           'discord://-/users/590206534076727307', 'true'],
+			['ItsWalker412',        'gwagwalker',		   'Composer',								               'https://twitter.com/ItsWalker412', 'true'],
 			[''],
 			['Psych Engine Team'],
-			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',				          'https://twitter.com/Shadow_Mario_'],
-			['RiverOaken',			'river',			'Main Artist/Animator of Psych Engine',						 'https://twitter.com/RiverOaken'],
-			['shubs',				'shubs',			'Additional Programmer of Psych Engine',					    'https://twitter.com/yoshubs'],
+			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',				          'https://twitter.com/Shadow_Mario_', 'true'],
+			['RiverOaken',			'river',			'Main Artist/Animator of Psych Engine',						 'https://twitter.com/RiverOaken', 'true'],
+			['shubs',				'shubs',			'Additional Programmer of Psych Engine',					    'https://twitter.com/yoshubs', 'true'],
 			[''],
 			['Former Engine Members'],
-			['bb-panzu',			'bb',				'Ex-Programmer of Psych Engine',								 'https://twitter.com/bbsub3'],
+			['bb-panzu',			'bb',				'Ex-Programmer of Psych Engine',								 'https://twitter.com/bbsub3', 'true'],
 			[''],
 			['Engine Contributors'],
-			['iFlicky',				'flicky',			'Composer of Psync and Tea Time\nMade the Dialogue Sounds',    'https://twitter.com/flicky_i'],
-			['SqirraRNG',			'sqirra',			'Crash Handler and Base code for\nChart Editor\'s Waveform',   'https://twitter.com/gedehari'],
-			['EliteMasterEric',		'mastereric',		'Runtime Shaders support',							    'https://twitter.com/EliteMasterEric'],
-			['PolybiusProxy',		'proxy',			'.MP4 Video Loader Library (hxCodec)',			          'https://twitter.com/polybiusproxy'],
-			['KadeDev',				'kade',				'Fixed some cool stuff on Chart Editor\nand other PRs',		   'https://twitter.com/kade0912'],
-			['Keoiki',				'keoiki',			'Note Splash Animations',								        'https://twitter.com/Keoiki_'],
-			['Nebula the Zorua',	'nebula',			'LUA JIT Fork and some Lua reworks',					   'https://twitter.com/Nebula_Zorua'],
-			['Smokey',				'smokey',			'Sprite Atlas Support',									      'https://twitter.com/Smokey_5_']
+			['iFlicky',				'flicky',			'Composer of Psync and Tea Time\nMade the Dialogue Sounds',    'https://twitter.com/flicky_i', 'true'],
+			['SqirraRNG',			'sqirra',			'Crash Handler and Base code for\nChart Editor\'s Waveform',   'https://twitter.com/gedehari', 'true'],
+			['EliteMasterEric',		'mastereric',		'Runtime Shaders support',							    'https://twitter.com/EliteMasterEric', 'true'],
+			['PolybiusProxy',		'proxy',			'.MP4 Video Loader Library (hxCodec)',			          'https://twitter.com/polybiusproxy', 'true'],
+			['KadeDev',				'kade',				'Fixed some cool stuff on Chart Editor\nand other PRs',		   'https://twitter.com/kade0912', 'true'],
+			['Keoiki',				'keoiki',			'Note Splash Animations :keoiki:',								        'https://twitter.com/Keoiki_', 'true'],
+			['Nebula the Zorua',	'nebula',			'LUA JIT Fork and some Lua reworks',					   'https://twitter.com/Nebula_Zorua', 'true'],
+			['Smokey',				'smokey',			'Sprite Atlas Support',									      'https://twitter.com/Smokey_5_', 'true']
 		];
 		
 		for(i in saygex)
@@ -149,7 +154,7 @@ class CreditsState extends MusicBeatState
 				var icon:AttachedSprite = new AttachedSprite('credits/' + creditsStuff[i][1]);
 				icon.xAdd = optionText.width + 10;
 				icon.sprTracker = optionText;
-				icon.antialiasing = !(creditsStuff[i][4] == 'false');
+				icon.antialiasing = (creditsStuff[i][4] == 'true');
 	
 				// using a FlxGroup is too much fuss!
 				iconArray.push(icon);
@@ -200,17 +205,25 @@ class CreditsState extends MusicBeatState
 
 	var quitting:Bool = false;
 	var holdTime:Float = 0;
+	var totalDelta:Float = 0;
 	override function update(elapsed:Float)
 	{
+		totalDelta += elapsed;
 		if (FlxG.sound.music.volume < 0.7)
-		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-		}
+
 		//pwease make dis code gud pwank :3
 		// oki :3
 		//dis whowe time it was that shwimpwe?? owo thankies tho <3
 		bgn.alpha = FlxMath.lerp(bgn.alpha, ((curSelected == 3) ? 1 : 0), 0.01);
 		bgk.alpha = FlxMath.lerp(bgk.alpha, ((curSelected == 21) ? 1 : 0), 0.01);
+
+		iconArray[2].offset.x = FlxG.random.int(-5, 5);
+		iconArray[2].offset.y = FlxG.random.int(-3, 3);
+		iconArray[2].angleAdd = FlxG.random.int(-2, 2);
+
+		iconArray[1].angleAdd += 5;
+		iconArray[0].offset.y = Math.abs(Math.sin(totalDelta * 4)) * 50;
 
 		if(!quitting)
 		{
