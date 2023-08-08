@@ -47,6 +47,7 @@ class CreditsState extends MusicBeatState
 
 	var offsetThing:Float = -75;
 	var bgn:FlxBackdrop;
+	var bgk:FlxBackdrop;
 	var barrelDistortion = new BarrelDistortionShader();
 	override function create()
 	{
@@ -79,6 +80,15 @@ class CreditsState extends MusicBeatState
 		bgn.alpha = 0;
 		bgn.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bgn);
+
+		bgk = new FlxBackdrop(Paths.image('keoikicubes'), XY);
+		bgk.scale.set(1.4, 1.4);
+		bgk.velocity.set(30, 30);
+		bgk.updateHitbox();
+		bgk.screenCenter();
+		bgk.alpha = 0;
+		bgk.antialiasing = ClientPrefs.globalAntialiasing;
+		add(bgk);
 		
 		if(ClientPrefs.shaders){
 			barrelDistortion.barrelDistortion1 = -0.15;
@@ -200,6 +210,7 @@ class CreditsState extends MusicBeatState
 		// oki :3
 		//dis whowe time it was that shwimpwe?? owo thankies tho <3
 		bgn.alpha = FlxMath.lerp(bgn.alpha, ((curSelected == 3) ? 1 : 0), 0.01);
+		bgk.alpha = FlxMath.lerp(bgk.alpha, ((curSelected == 21) ? 1 : 0), 0.01);
 
 		if(!quitting)
 		{

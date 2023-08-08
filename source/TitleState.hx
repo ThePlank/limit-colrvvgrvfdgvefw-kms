@@ -189,6 +189,7 @@ class TitleState extends MusicBeatState
 
 	var logoBl:FlxSprite;
 	var titleText:FlxSprite;
+	var him:FlxSprite;
 	var swagShader:ColorSwap = null;
 
 	function startIntro()
@@ -241,6 +242,11 @@ class TitleState extends MusicBeatState
 		logoBl.cameras = [camOther];
 		swagShader = new ColorSwap();
 		add(logoBl);
+
+		him = new FlxSprite(60,  200).loadGraphic(Paths.image('himTitle'));
+		him.cameras = [camOther];
+		add(him);
+
 		logoBl.shader = swagShader.shader;
 
 		titleText = new FlxSprite(1075, 500);
