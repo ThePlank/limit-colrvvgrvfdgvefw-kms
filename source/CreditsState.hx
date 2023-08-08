@@ -197,7 +197,8 @@ class CreditsState extends MusicBeatState
 		}
 		//pwease make dis code gud pwank :3
 		// oki :3
-		bgn.alpha = FlxMath.lerp(bgn.alpha, ((curSelected == 3) ? 0.95 : 0), 0.12);
+		//dis whowe time it was that shwimpwe?? owo thankies tho <3
+		bgn.alpha = FlxMath.lerp(bgn.alpha, ((curSelected == 3) ? 1 : 0), 0.01);
 
 		if(!quitting)
 		{
