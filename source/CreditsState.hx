@@ -69,7 +69,7 @@ class CreditsState extends MusicBeatState
 		bg.velocity.set(30, 30);
 		bg.updateHitbox();
 		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.antialiasing = false;
 		add(bg);
 
 		bgn = new FlxBackdrop(Paths.image('nickcubes'), XY);
@@ -78,7 +78,7 @@ class CreditsState extends MusicBeatState
 		bgn.updateHitbox();
 		bgn.screenCenter();
 		bgn.alpha = 0;
-		bgn.antialiasing = ClientPrefs.globalAntialiasing;
+		bgn.antialiasing = false;
 		add(bgn);
 
 		bgk = new FlxBackdrop(Paths.image('keoikicubes'), XY);
@@ -101,9 +101,9 @@ class CreditsState extends MusicBeatState
 
 		var saygex:Array<Array<String>> = [ //Name - Icon name - Description - Link - Antialias
 			['Skech Team'],
-			['libing',		        'theyarelimitedcolors','Director, Charter',   'https://www.youtube.com/channel/UCwH4gcjdN-gWPGunlBxAnQQ', 'false'],
-			['plankdev',	    	'plank icon real',	   'Main programmer, 3D modeler.\nMain Programmer of Hashlinked','https://twitter.com/_PlankDev', 'true'],
-			['Nick',		        'nilk',		 		   'Programmer, Artist, slave',               'discord://-/users/749249635968745502', 'false'],
+			['libing',		        'theyarelimitedcolors','Director, Charter',            'https://www.youtube.com/channel/UCwH4gcjdN-gWPGunlBxAnQQ'],
+			['plankdev',	    	'plank icon real',	   'Main programmer, 3D modeler.\nMain Programmer of Hashlinked','https://twitter.com/_PlankDev'],
+			['Nick',		        'nilk',		 		   'Programmer, Artist, slave',                'discord://-/users/749249635968745502', 'true'],
 			['Flying Felt Boot',    'fefefbee',			   'Artist',								           'discord://-/users/590206534076727307'],
 			['ItsWalker412',        'gwagwalker',		   'Composer',								               'https://twitter.com/ItsWalker412'],
 			[''],
