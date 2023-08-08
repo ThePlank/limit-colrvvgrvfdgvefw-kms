@@ -45,8 +45,8 @@ import openfl.filters.ShaderFilter;
 #end
 
 using StringTools;
-typedef TitleData =
-{
+
+typedef TitleData = {
 
 	titlex:Float,
 	titley:Float,
@@ -55,8 +55,7 @@ typedef TitleData =
 	backgroundSprite:String,
 	bpm:Int
 }
-class TitleState extends MusicBeatState
-{
+class TitleState extends MusicBeatState {
 	public static var muteKeys:Array<FlxKey> = [FlxKey.ZERO];
 	public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
 	public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
@@ -82,8 +81,7 @@ class TitleState extends MusicBeatState
 
 	public static var updateVersion:String = '';
 
-	override public function create():Void
-	{
+	override public function create():Void {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
@@ -117,7 +115,7 @@ class TitleState extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camOther, false);
 
-		if(ClientPrefs.shaders){
+		if(ClientPrefs.shaders) {
 			barrelDistortion.barrelDistortion1 = -0.15;
 			barrelDistortion.barrelDistortion2 = -0.15;
 			camGame.setFilters([new ShaderFilter(barrelDistortion)]);
@@ -147,10 +145,8 @@ class TitleState extends MusicBeatState
 		// IGNORE THIS!!!
 		titleJSON = Json.parse(Paths.getTextFromFile('images/gfDanceTitle.json'));
 
-		if(!initialized)
-		{
-			if(FlxG.save.data != null && FlxG.save.data.fullscreen)
-			{
+		if(!initialized) {
+			if(FlxG.save.data != null && FlxG.save.data.fullscreen) {
 				FlxG.fullscreen = FlxG.save.data.fullscreen;
 				//trace('LOADED FULLSCREEN SETTING!!');
 			}
@@ -158,8 +154,7 @@ class TitleState extends MusicBeatState
 			persistentDraw = true;
 		}
 
-		if (FlxG.save.data.weekCompleted != null)
-		{
+		if (FlxG.save.data.weekCompleted != null) {
 			StoryMenuState.weekCompleted = FlxG.save.data.weekCompleted;
 		}
 
@@ -176,10 +171,8 @@ class TitleState extends MusicBeatState
 		} else {
 			if (initialized)
 				startIntro();
-			else
-			{
-				new FlxTimer().start(1, function(tmr:FlxTimer)
-				{
+			else {
+				new FlxTimer().start(1, function(tmr:FlxTimer) {
 					startIntro();
 				});
 			}
@@ -192,10 +185,8 @@ class TitleState extends MusicBeatState
 	var him:FlxSprite;
 	var swagShader:ColorSwap = null;
 
-	function startIntro()
-	{
-		if (!initialized)
-		{
+	function startIntro() {
+		if (!initialized) {
 			/*var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
 			diamond.persist = true;
 			diamond.destroyOnNoUse = false;
@@ -315,15 +306,13 @@ class TitleState extends MusicBeatState
 
 	}
 
-	function getIntroTextShit():Array<Array<String>>
-	{
+	function getIntroTextShit():Array<Array<String>> {
 		var fullText:String = Assets.getText(Paths.txt('introText'));
 
 		var firstArray:Array<String> = fullText.split('\n');
 		var swagGoodArray:Array<Array<String>> = [];
 
-		for (i in firstArray)
-		{
+		for (i in firstArray) {
 			swagGoodArray.push(i.split('--'));
 		}
 
@@ -333,23 +322,12 @@ class TitleState extends MusicBeatState
 	var transitioning:Bool = false;
 	private static var playJingle:Bool = false;
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
 
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
-
-		#if mobile
-		for (touch in FlxG.touches.list)
-		{
-			if (touch.justPressed)
-			{
-				pressedEnter = true;
-			}
-		}
-		#end
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -383,13 +361,11 @@ class TitleState extends MusicBeatState
 			}
 		}
 
-		if (initialized && pressedEnter && !skippedIntro)
-		{
+		if (initialized && pressedEnter && !skippedIntro) {
 			skipIntro();
 		}
 
-		if(swagShader != null)
-		{
+		if(swagShader != null) {
 			if(controls.UI_LEFT) swagShader.hue -= elapsed * 0.1;
 			if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
 		}
@@ -434,14 +410,12 @@ class TitleState extends MusicBeatState
 
 	private var sickBeats:Int = 0; //Basically curBeat but won't be skipped if you hold the tab or resize the screen
 	public static var closedState:Bool = false;
-	override function beatHit()
-	{
+	override function beatHit() {
 		super.beatHit();
 
 		if(!closedState) {
 			sickBeats++;
-			switch (sickBeats)
-			{
+			switch (sickBeats) {
 				case 1:
 					//FlxG.sound.music.stop();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
@@ -514,11 +488,8 @@ class TitleState extends MusicBeatState
 
 	var skippedIntro:Bool = false;
 	var increaseVolume:Bool = false;
-	function skipIntro():Void
-	{
-		if (!skippedIntro)
-		{
-			{
+	function skipIntro():Void {
+		if (!skippedIntro) { {
 				remove(ngSpr);
 				remove(credGroup);
 				camOther.flash(FlxColor.WHITE, 4);

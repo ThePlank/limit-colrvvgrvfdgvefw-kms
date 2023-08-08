@@ -1,78 +1,78 @@
 {
 	"animations": [
 		{
-			"loop": false,
+			"indices": [],
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
 			"fps": 24,
-			"name": "him-idle",
-			"indices": []
+			"anim": "idle",
+			"loop": false,
+			"name": "him-idle"
 		},
 		{
-			"loop": false,
+			"indices": [],
 			"offsets": [
 				134,
 				20
 			],
-			"anim": "singLEFT",
 			"fps": 24,
-			"name": "him-left",
-			"indices": []
+			"anim": "singLEFT",
+			"loop": false,
+			"name": "him-left"
 		},
 		{
-			"loop": false,
+			"indices": [],
 			"offsets": [
 				-5,
 				-87
 			],
-			"anim": "singDOWN",
 			"fps": 24,
-			"name": "him-down",
-			"indices": []
+			"anim": "singDOWN",
+			"loop": false,
+			"name": "him-down"
 		},
 		{
-			"loop": false,
+			"indices": [],
 			"offsets": [
 				42,
 				101
 			],
-			"anim": "singUP",
 			"fps": 24,
-			"name": "him-up",
-			"indices": []
+			"anim": "singUP",
+			"loop": false,
+			"name": "him-up"
 		},
 		{
-			"loop": false,
+			"indices": [],
 			"offsets": [
-				4,
+				-16,
 				-12
 			],
-			"anim": "singRIGHT",
 			"fps": 24,
-			"name": "him-right",
-			"indices": []
+			"anim": "singRIGHT",
+			"loop": false,
+			"name": "him-right"
 		}
 	],
-	"no_antialiasing": false,
-	"image": "characters/him",
-	"position": [
-		-20,
-		-60
+	"camera_position": [
+		150,
+		90
 	],
-	"healthicon": "face",
 	"flip_x": false,
 	"healthbar_colors": [
 		255,
 		255,
 		255
 	],
-	"camera_position": [
-		150,
-		90
+	"healthicon": "face",
+	"image": "characters/him",
+	"no_antialiasing": false,
+	"position": [
+		-20,
+		-60
 	],
-	"sing_duration": 6.1,
-	"scale": 0.7
+	"scale": 0.7,
+	"sing_duration": 6.1
 }
