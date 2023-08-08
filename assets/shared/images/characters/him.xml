@@ -1,80 +1,80 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TextureAtlas imagePath="him.png">
-	<!-- Created with Adobe Animate version 18.0.2.126 -->
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="him-down instance 10000" x="2770" y="4190" width="653" height="902"/>
-	<SubTexture name="him-down instance 10001" x="2770" y="4190" width="653" height="902"/>
-	<SubTexture name="him-down instance 10002" x="3412" y="2122" width="653" height="902"/>
-	<SubTexture name="him-down instance 10003" x="3412" y="2122" width="653" height="902"/>
-	<SubTexture name="him-down instance 10004" x="3412" y="3034" width="653" height="902"/>
-	<SubTexture name="him-down instance 10005" x="3412" y="3034" width="653" height="902"/>
-	<SubTexture name="him-down instance 10006" x="3433" y="3946" width="653" height="902"/>
-	<SubTexture name="him-down instance 10007" x="3433" y="3946" width="653" height="902"/>
-	<SubTexture name="him-down instance 10008" x="3433" y="3946" width="653" height="902"/>
-	<SubTexture name="him-down instance 10009" x="3433" y="3946" width="653" height="902"/>
-	<SubTexture name="him-down instance 10010" x="3433" y="3946" width="653" height="902"/>
-	<SubTexture name="him-down instance 10011" x="3433" y="3946" width="653" height="902"/>
-	<SubTexture name="him-down instance 10012" x="3433" y="3946" width="653" height="902"/>
-	<SubTexture name="him-down instance 10013" x="3433" y="3946" width="653" height="902"/>
-	<SubTexture name="him-down instance 10014" x="3433" y="3946" width="653" height="902"/>
-	<SubTexture name="him-idle instance 10000" x="1460" y="2030" width="632" height="1024"/>
-	<SubTexture name="him-idle instance 10001" x="1460" y="2030" width="632" height="1024"/>
-	<SubTexture name="him-idle instance 10002" x="2102" y="2030" width="632" height="1024"/>
-	<SubTexture name="him-idle instance 10003" x="2102" y="2030" width="632" height="1024"/>
-	<SubTexture name="him-idle instance 10004" x="1486" y="3064" width="632" height="1024"/>
-	<SubTexture name="him-idle instance 10005" x="1486" y="3064" width="632" height="1024"/>
-	<SubTexture name="him-idle instance 10006" x="1486" y="4098" width="632" height="1024"/>
-	<SubTexture name="him-idle instance 10007" x="1486" y="4098" width="632" height="1024"/>
-	<SubTexture name="him-idle instance 10008" x="2128" y="3064" width="632" height="1024"/>
-	<SubTexture name="him-idle instance 10009" x="2128" y="4098" width="632" height="1024"/>
-	<SubTexture name="him-idle instance 10010" x="2770" y="2122" width="632" height="1024"/>
-	<SubTexture name="him-idle instance 10011" x="2770" y="3156" width="632" height="1024"/>
-	<SubTexture name="him-idle instance 10012" x="2770" y="3156" width="632" height="1024"/>
-	<SubTexture name="him-idle instance 10013" x="2770" y="3156" width="632" height="1024"/>
-	<SubTexture name="him-idle instance 10014" x="2770" y="3156" width="632" height="1024"/>
-	<SubTexture name="him-left instance 10000" x="3030" y="0" width="733" height="1051"/>
-	<SubTexture name="him-left instance 10001" x="3030" y="0" width="733" height="1051"/>
-	<SubTexture name="him-left instance 10002" x="0" y="3537" width="733" height="1051"/>
-	<SubTexture name="him-left instance 10003" x="0" y="3537" width="733" height="1051"/>
-	<SubTexture name="him-left instance 10004" x="717" y="2358" width="733" height="1051"/>
-	<SubTexture name="him-left instance 10005" x="717" y="2358" width="733" height="1051"/>
-	<SubTexture name="him-left instance 10006" x="3030" y="1061" width="733" height="1051"/>
-	<SubTexture name="him-left instance 10007" x="3030" y="1061" width="733" height="1051"/>
-	<SubTexture name="him-left instance 10008" x="743" y="3419" width="733" height="1051"/>
-	<SubTexture name="him-left instance 10009" x="743" y="3419" width="733" height="1051"/>
-	<SubTexture name="him-left instance 10010" x="743" y="3419" width="733" height="1051"/>
-	<SubTexture name="him-left instance 10011" x="743" y="3419" width="733" height="1051"/>
-	<SubTexture name="him-left instance 10012" x="743" y="3419" width="733" height="1051"/>
-	<SubTexture name="him-left instance 10013" x="743" y="3419" width="733" height="1051"/>
-	<SubTexture name="him-left instance 10014" x="743" y="3419" width="733" height="1051"/>
-	<SubTexture name="him-right instance 10000" x="1434" y="0" width="788" height="1005"/>
-	<SubTexture name="him-right instance 10001" x="1434" y="0" width="788" height="1005"/>
-	<SubTexture name="him-right instance 10002" x="1434" y="1015" width="788" height="1005"/>
-	<SubTexture name="him-right instance 10003" x="1434" y="1015" width="788" height="1005"/>
-	<SubTexture name="him-right instance 10004" x="2232" y="0" width="788" height="1005"/>
-	<SubTexture name="him-right instance 10005" x="2232" y="0" width="788" height="1005"/>
-	<SubTexture name="him-right instance 10006" x="2232" y="1015" width="788" height="1005"/>
-	<SubTexture name="him-right instance 10007" x="2232" y="1015" width="788" height="1005"/>
-	<SubTexture name="him-right instance 10008" x="2232" y="1015" width="788" height="1005"/>
-	<SubTexture name="him-right instance 10009" x="2232" y="1015" width="788" height="1005"/>
-	<SubTexture name="him-right instance 10010" x="2232" y="1015" width="788" height="1005"/>
-	<SubTexture name="him-right instance 10011" x="2232" y="1015" width="788" height="1005"/>
-	<SubTexture name="him-right instance 10012" x="2232" y="1015" width="788" height="1005"/>
-	<SubTexture name="him-right instance 10013" x="2232" y="1015" width="788" height="1005"/>
-	<SubTexture name="him-right instance 10014" x="2232" y="1015" width="788" height="1005"/>
-	<SubTexture name="him-up instance 10000" x="0" y="0" width="707" height="1169"/>
-	<SubTexture name="him-up instance 10001" x="0" y="0" width="707" height="1169"/>
-	<SubTexture name="him-up instance 10002" x="0" y="1179" width="707" height="1169"/>
-	<SubTexture name="him-up instance 10003" x="0" y="1179" width="707" height="1169"/>
-	<SubTexture name="him-up instance 10004" x="717" y="0" width="707" height="1169"/>
-	<SubTexture name="him-up instance 10005" x="717" y="0" width="707" height="1169"/>
-	<SubTexture name="him-up instance 10006" x="0" y="2358" width="707" height="1169"/>
-	<SubTexture name="him-up instance 10007" x="0" y="2358" width="707" height="1169"/>
-	<SubTexture name="him-up instance 10008" x="717" y="1179" width="707" height="1169"/>
-	<SubTexture name="him-up instance 10009" x="717" y="1179" width="707" height="1169"/>
-	<SubTexture name="him-up instance 10010" x="717" y="1179" width="707" height="1169"/>
-	<SubTexture name="him-up instance 10011" x="717" y="1179" width="707" height="1169"/>
-	<SubTexture name="him-up instance 10012" x="717" y="1179" width="707" height="1169"/>
-	<SubTexture name="him-up instance 10013" x="717" y="1179" width="707" height="1169"/>
-	<SubTexture name="him-up instance 10014" x="717" y="1179" width="707" height="1169"/>
+	<SubTexture name="him-down0000" x="3451" y="4077" width="650" height="890" frameX="0" frameY="-12" frameWidth="653" frameHeight="902"/>
+	<SubTexture name="him-down0001" x="3451" y="4077" width="650" height="890" frameX="0" frameY="-12" frameWidth="653" frameHeight="902"/>
+	<SubTexture name="him-down0002" x="3509" y="2065" width="645" height="902" frameX="-8" frameY="0" frameWidth="653" frameHeight="902"/>
+	<SubTexture name="him-down0003" x="3509" y="2065" width="645" height="902" frameX="-8" frameY="0" frameWidth="653" frameHeight="902"/>
+	<SubTexture name="him-down0004" x="2167" y="3060" width="645" height="897" frameX="-8" frameY="-5" frameWidth="653" frameHeight="902"/>
+	<SubTexture name="him-down0005" x="2167" y="3060" width="645" height="897" frameX="-8" frameY="-5" frameWidth="653" frameHeight="902"/>
+	<SubTexture name="him-down0006" x="2796" y="4076" width="645" height="897" frameX="-8" frameY="-5" frameWidth="653" frameHeight="902"/>
+	<SubTexture name="him-down0007" x="2796" y="4076" width="645" height="897" frameX="-8" frameY="-5" frameWidth="653" frameHeight="902"/>
+	<SubTexture name="him-down0008" x="2796" y="4076" width="645" height="897" frameX="-8" frameY="-5" frameWidth="653" frameHeight="902"/>
+	<SubTexture name="him-down0009" x="2796" y="4076" width="645" height="897" frameX="-8" frameY="-5" frameWidth="653" frameHeight="902"/>
+	<SubTexture name="him-down0010" x="2796" y="4076" width="645" height="897" frameX="-8" frameY="-5" frameWidth="653" frameHeight="902"/>
+	<SubTexture name="him-down0011" x="2796" y="4076" width="645" height="897" frameX="-8" frameY="-5" frameWidth="653" frameHeight="902"/>
+	<SubTexture name="him-down0012" x="2796" y="4076" width="645" height="897" frameX="-8" frameY="-5" frameWidth="653" frameHeight="902"/>
+	<SubTexture name="him-down0013" x="2796" y="4076" width="645" height="897" frameX="-8" frameY="-5" frameWidth="653" frameHeight="902"/>
+	<SubTexture name="him-down0014" x="2796" y="4076" width="645" height="897" frameX="-8" frameY="-5" frameWidth="653" frameHeight="902"/>
+	<SubTexture name="him-idle0000" x="2167" y="4076" width="619" height="979" frameX="-6" frameY="-45" frameWidth="632" frameHeight="1024"/>
+	<SubTexture name="him-idle0001" x="2167" y="4076" width="619" height="979" frameX="-6" frameY="-45" frameWidth="632" frameHeight="1024"/>
+	<SubTexture name="him-idle0002" x="2173" y="0" width="632" height="987" frameX="0" frameY="-37" frameWidth="632" frameHeight="1024"/>
+	<SubTexture name="him-idle0003" x="2173" y="0" width="632" height="987" frameX="0" frameY="-37" frameWidth="632" frameHeight="1024"/>
+	<SubTexture name="him-idle0004" x="2890" y="3046" width="607" height="1020" frameX="-13" frameY="-4" frameWidth="632" frameHeight="1024"/>
+	<SubTexture name="him-idle0005" x="2890" y="3046" width="607" height="1020" frameX="-13" frameY="-4" frameWidth="632" frameHeight="1024"/>
+	<SubTexture name="him-idle0006" x="2890" y="2015" width="609" height="1021" frameX="-14" frameY="-3" frameWidth="632" frameHeight="1024"/>
+	<SubTexture name="him-idle0007" x="2890" y="2015" width="609" height="1021" frameX="-14" frameY="-3" frameWidth="632" frameHeight="1024"/>
+	<SubTexture name="him-idle0008" x="2898" y="0" width="606" height="1024" frameX="-13" frameY="0" frameWidth="632" frameHeight="1024"/>
+	<SubTexture name="him-idle0009" x="3507" y="3046" width="606" height="1021" frameX="-13" frameY="-3" frameWidth="632" frameHeight="1024"/>
+	<SubTexture name="him-idle0010" x="3509" y="1034" width="604" height="1021" frameX="-13" frameY="-3" frameWidth="632" frameHeight="1024"/>
+	<SubTexture name="him-idle0011" x="3514" y="0" width="604" height="1021" frameX="-13" frameY="-3" frameWidth="632" frameHeight="1024"/>
+	<SubTexture name="him-idle0012" x="3514" y="0" width="604" height="1021" frameX="-13" frameY="-3" frameWidth="632" frameHeight="1024"/>
+	<SubTexture name="him-idle0013" x="3514" y="0" width="604" height="1021" frameX="-13" frameY="-3" frameWidth="632" frameHeight="1024"/>
+	<SubTexture name="him-idle0014" x="3514" y="0" width="604" height="1021" frameX="-13" frameY="-3" frameWidth="632" frameHeight="1024"/>
+	<SubTexture name="him-left0000" x="707" y="1159" width="721" height="1051" frameX="0" frameY="0" frameWidth="733" frameHeight="1051"/>
+	<SubTexture name="him-left0001" x="707" y="1159" width="721" height="1051" frameX="0" frameY="0" frameWidth="733" frameHeight="1051"/>
+	<SubTexture name="him-left0002" x="1438" y="1015" width="713" height="1035" frameX="-20" frameY="-16" frameWidth="733" frameHeight="1051"/>
+	<SubTexture name="him-left0003" x="1438" y="1015" width="713" height="1035" frameX="-20" frameY="-16" frameWidth="733" frameHeight="1051"/>
+	<SubTexture name="him-left0004" x="1430" y="2220" width="713" height="1049" frameX="-20" frameY="-2" frameWidth="733" frameHeight="1051"/>
+	<SubTexture name="him-left0005" x="1430" y="2220" width="713" height="1049" frameX="-20" frameY="-2" frameWidth="733" frameHeight="1051"/>
+	<SubTexture name="him-left0006" x="707" y="2220" width="713" height="1051" frameX="-20" frameY="0" frameWidth="733" frameHeight="1051"/>
+	<SubTexture name="him-left0007" x="707" y="2220" width="713" height="1051" frameX="-20" frameY="0" frameWidth="733" frameHeight="1051"/>
+	<SubTexture name="him-left0008" x="707" y="3281" width="713" height="1050" frameX="-20" frameY="-1" frameWidth="733" frameHeight="1051"/>
+	<SubTexture name="him-left0009" x="707" y="3281" width="713" height="1050" frameX="-20" frameY="-1" frameWidth="733" frameHeight="1051"/>
+	<SubTexture name="him-left0010" x="707" y="3281" width="713" height="1050" frameX="-20" frameY="-1" frameWidth="733" frameHeight="1051"/>
+	<SubTexture name="him-left0011" x="707" y="3281" width="713" height="1050" frameX="-20" frameY="-1" frameWidth="733" frameHeight="1051"/>
+	<SubTexture name="him-left0012" x="707" y="3281" width="713" height="1050" frameX="-20" frameY="-1" frameWidth="733" frameHeight="1051"/>
+	<SubTexture name="him-left0013" x="707" y="3281" width="713" height="1050" frameX="-20" frameY="-1" frameWidth="733" frameHeight="1051"/>
+	<SubTexture name="him-left0014" x="707" y="3281" width="713" height="1050" frameX="-20" frameY="-1" frameWidth="733" frameHeight="1051"/>
+	<SubTexture name="him-right0000" x="1410" y="0" width="753" height="1005" frameX="-2" frameY="0" frameWidth="755" frameHeight="1005"/>
+	<SubTexture name="him-right0001" x="1410" y="0" width="753" height="1005" frameX="-2" frameY="0" frameWidth="755" frameHeight="1005"/>
+	<SubTexture name="him-right0002" x="1430" y="3279" width="727" height="994" frameX="0" frameY="-11" frameWidth="755" frameHeight="1005"/>
+	<SubTexture name="him-right0003" x="1430" y="3279" width="727" height="994" frameX="0" frameY="-11" frameWidth="755" frameHeight="1005"/>
+	<SubTexture name="him-right0004" x="2153" y="2060" width="727" height="990" frameX="0" frameY="-15" frameWidth="755" frameHeight="1005"/>
+	<SubTexture name="him-right0005" x="2153" y="2060" width="727" height="990" frameX="0" frameY="-15" frameWidth="755" frameHeight="1005"/>
+	<SubTexture name="him-right0006" x="2161" y="1015" width="727" height="990" frameX="0" frameY="-15" frameWidth="755" frameHeight="1005"/>
+	<SubTexture name="him-right0007" x="2161" y="1015" width="727" height="990" frameX="0" frameY="-15" frameWidth="755" frameHeight="1005"/>
+	<SubTexture name="him-right0008" x="2161" y="1015" width="727" height="990" frameX="0" frameY="-15" frameWidth="755" frameHeight="1005"/>
+	<SubTexture name="him-right0009" x="2161" y="1015" width="727" height="990" frameX="0" frameY="-15" frameWidth="755" frameHeight="1005"/>
+	<SubTexture name="him-right0010" x="2161" y="1015" width="727" height="990" frameX="0" frameY="-15" frameWidth="755" frameHeight="1005"/>
+	<SubTexture name="him-right0011" x="2161" y="1015" width="727" height="990" frameX="0" frameY="-15" frameWidth="755" frameHeight="1005"/>
+	<SubTexture name="him-right0012" x="2161" y="1015" width="727" height="990" frameX="0" frameY="-15" frameWidth="755" frameHeight="1005"/>
+	<SubTexture name="him-right0013" x="2161" y="1015" width="727" height="990" frameX="0" frameY="-15" frameWidth="755" frameHeight="1005"/>
+	<SubTexture name="him-right0014" x="2161" y="1015" width="727" height="990" frameX="0" frameY="-15" frameWidth="755" frameHeight="1005"/>
+	<SubTexture name="him-up0000" x="0" y="0" width="693" height="1167" frameX="-14" frameY="0" frameWidth="707" frameHeight="1168"/>
+	<SubTexture name="him-up0001" x="0" y="0" width="693" height="1167" frameX="-14" frameY="0" frameWidth="707" frameHeight="1168"/>
+	<SubTexture name="him-up0002" x="0" y="1177" width="697" height="1151" frameX="0" frameY="-17" frameWidth="707" frameHeight="1168"/>
+	<SubTexture name="him-up0003" x="0" y="1177" width="697" height="1151" frameX="0" frameY="-17" frameWidth="707" frameHeight="1168"/>
+	<SubTexture name="him-up0004" x="703" y="0" width="697" height="1149" frameX="0" frameY="-19" frameWidth="707" frameHeight="1168"/>
+	<SubTexture name="him-up0005" x="703" y="0" width="697" height="1149" frameX="0" frameY="-19" frameWidth="707" frameHeight="1168"/>
+	<SubTexture name="him-up0006" x="0" y="2338" width="697" height="1146" frameX="0" frameY="-22" frameWidth="707" frameHeight="1168"/>
+	<SubTexture name="him-up0007" x="0" y="2338" width="697" height="1146" frameX="0" frameY="-22" frameWidth="707" frameHeight="1168"/>
+	<SubTexture name="him-up0008" x="0" y="3494" width="697" height="1146" frameX="0" frameY="-22" frameWidth="707" frameHeight="1168"/>
+	<SubTexture name="him-up0009" x="0" y="3494" width="697" height="1146" frameX="0" frameY="-22" frameWidth="707" frameHeight="1168"/>
+	<SubTexture name="him-up0010" x="0" y="3494" width="697" height="1146" frameX="0" frameY="-22" frameWidth="707" frameHeight="1168"/>
+	<SubTexture name="him-up0011" x="0" y="3494" width="697" height="1146" frameX="0" frameY="-22" frameWidth="707" frameHeight="1168"/>
+	<SubTexture name="him-up0012" x="0" y="3494" width="697" height="1146" frameX="0" frameY="-22" frameWidth="707" frameHeight="1168"/>
+	<SubTexture name="him-up0013" x="0" y="3494" width="697" height="1146" frameX="0" frameY="-22" frameWidth="707" frameHeight="1168"/>
+	<SubTexture name="him-up0014" x="0" y="3494" width="697" height="1146" frameX="0" frameY="-22" frameWidth="707" frameHeight="1168"/>
 </TextureAtlas>
