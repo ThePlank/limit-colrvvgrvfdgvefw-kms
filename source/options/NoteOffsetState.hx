@@ -19,7 +19,6 @@ using StringTools;
 class NoteOffsetState extends MusicBeatState
 {
 	var boyfriend:Character;
-	var gf:Character;
 
 	public var camHUD:FlxCamera;
 	public var camGame:FlxCamera;
@@ -86,15 +85,9 @@ class NoteOffsetState extends MusicBeatState
 			add(stageCurtains);
 		}
 
-		// Characters
-		gf = new Character(400, 130, 'gf');
-		gf.x += gf.positionArray[0];
-		gf.y += gf.positionArray[1];
-		gf.scrollFactor.set(0.95, 0.95);
 		boyfriend = new Character(770, 100, 'bf', true);
 		boyfriend.x += boyfriend.positionArray[0];
 		boyfriend.y += boyfriend.positionArray[1];
-		add(gf);
 		add(boyfriend);
 
 		// Combo stuff
@@ -355,6 +348,7 @@ class NoteOffsetState extends MusicBeatState
 
 			persistentUpdate = false;
 			CustomFadeTransition.nextCamera = camOther;
+			OptionsState.canClick = true;
 			MusicBeatState.switchState(new options.OptionsState());
 			FlxG.sound.playMusic(Paths.music('freakyMenu'), 1, true);
 			FlxG.mouse.visible = false;
@@ -378,7 +372,6 @@ class NoteOffsetState extends MusicBeatState
 		if(curBeat % 2 == 0)
 		{
 			boyfriend.dance();
-			gf.dance();
 		}
 		
 		if(curBeat % 4 == 2)

@@ -160,10 +160,21 @@ class OptionsState extends MusicBeatState
 		if (controls.ACCEPT) {
 			canClick = false;
 			openSelectedSubstate(options[curSelected]);
-			for (item in grpOptions.members) {
-				item.visible = false;
-				selectorLeft.visible = false;
-				selectorRight.visible = false;
+			//please don't kill me for this plank
+			if (curSelected == 1) {
+				new FlxTimer().start(1, function(tmr:FlxTimer) { 
+					for (item in grpOptions.members) {
+						item.visible = false;
+						selectorLeft.visible = false;
+						selectorRight.visible = false;
+					} 
+				});
+			} else {
+				for (item in grpOptions.members) {
+					item.visible = false;
+					selectorLeft.visible = false;
+					selectorRight.visible = false;
+				}
 			}
 		} else {
 			canClick = true;
