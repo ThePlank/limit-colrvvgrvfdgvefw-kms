@@ -68,7 +68,7 @@ class CreditsState extends MusicBeatState
 
 		var bg:FlxBackdrop = new FlxBackdrop(Paths.image('whitecubes'), XY);
 		bg.scale.set(1.4, 1.4);
-		bg.scale.add(0.25, 0.25);
+		bg.scale.add(0.65, 0.65);
 		bg.velocity.set(30, 30);
 		bg.updateHitbox();
 		bg.screenCenter();
@@ -77,7 +77,7 @@ class CreditsState extends MusicBeatState
 
 		bgn = new FlxBackdrop(Paths.image('nickcubes'), XY);
 		bgn.scale.set(1.4, 1.4);
-		bgn.scale.add(0.25, 0.25);
+		bgn.scale.add(0.65, 0.65);
 		bgn.velocity.set(30, 30);
 		bgn.updateHitbox();
 		bgn.screenCenter();
@@ -87,7 +87,7 @@ class CreditsState extends MusicBeatState
 
 		bgk = new FlxBackdrop(Paths.image('keoikicubes'), XY);
 		bgk.scale.set(1.4, 1.4);
-		bgk.scale.add(0.25, 0.25);
+		bgk.scale.add(0.65, 0.65);
 		bgk.velocity.set(30, 30);
 		bgk.updateHitbox();
 		bgk.screenCenter();

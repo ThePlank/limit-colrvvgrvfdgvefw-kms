@@ -228,36 +228,29 @@ class MainMenuState extends MusicBeatState
 		}
 
 
-		if (!selectedSomethin)
-		{
-			if (controls.UI_LEFT_P)
-			{
+		if (!selectedSomethin) {
+			if (controls.UI_LEFT_P) {
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(-1);
 			}
 
-			if (controls.UI_RIGHT_P)
-			{
+			if (controls.UI_RIGHT_P) {
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
 			}
 
-			if (controls.BACK)
-			{
+			if (controls.BACK) {
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
 			}
 
-			if (controls.ACCEPT)
-			{
+			if (controls.ACCEPT) {
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 
-				menuItems.forEach(function(spr:FlxSprite)
-				{
-					if (curSelected != spr.ID)
-					{
+				menuItems.forEach(function(spr:FlxSprite) {
+					if (curSelected != spr.ID) {
 						FlxTween.tween(spr, {alpha: 0}, 0.4, {
 							ease: FlxEase.quadOut,
 							onComplete: function(twn:FlxTween)
@@ -265,14 +258,10 @@ class MainMenuState extends MusicBeatState
 								spr.kill();
 							}
 						});
-					}
-					else
-					{
-						FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
-						{
+					} else {
+						new FlxTimer().start(1, function(tmr:FlxTimer) {
 							var daChoice:String = optionShit[curSelected].name;
-							switch (daChoice)
-							{
+							switch (daChoice) {
 								case 'play':
 									MusicBeatState.switchState(new DemoLoadState());
 								case 'credits':
@@ -288,8 +277,7 @@ class MainMenuState extends MusicBeatState
 				});	
 			}
 			#if desktop
-			else if (FlxG.keys.anyJustPressed(debugKeys))
-			{
+			else if (FlxG.keys.anyJustPressed(debugKeys)) {
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
@@ -299,8 +287,7 @@ class MainMenuState extends MusicBeatState
 		super.update(elapsed);
 	}
 
-	function changeItem(huh:Int = 0)
-	{
+	function changeItem(huh:Int = 0) {
 		curSelected += huh;
 
 		if (curSelected >= menuItems.length)
@@ -308,13 +295,11 @@ class MainMenuState extends MusicBeatState
 		if (curSelected < 0)
 			curSelected = menuItems.length - 1;
 
-		menuItems.forEach(function(spr:FlxSprite)
-		{
+		menuItems.forEach(function(spr:FlxSprite) {
 			spr.animation.play('idle');
 			spr.updateHitbox();
 
-			if (spr.ID == curSelected)
-			{
+			if (spr.ID == curSelected) {
 				spr.animation.play('selected');
 				var add:Float = 0;
 				if(menuItems.length > 4) {

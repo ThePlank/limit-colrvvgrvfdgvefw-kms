@@ -272,7 +272,7 @@ class TitleState extends MusicBeatState
 
 		var eventThing2:FlxBackdrop = new FlxBackdrop(Paths.image('eventThing'), X);
 		eventThing2.velocity.set(-30, 0);
-		eventThing2.y = 590;
+		eventThing2.y = 610;
 		eventThing2.updateHitbox();
 		eventThing2.color = 0xFF000000;
 		eventThing2.antialiasing = ClientPrefs.globalAntialiasing;
