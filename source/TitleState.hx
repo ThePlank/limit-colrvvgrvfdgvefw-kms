@@ -227,7 +227,7 @@ class TitleState extends MusicBeatState
 
 		var bg:FlxBackdrop = new FlxBackdrop(Paths.image('cubes'), XY);
 		bg.scale.set(1.4, 1.4);
-		bg.velocity.set(30, 30);
+		bg.velocity.set(10, 10);
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.useFramePixels = true;
@@ -259,6 +259,25 @@ class TitleState extends MusicBeatState
 		titleText.animation.play('idle');
 		titleText.updateHitbox();
 		add(titleText);
+
+		var eventThing:FlxBackdrop = new FlxBackdrop(Paths.image('eventThing'), X);
+		eventThing.velocity.set(30, 0);
+		eventThing.offset.set(0, 0);
+		eventThing.flipY = true;
+		eventThing.updateHitbox();
+		eventThing.color = 0xFF000000;
+		eventThing.antialiasing = ClientPrefs.globalAntialiasing;
+		eventThing.cameras = [camGame];
+		add(eventThing);
+
+		var eventThing2:FlxBackdrop = new FlxBackdrop(Paths.image('eventThing'), X);
+		eventThing2.velocity.set(-30, 0);
+		eventThing2.y = 590;
+		eventThing2.updateHitbox();
+		eventThing2.color = 0xFF000000;
+		eventThing2.antialiasing = ClientPrefs.globalAntialiasing;
+		eventThing2.cameras = [camGame];
+		add(eventThing2);
 
 		credGroup = new FlxGroup();
 		add(credGroup);
