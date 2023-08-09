@@ -1949,15 +1949,19 @@ class PlayState extends MusicBeatState
 		if (health > 2)
 			health = 2;
 
-		if (healthBar.percent < 20)
+		if (healthBar.percent < 20) {
 			iconP1.animation.curAnim.curFrame = 1;
-		else
-			iconP1.animation.curAnim.curFrame = 0;
+	    	iconP1.offset.x = FlxG.random.int(-3, 3);
+		    iconP1.offset.y = FlxG.random.int(-1, 0);
+		    iconP1.angle = FlxG.random.int(-2, 2);
+		} else iconP1.animation.curAnim.curFrame = 0;
 
-		if (healthBar.percent > 80)
+		if (healthBar.percent > 80) {
 			iconP2.animation.curAnim.curFrame = 1;
-		else
-			iconP2.animation.curAnim.curFrame = 0;
+			iconP2.offset.x = FlxG.random.int(-3, 3);
+		    iconP2.offset.y = FlxG.random.int(-1, 0);
+		    iconP2.angle = FlxG.random.int(-2, 2);
+		} else iconP2.animation.curAnim.curFrame = 0;
 
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
@@ -2331,23 +2335,15 @@ class PlayState extends MusicBeatState
 					case 1, 2:
 						if(val1 == 1) {
 							moveCamera(true);
-							// FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 150 += dad.cameraPosition[0] + opponentCameraOffset[0]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
-							// FlxTween.tween(camFollow, {y: dad.getMidpoint().y - 100 += dad.cameraPosition[1] + opponentCameraOffset[1]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
 						}
-						if(val1 == 2) {
+						default:
 							moveCamera(false);
-							// FlxTween.tween(camFollow, {x: boyfriend.getMidpoint().x - 100 -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
-							// FlxTween.tween(camFollow, {y: boyfriend.getMidpoint().y - 100 += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
-						}
 				}
 
 				switch(Std.parseInt(value2)) {
 					case 1:
 						if(val2 == 1) {
 							isCameraOnForcedPos = true;
-						}
-						if(val2 == 2) {
-							isCameraOnForcedPos = false;
 						}
 					default:
 						isCameraOnForcedPos = false;
