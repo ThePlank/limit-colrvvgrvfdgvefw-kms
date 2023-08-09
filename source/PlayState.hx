@@ -519,11 +519,6 @@ class PlayState extends MusicBeatState
 				front.antialiasing = ClientPrefs.globalAntialiasing;
 				front.updateHitbox();
 				add(front);
-
-				var overlay:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('stage/placeholderOverlay'));
-				overlay.scrollFactor.set(0, 0);
-				overlay.blend = HARDLIGHT;
-				add(overlay);
 		}
 
 		if(isPixelStage) {
