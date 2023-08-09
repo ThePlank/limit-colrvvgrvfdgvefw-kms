@@ -180,7 +180,7 @@ class PauseSubState extends MusicBeatSubstate {
 	}
 
 	public static function restartSong() {
-		PlayState.instance.paused = true;
+		// PlayState.instance.paused = true;
 		FlxG.sound.music.volume = 0;
 		PlayState.instance.vocals.volume = 0;
 

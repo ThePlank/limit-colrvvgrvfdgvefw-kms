@@ -2814,6 +2814,16 @@
 				"sectionBeats": 4,
 				"sectionNotes": [],
 				"typeOfSection": 0
+			},
+			{
+				"altAnim": false,
+				"bpm": 150,
+				"changeBPM": false,
+				"gfSection": false,
+				"mustHitSection": true,
+				"sectionBeats": 4,
+				"sectionNotes": [],
+				"typeOfSection": 0
 			}
 		],
 		"bpm": 150,

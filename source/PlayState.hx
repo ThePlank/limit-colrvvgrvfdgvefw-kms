@@ -500,21 +500,21 @@ class PlayState extends MusicBeatState
 				sky.antialiasing = ClientPrefs.globalAntialiasing;
 				add(sky);
 
-				var clouds:BGSprite = new BGSprite('stage/clouds', FlxG.random.int(-700, -400), FlxG.random.int(-20, 20), 0.1, 0.1);
+				var clouds:BGSprite = new BGSprite('stage/clouds', FlxG.random.int(-700, -600), FlxG.random.int(-20, 20), 0.1, 0.1);
 				clouds.scale.set(0.9, 0.9);
 				clouds.active = true;
 				clouds.antialiasing = ClientPrefs.globalAntialiasing;
 				clouds.velocity.x = FlxG.random.float(5, 15);
 				add(clouds);
 
-				var cityBack:FlxSprite = new FlxSprite(-300, -100).loadGraphic(Paths.image('stage/cityBack'));
+				var cityBack:FlxSprite = new FlxSprite(-500, -100).loadGraphic(Paths.image('stage/cityBack'));
 				cityBack.scale.set(0.9, 0.9);
 				cityBack.scrollFactor.set(0.4, 0.4);
 				cityBack.antialiasing = ClientPrefs.globalAntialiasing;
 				cityBack.updateHitbox();
 				add(cityBack);
 
-				var city:FlxSprite = new FlxSprite(-200, -75).loadGraphic(Paths.image('stage/city'));
+				var city:FlxSprite = new FlxSprite(-500, -75).loadGraphic(Paths.image('stage/city'));
 				city.scale.set(0.9, 0.9);
 				city.scrollFactor.set(0.6, 0.6);
 				city.antialiasing = ClientPrefs.globalAntialiasing;
@@ -1878,12 +1878,10 @@ class PlayState extends MusicBeatState
 			callOnLuas('onResume', []);
 
 			#if discord_rpc
-			if (startTimer != null && startTimer.finished)
-			{
+			if (startTimer != null && startTimer.finished) {
 				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
-			else
-			{
+			else {
 				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 			}
 			#end
@@ -1892,17 +1890,14 @@ class PlayState extends MusicBeatState
 		super.closeSubState();
 	}
 
-	override public function onFocus():Void
-	{
+	override public function onFocus():Void {
 		#if discord_rpc
-		if (health > 0 && !paused)
-		{
+		if (health > 0 && !paused) {
 			if (Conductor.songPosition > 0.0)
 			{
 				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
-			else
-			{
+			else {
 				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 			}
 		}
@@ -1914,8 +1909,7 @@ class PlayState extends MusicBeatState
 	override public function onFocusLost():Void
 	{
 		#if discord_rpc
-		if (health > 0 && !paused)
-		{
+		if (health > 0 && !paused) {
 			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		}
 		#end
@@ -1944,7 +1938,6 @@ class PlayState extends MusicBeatState
 	public var canReset:Bool = true;
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
-	var limoSpeed:Float = 0;
 
 	override public function update(elapsed:Float)
 	{
@@ -2700,53 +2693,40 @@ class PlayState extends MusicBeatState
 	function moveCameraSection():Void {
 		if(SONG.notes[curSection] == null) return;
 
-		if (gf != null && SONG.notes[curSection].gfSection)
-		{
-			camFollow.set(gf.getMidpoint().x, gf.getMidpoint().y);
-			camFollow.x += gf.cameraPosition[0] + girlfriendCameraOffset[0];
-			camFollow.y += gf.cameraPosition[1] + girlfriendCameraOffset[1];
-			tweenCamIn();
+		if (gf != null && SONG.notes[curSection].gfSection) {
+			gfCamera();
 			callOnLuas('onMoveCamera', ['gf']);
 			return;
 		}
 
-		if (!SONG.notes[curSection].mustHitSection)
-		{
+		if (!SONG.notes[curSection].mustHitSection) {
 			moveCamera(true);
 			callOnLuas('onMoveCamera', ['dad']);
-		}
-		else
-		{
+		} else {
 			moveCamera(false);
 			callOnLuas('onMoveCamera', ['boyfriend']);
 		}
 	}
 
 	var cameraTwn:FlxTween;
-	public function moveCamera(isDad:Bool)
-	{
-		if(isDad)
-		{
-			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
-			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
-			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
-			tweenCamIn();
-		}
-		else
-		{
-			camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
-			camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
-			camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
-
-			if (Paths.formatToSongPath(SONG.song) == 'tutorial' && cameraTwn == null && FlxG.camera.zoom != 1)
-			{
-				cameraTwn = FlxTween.tween(FlxG.camera, {zoom: 1}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut, onComplete:
-					function (twn:FlxTween)
-					{
-						cameraTwn = null;
-					}
-				});
+	public function moveCamera(isDad:Bool) {
+		if(isDad) {
+			if(!isCameraOnForcedPos) {
+			FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 150 += dad.cameraPosition[0] + opponentCameraOffset[0]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
+			FlxTween.tween(camFollow, {y: dad.getMidpoint().y - 100 += dad.cameraPosition[1] + opponentCameraOffset[1]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
 			}
+		} else {
+			if(!isCameraOnForcedPos) {
+			FlxTween.tween(camFollow, {x: boyfriend.getMidpoint().x - 100 -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
+			FlxTween.tween(camFollow, {y: boyfriend.getMidpoint().y - 100 += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
+			}
+		}
+	}
+
+	public function gfCamera() {
+		if(!isCameraOnForcedPos) {
+			FlxTween.tween(camFollow, {x: gf.getMidpoint().x + 150 += gf.cameraPosition[0] + girlfriendCameraOffset[0]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
+			FlxTween.tween(camFollow, {y: gf.getMidpoint().y - 100 += gf.cameraPosition[1] + girlfriendCameraOffset[1]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
 		}
 	}
 
