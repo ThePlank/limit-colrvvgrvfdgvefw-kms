@@ -17,8 +17,7 @@ import Achievements;
 
 using StringTools;
 
-class AchievementsMenuState extends MusicBeatState
-{
+class AchievementsMenuState extends MusicBeatState {
 	#if ACHIEVEMENTS_ALLOWED
 	var options:Array<String> = [];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
