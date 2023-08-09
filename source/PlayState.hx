@@ -78,6 +78,7 @@ import hxcodec.VideoSprite;
 
 using StringTools;
 
+@:access(flixel.FlxCamera)
 class PlayState extends MusicBeatState
 {
 	public static var STRUM_X = 42;
@@ -297,6 +298,7 @@ class PlayState extends MusicBeatState
 	var canBeat:Bool = false;
 	var barrelDistortion = new BarrelDistortionShader();
 	var bloom = new BloomShader();
+	var blendModeShit:ShaderFilter;
 
 	var precacheList:Map<String, String> = new Map<String, String>();
 	
@@ -373,8 +375,11 @@ class PlayState extends MusicBeatState
 
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new FlxCamera();
+		camGame._filters = []; // initialize _filters so ą
 		camHUD = new FlxCamera();
+		camHUD._filters = [];
 		camOther = new FlxCamera();
+		camOther._filters = [];
 		camHUD.bgColor.alpha = 0;
 		camOther.bgColor.alpha = 0;
 
@@ -521,6 +526,11 @@ class PlayState extends MusicBeatState
 				add(front);
 		}
 
+		var gasProblem:OverlayBlendShader = new OverlayBlendShader();
+		var overlayColour:FlxColor = 0xFF9130D1;
+		blendModeShit = new ShaderFilter(gasProblem);
+		gasProblem.overlayColor.value = [overlayColour.redFloat, overlayColour.greenFloat, overlayColour.blueFloat];
+
 		if(isPixelStage) {
 			introSoundsSuffix = '-pixel';
 		}
@@ -529,11 +539,9 @@ class PlayState extends MusicBeatState
 		add(dadGroup);
 		add(boyfriendGroup);
 
-		#if LUA_ALLOWED
 		luaDebugGroup = new FlxTypedGroup<DebugLuaText>();
 		luaDebugGroup.cameras = [camOther];
 		add(luaDebugGroup);
-		#end
 
 		// "GLOBAL" SCRIPTS
 		#if LUA_ALLOWED
@@ -886,10 +894,10 @@ class PlayState extends MusicBeatState
 			barrelDistortion.barrelDistortion2 = -0.10;
 			bloom.shaderAlpha = 0.4;
 			bloom.size = 5;
-			camHUD.setFilters([new ShaderFilter(barrelDistortion)]);
-			camGame.setFilters([/*new ShaderFilter(bloom),*/ new ShaderFilter(barrelDistortion)]);
+			var garrelGistGortion:ShaderFilter = new ShaderFilter(barrelDistortion);
+			camHUD._filters.push(garrelGistGortion);
+			camGame._filters.push(garrelGistGortion);
 		}
-
 	}
 
 	function set_songSpeed(value:Float):Float
@@ -920,8 +928,7 @@ class PlayState extends MusicBeatState
 		return value;
 	}
 
-	public function addTextToDebug(text:String, color:FlxColor) {
-		#if LUA_ALLOWED
+	public function addTextToDebug(text:String, color:FlxColor) { // LET ME ATTD
 		luaDebugGroup.forEachAlive(function(spr:DebugLuaText) {
 			spr.y += 20;
 		});
@@ -932,7 +939,6 @@ class PlayState extends MusicBeatState
 			luaDebugGroup.remove(blah);
 		}
 		luaDebugGroup.insert(0, new DebugLuaText(text, luaDebugGroup, color));
-		#end
 	}
 
 	public function reloadHealthBarColors() {
@@ -2557,6 +2563,26 @@ class PlayState extends MusicBeatState
 				} else {
 					FunkinLua.setVarInArray(this, value1, value2);
 				}
+			case 'overlay shit':
+				var val:Int = Std.parseInt(value1);
+
+				switch(val) {
+					case 0:
+						camHUD._filters.remove(blendModeShit);
+						camGame._filters.remove(blendModeShit);
+					case 1:
+						camHUD._filters.push(blendModeShit);
+						camGame._filters.push(blendModeShit);
+					case 2: addTextToDebug('@nickngc please tell me what the fuck the other one is meant to look like', 0xFFFF00D5); // lesbian color
+					default: addTextToDebug('GO FUCK YOURSELF', 0xFFFF0000);
+				}
+
+				if(!Math.isNaN(val)) {
+					FlxG.camera.zoom += 0.1;
+					FlxG.camera.flash(FlxColor.WHITE, Conductor.crochet / 1000);
+				}
+
+
 		}
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}

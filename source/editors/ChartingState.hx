@@ -76,6 +76,7 @@ class ChartingState extends MusicBeatState
 	var eventStuff:Array<Dynamic> =
 	[
 		['', "Nothing. Yep, that's right."],
+		['overlay shit', "make it ourple ! !!!\n  erm.. valeu oen is like idfk ;ero to zwei  /?/?///"],
 		['Set Camera Zoom Source', "Zoom\nValue 1: Zoom\nValue 2: Duration"],
 		['Set Camera Target Source', "Target\nValue 1: On\nValue 2: Off"],
 		['Camera Twist', 'Value 1: intensity 1\nValue 2: intensity 2'],
