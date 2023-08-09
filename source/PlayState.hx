@@ -231,34 +231,9 @@ class PlayState extends MusicBeatState
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
 	var dialogueJson:DialogueFile = null;
 
-	var dadbattleBlack:BGSprite;
-	var dadbattleLight:BGSprite;
-	var dadbattleSmokes:FlxSpriteGroup;
-
-	var halloweenBG:BGSprite;
-	var halloweenWhite:BGSprite;
-
-	var limoKillingState:Int = 0;
-	var limo:BGSprite;
-	var limoMetalPole:BGSprite;
-	var limoLight:BGSprite;
-	var limoCorpse:BGSprite;
-	var limoCorpseTwo:BGSprite;
-	var bgLimo:BGSprite;
-	var grpLimoParticles:FlxTypedGroup<BGSprite>;
-	var grpLimoDancers:FlxTypedGroup<BackgroundDancer>;
-	var fastCar:BGSprite;
-
-	var upperBoppers:BGSprite;
-	var bottomBoppers:BGSprite;
-	var santa:BGSprite;
 	var heyTimer:Float;
 
-	var bgGirls:BackgroundGirls;
 	var wiggleShit:WiggleEffect = new WiggleEffect();
-	var bgGhouls:BGSprite;
-
-	var foregroundSprites:FlxTypedGroup<BGSprite>;
 
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
@@ -1299,15 +1274,6 @@ class PlayState extends MusicBeatState
 					antialias = false;
 				}
 
-				// head bopping for bg characters on Mall
-				if(curStage == 'mall') {
-					if(!ClientPrefs.lowQuality)
-						upperBoppers.dance(true);
-
-					bottomBoppers.dance(true);
-					santa.dance(true);
-				}
-
 				switch (swagCounter)
 				{
 					case 0:
@@ -1727,39 +1693,6 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event.value2;
 				addCharacterToList(newCharacter, charType);
-
-			case 'Dadbattle Spotlight':
-				dadbattleBlack = new BGSprite(null, -800, -400, 0, 0);
-				dadbattleBlack.makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
-				dadbattleBlack.alpha = 0.25;
-				dadbattleBlack.visible = false;
-				add(dadbattleBlack);
-
-				dadbattleLight = new BGSprite('spotlight', 400, -400);
-				dadbattleLight.alpha = 0.375;
-				dadbattleLight.blend = ADD;
-				dadbattleLight.visible = false;
-
-				dadbattleSmokes.alpha = 0.7;
-				dadbattleSmokes.blend = ADD;
-				dadbattleSmokes.visible = false;
-				add(dadbattleLight);
-				add(dadbattleSmokes);
-
-				var offsetX = 200;
-				var smoke:BGSprite = new BGSprite('smoke', -1550 + offsetX, 660 + FlxG.random.float(-20, 20), 1.2, 1.05);
-				smoke.setGraphicSize(Std.int(smoke.width * FlxG.random.float(1.1, 1.22)));
-				smoke.updateHitbox();
-				smoke.velocity.x = FlxG.random.float(15, 22);
-				smoke.active = true;
-				dadbattleSmokes.add(smoke);
-				var smoke:BGSprite = new BGSprite('smoke', 1550 + offsetX, 660 + FlxG.random.float(-20, 20), 1.2, 1.05);
-				smoke.setGraphicSize(Std.int(smoke.width * FlxG.random.float(1.1, 1.22)));
-				smoke.updateHitbox();
-				smoke.velocity.x = FlxG.random.float(-15, -22);
-				smoke.active = true;
-				smoke.flipX = true;
-				dadbattleSmokes.add(smoke);
 		}
 
 		if(!eventPushedMap.exists(event.event)) {
@@ -2382,6 +2315,43 @@ class PlayState extends MusicBeatState
 
 	public function triggerEventNote(eventName:String, value1:String, value2:String) {
 		switch(eventName) {
+			case 'Set Camera Zoom Source':
+				var zoomthing:Float = Std.parseFloat(value1);
+				var duration:Float = Std.parseFloat(value2);
+
+				//thankies again pwank :3
+				FlxTween.num(defaultCamZoom, zoomthing, duration, { ease: FlxEase.quadInOut, type: ONESHOT }, (v:Float) -> {defaultCamZoom = v;});
+			case 'Set Camera Target Source':
+				var val1:Null<Int> = Std.parseInt(value1);
+				var val2:Null<Int> = Std.parseInt(value2);
+				if(val1 == null) val1 = 0;
+				if(val2 == null) val2 = 0;
+
+				switch(Std.parseInt(value1)) {
+					case 1, 2:
+						if(val1 == 1) {
+							moveCamera(true);
+							// FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 150 += dad.cameraPosition[0] + opponentCameraOffset[0]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
+							// FlxTween.tween(camFollow, {y: dad.getMidpoint().y - 100 += dad.cameraPosition[1] + opponentCameraOffset[1]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
+						}
+						if(val1 == 2) {
+							moveCamera(false);
+							// FlxTween.tween(camFollow, {x: boyfriend.getMidpoint().x - 100 -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
+							// FlxTween.tween(camFollow, {y: boyfriend.getMidpoint().y - 100 += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
+						}
+				}
+
+				switch(Std.parseInt(value2)) {
+					case 1:
+						if(val2 == 1) {
+							isCameraOnForcedPos = true;
+						}
+						if(val2 == 2) {
+							isCameraOnForcedPos = false;
+						}
+					default:
+						isCameraOnForcedPos = false;
+				}
 			case 'Camera Twist':
 				camTwist = true;
 				var _intensity:Float = Std.parseFloat(value1);
@@ -2438,42 +2408,7 @@ class PlayState extends MusicBeatState
 						canBeat = false;
 						camGame.setFilters([]);
 						camHUD.setFilters([]);
-				}	
-
-			case 'Dadbattle Spotlight':
-				var val:Null<Int> = Std.parseInt(value1);
-				if(val == null) val = 0;
-
-				switch(Std.parseInt(value1))
-				{
-					case 1, 2, 3: //enable and target dad
-						if(val == 1) //enable
-						{
-							dadbattleBlack.visible = true;
-							dadbattleLight.visible = true;
-							dadbattleSmokes.visible = true;
-							defaultCamZoom += 0.12;
-						}
-
-						var who:Character = dad;
-						if(val > 2) who = boyfriend;
-						//2 only targets dad
-						dadbattleLight.alpha = 0;
-						new FlxTimer().start(0.12, function(tmr:FlxTimer) {
-							dadbattleLight.alpha = 0.375;
-						});
-						dadbattleLight.setPosition(who.getGraphicMidpoint().x - dadbattleLight.width / 2, who.y + who.height - dadbattleLight.height + 50);
-
-					default:
-						dadbattleBlack.visible = false;
-						dadbattleLight.visible = false;
-						defaultCamZoom -= 0.12;
-						FlxTween.tween(dadbattleSmokes, {alpha: 0}, 1, {onComplete: function(twn:FlxTween)
-						{
-							dadbattleSmokes.visible = false;
-						}});
 				}
-
 			case 'Hey!':
 				var value:Int = 2;
 				switch(value1.toLowerCase().trim()) {
@@ -2495,11 +2430,6 @@ class PlayState extends MusicBeatState
 						gf.playAnim('cheer', true);
 						gf.specialAnim = true;
 						gf.heyTimer = time;
-					}
-
-					if(curStage == 'mall') {
-						bottomBoppers.animation.play('hey', true);
-						heyTimer = time;
 					}
 				}
 				if(value != 1) {
@@ -2715,7 +2645,6 @@ class PlayState extends MusicBeatState
 			camFollow.set(gf.getMidpoint().x, gf.getMidpoint().y);
 			camFollow.x += gf.cameraPosition[0] + girlfriendCameraOffset[0];
 			camFollow.y += gf.cameraPosition[1] + girlfriendCameraOffset[1];
-			tweenCamIn();
 			callOnLuas('onMoveCamera', ['gf']);
 			return;
 		}
@@ -2736,21 +2665,10 @@ class PlayState extends MusicBeatState
 			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
 			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
 			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
-			tweenCamIn();
 		} else {
 			camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
 			camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
 			camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
-		}
-	}
-
-	function tweenCamIn() {
-		if (Paths.formatToSongPath(SONG.song) == 'tutorial' && cameraTwn == null && FlxG.camera.zoom != 1.3) {
-			cameraTwn = FlxTween.tween(FlxG.camera, {zoom: 1.3}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut, onComplete:
-				function (twn:FlxTween) {
-					cameraTwn = null;
-				}
-			});
 		}
 	}
 
