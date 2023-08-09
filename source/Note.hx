@@ -155,6 +155,8 @@ class Note extends FlxSprite
 			}
 			noteType = value;
 		}
+		colorSwap.saturation = -1; // for now im too lazy to re export the not e assets
+
 		noteSplashHue = colorSwap.hue;
 		noteSplashSat = colorSwap.saturation;
 		noteSplashBrt = colorSwap.brightness;
