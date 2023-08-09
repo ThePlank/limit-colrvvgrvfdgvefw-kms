@@ -415,7 +415,7 @@ class TitleState extends MusicBeatState {
 
 		FlxTween.cancelTweensOf(logoBl);
 		logoBl.scale.set(2.2, 2.2);
-		FlxTween.tween(logoBl.scale, {x: 2, y: 2}, (Conductor.crochet / 1000) * 0.5, {ease: FlxEase.expoOut}); // fyu the duration of this tween is 2 steps :3
+		FlxTween.tween(logoBl.scale, {x: 2, y: 2}, (Conductor.crochet / 1000) * 0.75, {ease: FlxEase.expoOut}); // fyu the duration of this tween is 2 steps :3
 		
 		if(!closedState) {
 			sickBeats++;
