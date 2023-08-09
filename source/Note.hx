@@ -155,7 +155,6 @@ class Note extends FlxSprite
 			}
 			noteType = value;
 		}
-		colorSwap.saturation = -1; // for now im too lazy to re export the not e assets
 
 		noteSplashHue = colorSwap.hue;
 		noteSplashSat = colorSwap.saturation;
@@ -327,8 +326,8 @@ class Note extends FlxSprite
 		if (isSustainNote)
 		{
 			animation.addByPrefix('purpleholdend', 'pruple end hold'); // ?????
-			animation.addByPrefix(colArray[noteData] + 'holdend', colArray[noteData] + ' hold end');
-			animation.addByPrefix(colArray[noteData] + 'hold', colArray[noteData] + ' hold piece');
+			animation.addByPrefix(colArray[noteData] + 'holdend', 'blue hold end');
+			animation.addByPrefix(colArray[noteData] + 'hold', 'blue hold piece');
 		}
 
 		setGraphicSize(Std.int(width * 0.7));
