@@ -227,7 +227,7 @@ class TitleState extends MusicBeatState {
 		add(bg);
 	
 		logoBl = new FlxSprite(700, 75).loadGraphic(Paths.image('logoBump'));
-		logoBl.scale.set(2, 2);
+		logoBl.scale.set(3, 3);
 		logoBl.antialiasing = false;
 		logoBl.updateHitbox();
 		logoBl.cameras = [camOther];
@@ -412,6 +412,9 @@ class TitleState extends MusicBeatState {
 	public static var closedState:Bool = false;
 	override function beatHit() {
 		super.beatHit();
+		
+		//ok i will not
+		// FlxTween.tween(logoBl.scale, {y: logoBl.scale.y - 1, x: logoBl.scale.x - 1}, 1, {ease: FlxEase.cubeInOut, type: LOOPING});
 
 		if(!closedState) {
 			sickBeats++;
