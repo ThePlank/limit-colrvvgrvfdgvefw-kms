@@ -96,6 +96,15 @@ class PlayState extends MusicBeatState
 		['Perfect!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
 	];
 
+	var suns:Array<IabuseTypedefs> = [
+		{image: "sun1"},
+		{image: "sun2"},
+		{image: "sun3"},
+		{image: "sun4"},
+	];
+
+	var curSun:IabuseTypedefs;
+	var sun:FlxSprite;
 	//event variables
 	private var isCameraOnForcedPos:Bool = false;
 
@@ -311,7 +320,6 @@ class PlayState extends MusicBeatState
 	var camTwist:Bool = false;
 
 	var canBeat:Bool = false;
-
 	var barrelDistortion = new BarrelDistortionShader();
 	var bloom = new BloomShader();
 
@@ -499,6 +507,15 @@ class PlayState extends MusicBeatState
 				sky.updateHitbox();
 				sky.antialiasing = ClientPrefs.globalAntialiasing;
 				add(sky);
+
+				var sunIndex:Int = FlxG.random.int(0, 3);
+				curSun = suns[sunIndex];
+				sun = new FlxSprite(250, -200).loadGraphic(Paths.image('stage/${curSun.image}'));
+				sun.scale.add(0.4, 0.4);
+				sun.scrollFactor.set(0.15, 0.15);
+				sun.antialiasing = ClientPrefs.globalAntialiasing;
+				sun.updateHitbox();
+				add(sun);
 
 				var clouds:BGSprite = new BGSprite('stage/clouds', FlxG.random.int(-700, -600), FlxG.random.int(-20, 20), 0.1, 0.1);
 				clouds.scale.set(0.9, 0.9);
@@ -2693,12 +2710,17 @@ class PlayState extends MusicBeatState
 	function moveCameraSection():Void {
 		if(SONG.notes[curSection] == null) return;
 
-		if (gf != null && SONG.notes[curSection].gfSection) {
-			gfCamera();
+		if (gf != null && SONG.notes[curSection].gfSection)
+		{
+			camFollow.set(gf.getMidpoint().x, gf.getMidpoint().y);
+			camFollow.x += gf.cameraPosition[0] + girlfriendCameraOffset[0];
+			camFollow.y += gf.cameraPosition[1] + girlfriendCameraOffset[1];
+			tweenCamIn();
 			callOnLuas('onMoveCamera', ['gf']);
 			return;
 		}
 
+		//pwease fix musthitsection :3
 		if (!SONG.notes[curSection].mustHitSection) {
 			moveCamera(true);
 			callOnLuas('onMoveCamera', ['dad']);
@@ -2711,22 +2733,14 @@ class PlayState extends MusicBeatState
 	var cameraTwn:FlxTween;
 	public function moveCamera(isDad:Bool) {
 		if(isDad) {
-			if(!isCameraOnForcedPos) {
-			FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 150 += dad.cameraPosition[0] + opponentCameraOffset[0]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
-			FlxTween.tween(camFollow, {y: dad.getMidpoint().y - 100 += dad.cameraPosition[1] + opponentCameraOffset[1]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
-			}
+			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
+			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
+			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
+			tweenCamIn();
 		} else {
-			if(!isCameraOnForcedPos) {
-			FlxTween.tween(camFollow, {x: boyfriend.getMidpoint().x - 100 -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
-			FlxTween.tween(camFollow, {y: boyfriend.getMidpoint().y - 100 += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
-			}
-		}
-	}
-
-	public function gfCamera() {
-		if(!isCameraOnForcedPos) {
-			FlxTween.tween(camFollow, {x: gf.getMidpoint().x + 150 += gf.cameraPosition[0] + girlfriendCameraOffset[0]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
-			FlxTween.tween(camFollow, {y: gf.getMidpoint().y - 100 += gf.cameraPosition[1] + girlfriendCameraOffset[1]}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.quadOut});
+			camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
+			camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
+			camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
 		}
 	}
 
@@ -3632,25 +3646,28 @@ class PlayState extends MusicBeatState
 		if(curStep == lastStepHit) {
 			return;
 		}
-
-		if (camTwist)
-		{
-			if (curStep % 4 == 0)
-			{
-				FlxTween.tween(camHUD, {y: -6 * camTwistIntensity2}, Conductor.stepCrochet * 0.002, {ease: FlxEase.circOut});
-				FlxTween.tween(camGame.scroll, {y: 12}, Conductor.stepCrochet * 0.002, {ease: FlxEase.sineIn});
-			}
-		
-			if (curStep % 4 == 2)
-			{
-				FlxTween.tween(camHUD, {y: 0}, Conductor.stepCrochet * 0.002, {ease: FlxEase.sineIn});
-				FlxTween.tween(camGame.scroll, {y: 0}, Conductor.stepCrochet * 0.002, {ease: FlxEase.sineIn});
-			}
-		}	
 	
 		lastStepHit = curStep;
 		setOnLuas('curStep', curStep);
 		callOnLuas('onStepHit', []);
+	
+		switch (curStep) {
+			case 16:
+				FlxTween.tween(this, {cameraSpeed: 1}, 15, {ease: FlxEase.expoOut});
+		}
+
+	
+		if (camTwist) {
+			if (curStep % 4 == 0) {
+				FlxTween.tween(camHUD, {y: -6 * camTwistIntensity2}, Conductor.stepCrochet * 0.002, {ease: FlxEase.circOut});
+				FlxTween.tween(camGame.scroll, {y: 12}, Conductor.stepCrochet * 0.002, {ease: FlxEase.sineIn});
+			}
+		
+			if (curStep % 4 == 2) {
+				FlxTween.tween(camHUD, {y: 0}, Conductor.stepCrochet * 0.002, {ease: FlxEase.sineIn});
+				FlxTween.tween(camGame.scroll, {y: 0}, Conductor.stepCrochet * 0.002, {ease: FlxEase.sineIn});
+			}
+		}	
 	}
 
 	var lightningStrikeBeat:Int = 0;
@@ -3919,4 +3936,8 @@ class PlayState extends MusicBeatState
 
 	var curLight:Int = -1;
 	var curLightEvent:Int = -1;
+}
+
+typedef IabuseTypedefs = {
+	var image:String;
 }

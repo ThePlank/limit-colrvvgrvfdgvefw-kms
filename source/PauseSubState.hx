@@ -179,13 +179,13 @@ class PauseSubState extends MusicBeatSubstate {
 		skipTimeTracker = null;
 	}
 
+	//This shit crashes when you try to restart the song, but when you die and then try to restart it doesn't???? qhar??
 	public static function restartSong() {
-		// PlayState.instance.paused = true;
-		FlxG.sound.music.volume = 0;
+		PlayState.instance.paused = true;
 		PlayState.instance.vocals.volume = 0;
+		FlxG.sound.music.volume = 0;
 
 		MusicBeatState.resetState();
-		
 	}
 
 	override function destroy() {
