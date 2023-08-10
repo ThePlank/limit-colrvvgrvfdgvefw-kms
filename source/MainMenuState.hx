@@ -60,10 +60,10 @@ class MainMenuState extends MusicBeatState
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	
-	var optionShit:Array<MainMenuButton> = [
-		{x: 50,  y: 250, scale: 0.75,    name:    'play'},
-		{x: 450,  y: 250, scale: 0.75,   name: 'credits'},
-		{x: 1000,   y: 250, scale: 0.75, name: 'options'}
+	var optionShit:Array<{x:Int, y:Int, scale:Float, die:Array<Int>, name:String}> = [
+		{x: 0,  y: -50, scale: 1, die: [0, 0],    name:    'play'},
+		{x: 0,  y: -20, scale: 0.75, die: [-40, -30],   name: 'credits'},
+		{x: 0,   y: -20, scale: 1, die: [-10, -27], name: 'options'}
 	];
 
 	var magenta:FlxSprite;
@@ -164,7 +164,7 @@ class MainMenuState extends MusicBeatState
 		var scale:Float = 1;
 
 		for (i in 0...optionShit.length) {
-			var option:MainMenuButton = optionShit[i];
+			var option = optionShit[i];
 			var menuItem:FlxSprite = new FlxSprite(option.x, option.y);
 			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + option.name);
 			menuItem.animation.addByPrefix('idle', option.name + " basic", 24);
@@ -223,8 +223,18 @@ class MainMenuState extends MusicBeatState
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 
 		for (popup in popups) {
-			popup.x = FlxMath.lerp(popup.x, (popups.indexOf(popup) - curSelected) * 150, lerpVal);
+			popup.x = FlxMath.lerp(popup.x, (popups.indexOf(popup) - curSelected) * 190, lerpVal);
 			popup.z = FlxMath.lerp(popup.z, ((popups.indexOf(popup) - curSelected) * 110) + -780, lerpVal);
+			var anal:Vector3D = cam3D.view.camera.project(popup.scenePosition);
+			var item:FlxSprite = menuItems.members[popups.indexOf(popup)];
+			var bitem = optionShit[popups.indexOf(popup)];
+			item.setPosition((anal.x * FlxG.width / 2) + FlxG.width / 2, (anal.y * FlxG.height) + FlxG.height / 2);
+			item.offset.set(item.frameWidth / 2, (item.frameHeight / 2) + bitem.y);
+			if (item.animation.curAnim.name == 'selected')
+				item.offset.add(bitem.die[0], bitem.die[1]);
+			var scale:Float = FlxMath.remapToRange(popup.scenePosition.z, -780, -560, 0.65, 0.25);
+			scale *= bitem.scale;
+			item.scale.set(scale, scale);
 		}
 
 
@@ -310,14 +320,6 @@ class MainMenuState extends MusicBeatState
 		});
 	}
 }
-
-typedef MainMenuButton = {
-	var x:Int;
-	var y:Int;
-	var scale:Float;
-	var name:String;
-}
-
 
 class FunnyCamera extends away3d.cameras.Camera3D {
     var oldX:Float = 0;
