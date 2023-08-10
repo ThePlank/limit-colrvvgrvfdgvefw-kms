@@ -25,6 +25,7 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxFrame;
 import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
+import openfl.display.BlendMode;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
@@ -65,7 +66,8 @@ class TitleState extends MusicBeatState {
 	private var camOther:FlxCamera;
 	private var camGame:FlxCamera;
 
-	var blackScreen:FlxGifSprite;
+	var blackScreen:FlxSprite;
+	var blackScreenO:FlxGifSprite;
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
@@ -274,10 +276,14 @@ class TitleState extends MusicBeatState {
 		add(credGroup);
 		textGroup = new FlxGroup();
 
-		blackScreen = new FlxGifSprite(140, 140);
-		blackScreen.loadGif('assets/images/titleshit.gif');
+		// blackScreen = new FlxGifSprite(320, 180);
+		// blackScreen.loadGif('assets/images/titleshit.gif');
+		// blackScreen.cameras = [camOther];
+		// blackScreen.antialiasing = ClientPrefs.globalAntialiasing;
+		// blackScreen.setGraphicSize(FlxG.width, FlxG.height);
+		// credGroup.add(blackScreen);
+		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		blackScreen.cameras = [camOther];
-		blackScreen.setGraphicSize(FlxG.width, FlxG.height);
 		credGroup.add(blackScreen);
 
 		credTextShit = new Alphabet(0, 0, "", true);
@@ -304,6 +310,13 @@ class TitleState extends MusicBeatState {
 		else
 			initialized = true;
 
+		blackScreenO = new FlxGifSprite(320, 180);
+		blackScreenO.loadGif('assets/images/titleshit.gif');
+		blackScreenO.cameras = [camOther];
+		blackScreenO.blend = ADD;
+		blackScreenO.antialiasing = ClientPrefs.globalAntialiasing;
+		blackScreenO.setGraphicSize(FlxG.width, FlxG.height);
+		add(blackScreenO);
 	}
 
 	function getIntroTextShit():Array<Array<String>> {
@@ -496,6 +509,7 @@ class TitleState extends MusicBeatState {
 		if (!skippedIntro) { {
 				remove(ngSpr);
 				remove(credGroup);
+				remove(blackScreenO);
 				camOther.flash(FlxColor.WHITE, 4);
 			}
 			skippedIntro = true;
