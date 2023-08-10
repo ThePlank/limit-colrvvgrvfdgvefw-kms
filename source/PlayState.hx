@@ -384,6 +384,8 @@ class PlayState extends MusicBeatState
 		camOther.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
+		camHUD.bgColor = 0x00FFFFFF;
+		camHUD.setFilters([new ShaderFilter(new CameraShadowFilter(50, 50, 0x80000000))]);
 		FlxG.cameras.add(camHUD, false);
 		FlxG.cameras.add(camOther, false);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
