@@ -274,8 +274,8 @@ class TitleState extends MusicBeatState {
 		add(credGroup);
 		textGroup = new FlxGroup();
 
-		blackScreen = new FlxGifSprite(320, 180);
-		blackScreen.loadGif('assets/images/titlebackground.gif');
+		blackScreen = new FlxGifSprite(140, 140);
+		blackScreen.loadGif('assets/images/titleshit.gif');
 		blackScreen.cameras = [camOther];
 		blackScreen.setGraphicSize(FlxG.width, FlxG.height);
 		credGroup.add(blackScreen);

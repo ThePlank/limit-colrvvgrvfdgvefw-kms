@@ -60,6 +60,7 @@ import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
+import flixel.util.FlxGradient;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -295,7 +296,6 @@ class PlayState extends MusicBeatState
 
 	var canBeat:Bool = false;
 	var barrelDistortion = new BarrelDistortionShader();
-	var bloom = new BloomShader();
 	var blendModeShit:ShaderFilter;
 
 	var precacheList:Map<String, String> = new Map<String, String>();
@@ -307,6 +307,14 @@ class PlayState extends MusicBeatState
 	// stores the last combo score objects in an array
 	public static var lastScore:Array<FlxSprite> = [];
 
+
+	//bg
+	var clouds:BGSprite;
+	var sky:FlxSprite;
+	var cityBack:FlxSprite;
+	var city:FlxSprite;
+	var front:FlxSprite;
+	var transGradient:FlxSprite;
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -382,7 +390,6 @@ class PlayState extends MusicBeatState
 		camOther.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
-		camHUD.bgColor = 0x00FFFFFF;
 		FlxG.cameras.add(camHUD, false);
 		FlxG.cameras.add(camOther, false);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
@@ -480,7 +487,7 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'stage': //Week 1
-				var sky:FlxSprite = new FlxSprite(-800, -400).loadGraphic(Paths.image('stage/sky'));
+				sky = new FlxSprite(-800, -400).loadGraphic(Paths.image('stage/sky'));
 				sky.scale.set(0.9, 0.9);
 				sky.scrollFactor.set(0, 0);
 				sky.updateHitbox();
@@ -496,33 +503,39 @@ class PlayState extends MusicBeatState
 				sun.updateHitbox();
 				add(sun);
 
-				var clouds:BGSprite = new BGSprite('stage/clouds', FlxG.random.int(-700, -600), FlxG.random.int(-20, 20), 0.1, 0.1);
+				clouds = new BGSprite('stage/clouds', FlxG.random.int(-700, -600), FlxG.random.int(-20, 20), 0.1, 0.1);
 				clouds.scale.set(0.9, 0.9);
 				clouds.active = true;
 				clouds.antialiasing = ClientPrefs.globalAntialiasing;
 				clouds.velocity.x = FlxG.random.float(5, 15);
 				add(clouds);
 
-				var cityBack:FlxSprite = new FlxSprite(-500, -100).loadGraphic(Paths.image('stage/cityBack'));
+				cityBack = new FlxSprite(-500, -100).loadGraphic(Paths.image('stage/cityBack'));
 				cityBack.scale.set(0.9, 0.9);
 				cityBack.scrollFactor.set(0.4, 0.4);
 				cityBack.antialiasing = ClientPrefs.globalAntialiasing;
 				cityBack.updateHitbox();
 				add(cityBack);
 
-				var city:FlxSprite = new FlxSprite(-500, -75).loadGraphic(Paths.image('stage/city'));
+				city = new FlxSprite(-500, -75).loadGraphic(Paths.image('stage/city'));
 				city.scale.set(0.9, 0.9);
 				city.scrollFactor.set(0.6, 0.6);
 				city.antialiasing = ClientPrefs.globalAntialiasing;
 				city.updateHitbox();
 				add(city);
 
-				var front:FlxSprite = new FlxSprite(-1800, -350).loadGraphic(Paths.image('stage/front'));
+				front = new FlxSprite(-1800, -350).loadGraphic(Paths.image('stage/front'));
 				front.scale.set(0.9, 0.9);
 				front.scrollFactor.set(0.95, 0.95);
 				front.antialiasing = ClientPrefs.globalAntialiasing;
 				front.updateHitbox();
 				add(front);
+
+				transGradient = FlxGradient.createGradientFlxSprite(1280, 605, [0x3366666, 0x0]);
+				transGradient.scale.set(0.9, 0.9);
+				transGradient.scrollFactor.set(0, 0);
+				transGradient.cameras = [camHUD];
+				add(transGradient);
 		}
 
 		var gasProblem:OverlayBlendShader = new OverlayBlendShader();
@@ -886,8 +899,6 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.shaders){
 			barrelDistortion.barrelDistortion1 = -0.10;
 			barrelDistortion.barrelDistortion2 = -0.10;
-			bloom.shaderAlpha = 0.4;
-			bloom.size = 5;
 			var garrelGistGortion:ShaderFilter = new ShaderFilter(barrelDistortion);
 			camHUD._filters.push(garrelGistGortion);
 			camGame._filters.push(garrelGistGortion);
