@@ -401,6 +401,18 @@ class TitleState extends MusicBeatState {
 		}
 	}
 
+	function createUncoolText(textArray:Array<String>, ?offset:Float = 0) {
+		for (i in 0...textArray.length) {
+			var money:Alphabet = new Alphabet(0, 0, textArray[i], true);
+			money.screenCenter(XY);
+			money.cameras = [camOther];
+			if(credGroup != null && textGroup != null) {
+				credGroup.add(money);
+				textGroup.add(money);
+			}
+		}
+	}
+
 	function addMoreText(text:String, ?offset:Float = 0) {
 		if(textGroup != null && credGroup != null) {
 			var coolText:Alphabet = new Alphabet(0, 0, text, true);
@@ -438,20 +450,10 @@ class TitleState extends MusicBeatState {
 					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
-					#if PSYCH_WATERMARKS
-					createCoolText(['Psych Engine by'], 15);
-					#else
-					createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
-					#end
+					createCoolText(['Libing', 'Plank', 'Nick', 'Flying Felt Boot', 'Walker']);
 				// credTextShit.visible = true;
 				case 4:
-					#if PSYCH_WATERMARKS
-					addMoreText('Shadow Mario', 15);
-					addMoreText('RiverOaken', 15);
-					addMoreText('shubs', 15);
-					#else
-					addMoreText('present');
-					#end
+					addMoreText('Present');
 				// credTextShit.text += '\npresent...';
 				// credTextShit.addText();
 				case 5:
@@ -460,11 +462,7 @@ class TitleState extends MusicBeatState {
 				// credTextShit.text = 'In association \nwith';
 				// credTextShit.screenCenter();
 				case 6:
-					#if PSYCH_WATERMARKS
 					createCoolText(['Not associated', 'with'], -40);
-					#else
-					createCoolText(['In association', 'with'], -40);
-					#end
 				case 8:
 					addMoreText('newgrounds', -40);
 					ngSpr.visible = true;
@@ -489,13 +487,15 @@ class TitleState extends MusicBeatState {
 				// credTextShit.text = "Friday";
 				// credTextShit.screenCenter();
 				case 14:
-					addMoreText('Friday');
+					createUncoolText(['choice']);
 				// credTextShit.visible = true;
 				case 15:
-					addMoreText('Night');
+					deleteCoolText();
+					createUncoolText(['.']);
 				// credTextShit.text += '\nNight';
 				case 16:
-					addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
+					deleteCoolText();
+					createUncoolText(['fla']);
 
 				case 17:
 					skipIntro();
