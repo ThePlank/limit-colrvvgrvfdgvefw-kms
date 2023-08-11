@@ -215,6 +215,12 @@ class TitleState extends MusicBeatState {
 			}
 		}
 
+		var zovMDFive:String = haxe.crypto.Md5.encode(sys.io.File.getContent('assets/images/Zovton.png'));
+		if (zovMDFive != 'd41d8cd98f00b204e9800998ecf8427e') {
+			trace('imagine the game exploding');
+		}
+
+
 		Conductor.changeBPM(titleJSON.bpm);
 		persistentUpdate = true;
 

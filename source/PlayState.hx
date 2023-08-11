@@ -1622,9 +1622,7 @@ class PlayState extends MusicBeatState
 	}
 
 	function sortByTime(Obj1:Dynamic, Obj2:Dynamic):Int
-	{
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strumTime, Obj2.strumTime);
-	}
 
 	public var skipArrowStartTween:Bool = false; //for lua
 	private function generateStaticArrows(player:Int):Void
