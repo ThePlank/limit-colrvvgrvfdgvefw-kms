@@ -25,4 +25,6 @@ class HalftoneShader extends FlxShader {
 			gl_FragColor = col;
 		}
 	')
+
+	public function new() { super(); }
 }

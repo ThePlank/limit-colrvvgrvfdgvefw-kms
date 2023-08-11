@@ -98,15 +98,6 @@ class PlayState extends MusicBeatState
 		['Perfect!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
 	];
 
-	var suns:Array<IabuseTypedefs> = [
-		{image: "sun1"},
-		{image: "sun2"},
-		{image: "sun3"},
-		{image: "sun4"},
-	];
-
-	var curSun:IabuseTypedefs;
-	var sun:FlxSprite;
 	//event variables
 	private var isCameraOnForcedPos:Bool = false;
 
@@ -297,6 +288,7 @@ class PlayState extends MusicBeatState
 	var canBeat:Bool = false;
 	var barrelDistortion = new BarrelDistortionShader();
 	var blendModeShit:ShaderFilter;
+	var gaySexFilter:ShaderFilter;
 
 	var precacheList:Map<String, String> = new Map<String, String>();
 	
@@ -309,6 +301,7 @@ class PlayState extends MusicBeatState
 
 
 	//bg
+	var sun:FlxSprite;
 	var clouds:BGSprite;
 	var sky:FlxSprite;
 	var cityBack:FlxSprite;
@@ -494,9 +487,7 @@ class PlayState extends MusicBeatState
 				sky.antialiasing = ClientPrefs.globalAntialiasing;
 				add(sky);
 
-				var sunIndex:Int = FlxG.random.int(0, 3);
-				curSun = suns[sunIndex];
-				sun = new FlxSprite(250, -200).loadGraphic(Paths.image('stage/${curSun.image}'));
+				sun = new FlxSprite(250, -200).loadGraphic(Paths.image('stage/sun${FlxG.random.int(1, 4)}'));
 				sun.scale.add(0.4, 0.4);
 				sun.scrollFactor.set(0.15, 0.15);
 				sun.antialiasing = ClientPrefs.globalAntialiasing;
@@ -531,17 +522,12 @@ class PlayState extends MusicBeatState
 				front.updateHitbox();
 				add(front);
 
-				transGradient = FlxGradient.createGradientFlxSprite(1280, 605, [0x3366666, 0x0]);
+				transGradient = FlxGradient.createGradientFlxSprite(1280, 605, [0x3366666, 0x0]); // nick is trans confirmed?!!?!!! !KN !!KM .
 				transGradient.scale.set(0.9, 0.9);
 				transGradient.scrollFactor.set(0, 0);
 				transGradient.cameras = [camHUD];
 				add(transGradient);
 		}
-
-		var gasProblem:OverlayBlendShader = new OverlayBlendShader();
-		var overlayColour:FlxColor = 0xFF9130D1;
-		blendModeShit = new ShaderFilter(gasProblem);
-		gasProblem.overlayColor.value = [overlayColour.redFloat, overlayColour.greenFloat, overlayColour.blueFloat];
 
 		if(isPixelStage) {
 			introSoundsSuffix = '-pixel';
@@ -1487,11 +1473,7 @@ class PlayState extends MusicBeatState
 
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		var file:String = Paths.json(songName + '/events');
-		#if MODS_ALLOWED
-		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(file)) {
-		#else
 		if (OpenFlAssets.exists(file)) {
-		#end
 			var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
 			for (event in eventsData) //Event Notes
 			{
@@ -1593,24 +1575,7 @@ class PlayState extends MusicBeatState
 			}
 			daBeats += 1;
 		}
-		for (event in songData.events) //Event Notes
-		{
-			for (i in 0...event[1].length)
-			{
-				var newEventNote:Array<Dynamic> = [event[0], event[1][i][0], event[1][i][1], event[1][i][2]];
-				var subEvent:EventNote = {
-					strumTime: newEventNote[0] + ClientPrefs.noteOffset,
-					event: newEventNote[1],
-					value1: newEventNote[2],
-					value2: newEventNote[3]
-				};
-				eventNotes.push(subEvent);
-				eventPushed(subEvent);
-			}
-		}
-
-		// trace(unspawnNotes.length);
-		// playerCounter += 1;
+		// previously there was a event loop here but now events are exclusivley added with events.json due to having 2 event systems backfiring on us
 
 		unspawnNotes.sort(sortByTime);
 		generatedMusic = true;
@@ -1632,6 +1597,15 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event.value2;
 				addCharacterToList(newCharacter, charType);
+			case "overlay shit":
+				var gasProblem:OverlayBlendShader = new OverlayBlendShader();
+				var overlayColour:FlxColor = 0xFF9130D1;
+				blendModeShit = new ShaderFilter(gasProblem);
+				gasProblem.overlayColor.value = [overlayColour.redFloat, overlayColour.greenFloat, overlayColour.blueFloat];
+
+				var assProblem:HalftoneShader = new HalftoneShader();
+				assProblem.scale.value = [0.6];
+				gaySexFilter = new ShaderFilter(assProblem);
 		}
 
 		if(!eventPushedMap.exists(event.event)) {
@@ -2231,9 +2205,8 @@ class PlayState extends MusicBeatState
 	public function checkEventNote() {
 		while(eventNotes.length > 0) {
 			var leStrumTime:Float = eventNotes[0].strumTime;
-			if(Conductor.songPosition < leStrumTime) {
+			if(Conductor.songPosition < leStrumTime)
 				return;
-			}
 
 			var value1:String = '';
 			if(eventNotes[0].value1 != null)
@@ -2571,25 +2544,24 @@ class PlayState extends MusicBeatState
 
 				switch(val) {
 					case 0:
-						camHUD._filters.remove(blendModeShit);
-						camGame._filters.remove(blendModeShit);
-					case 1:
-						camHUD._filters.insert(0, blendModeShit);
-						camGame._filters.insert(0, blendModeShit);
+						cameraTransform(cam -> cam._filters.remove(blendModeShit));
+						cameraTransform(cam -> cam._filters.remove(gaySexFilter));
+					case 1: cameraTransform(cam -> cam._filters.push(blendModeShit));
 					case 2: addTextToDebug('@nickngc please tell me what the fuck the other one is meant to look like', 0xFFFF00D5); // lesbian color
 				}
 
 				if(!Math.isNaN(val)) {
 					FlxG.camera.zoom += 0.1;
 					FlxG.camera.flash(FlxColor.WHITE, Conductor.crochet / 1000);
-				} else {
+					if (ClientPrefs.shaders) cameraTransform(cam -> cam._filters.push(gaySexFilter));
+				} else
 					addTextToDebug('GO FUCK YOURSELF', 0xFFFF0000);
-				}
-
-
 		}
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
+
+	function cameraTransform(fun:FlxCamera->Void)
+		for (cam in [camGame, camHUD]) fun(cam);
 
 	function moveCameraSection():Void {
 		if(SONG.notes[curSection] == null) return;
@@ -3034,6 +3006,8 @@ class PlayState extends MusicBeatState
 
 				// Shubs, this is for the "Just the Two of Us" achievement lol
 				//									- Shadow Mario
+
+				// both of you shut the fuck up
 				keysPressed[key] = true;
 
 				//more accurate hit time for the ratings? part 2 (Now that the calculations are done, go back to the time it was before for not causing a note stutter)
@@ -3536,25 +3510,14 @@ class PlayState extends MusicBeatState
 		iconP2.updateHitbox();
 
 		if (gf != null && curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
-		{
 			gf.dance();
-		}
 		if (curBeat % boyfriend.danceEveryNumBeats == 0 && boyfriend.animation.curAnim != null && !boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.stunned)
-		{
 			boyfriend.dance();
-		}
 		if (curBeat % dad.danceEveryNumBeats == 0 && dad.animation.curAnim != null && !dad.animation.curAnim.name.startsWith('sing') && !dad.stunned)
-		{
 			dad.dance();
-		}
 
 		if (camTwist) {
-			if (curBeat % 2 == 0) {
-				twistShit = twistAmount;
-			}
-			else {
-				twistShit = -twistAmount;
-			}
+			twistShit = (curBeat % 2 == 0 ? twistAmount : -twistAmount);
 			camHUD.angle = twistShit * camTwistIntensity2;
 			camGame.angle = twistShit * camTwistIntensity2;
 			FlxTween.tween(camHUD, {angle: twistShit * camTwistIntensity}, Conductor.stepCrochet * 0.002, {ease: FlxEase.circOut});
@@ -3562,19 +3525,6 @@ class PlayState extends MusicBeatState
 			FlxTween.tween(camGame, {angle: twistShit * camTwistIntensity}, Conductor.stepCrochet * 0.002, {ease: FlxEase.circOut});
 			FlxTween.tween(camGame, {x: -twistShit * camTwistIntensity}, Conductor.crochet * 0.001, {ease: FlxEase.linear});
 		}
-
-		/*
-		if(canBeat) {
-			if (curBeat % 2 == 0) {
-				barrelDistortion.barrelDistortion1 = -0.20;
-				barrelDistortion.barrelDistortion2 = -0.20;
-				FlxTween.tween(barrelDistortion, {barrelDistortion1: -0.10}, 0.75, {ease: FlxEase.circOut});
-				FlxTween.tween(barrelDistortion, {barrelDistortion2: -0.10}, 0.75, {ease: FlxEase.circOut});
-				camGame.setFilters([new ShaderFilter(barrelDistortion)]);
-				camHUD.setFilters([new ShaderFilter(barrelDistortion)]);
-			}
-		}
-		*/
 	
 		lastBeatHit = curBeat;
 
@@ -3776,8 +3726,4 @@ class PlayState extends MusicBeatState
 
 	var curLight:Int = -1;
 	var curLightEvent:Int = -1;
-}
-
-typedef IabuseTypedefs = {
-	var image:String;
 }
