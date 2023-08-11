@@ -310,13 +310,15 @@ class TitleState extends MusicBeatState {
 		else
 			initialized = true;
 
-		blackScreenO = new FlxGifSprite(320, 180);
-		blackScreenO.loadGif('assets/images/titleshit.gif');
-		blackScreenO.cameras = [camOther];
-		blackScreenO.blend = ADD;
-		blackScreenO.antialiasing = ClientPrefs.globalAntialiasing;
-		blackScreenO.setGraphicSize(FlxG.width, FlxG.height);
-		add(blackScreenO);
+		if(ClientPrefs.flashing) {
+			blackScreenO = new FlxGifSprite(320, 180);
+			blackScreenO.loadGif('assets/images/titleshit.gif');
+			blackScreenO.cameras = [camOther];
+			blackScreenO.blend = ADD;
+			blackScreenO.antialiasing = ClientPrefs.globalAntialiasing;
+			blackScreenO.setGraphicSize(FlxG.width, FlxG.height);
+			add(blackScreenO);
+		}
 	}
 
 	function getIntroTextShit():Array<Array<String>> {
@@ -509,7 +511,9 @@ class TitleState extends MusicBeatState {
 		if (!skippedIntro) { {
 				remove(ngSpr);
 				remove(credGroup);
-				remove(blackScreenO);
+				if(ClientPrefs.flashing) {
+				    remove(blackScreenO);
+				}
 				camOther.flash(FlxColor.WHITE, 4);
 			}
 			skippedIntro = true;
