@@ -61,9 +61,9 @@ class MainMenuState extends MusicBeatState
 	private var camAchievement:FlxCamera;
 	
 	var optionShit:Array<{x:Int, y:Int, scale:Float, die:Array<Int>, name:String}> = [
-		{x: 0,  y: -50, scale: 1, die: [0, 0],    name:    'play'},
-		{x: 0,  y: -20, scale: 0.75, die: [-40, -30],   name: 'credits'},
-		{x: 0,   y: -20, scale: 1, die: [-10, -27], name: 'options'}
+		{x: 0,  y: -50, scale: 1,    die: [0, 0],     name:    'play'},
+		{x: 0,  y: -20, scale: 0.75, die: [-40, -30], name: 'credits'},
+		{x: 0,  y: -20, scale: 1,    die: [-10, -27], name: 'options'}
 	];
 
 	var magenta:FlxSprite;
@@ -228,11 +228,11 @@ class MainMenuState extends MusicBeatState
 			var anal:Vector3D = cam3D.view.camera.project(popup.scenePosition);
 			var item:FlxSprite = menuItems.members[popups.indexOf(popup)];
 			var bitem = optionShit[popups.indexOf(popup)];
-			item.setPosition((anal.x * FlxG.width / 2) + FlxG.width / 2, (anal.y * FlxG.height) + FlxG.height / 2);
+			item.setPosition((anal.x * FlxG.width / 1.9) + FlxG.width / 2, (anal.y * FlxG.height) + FlxG.height / 2);
 			item.offset.set(item.frameWidth / 2, (item.frameHeight / 2) + bitem.y);
 			if (item.animation.curAnim.name == 'selected')
 				item.offset.add(bitem.die[0], bitem.die[1]);
-			var scale:Float = FlxMath.remapToRange(popup.scenePosition.z, -780, -560, 0.65, 0.25);
+			var scale:Float = FlxMath.remapToRange(popup.scenePosition.z, -780, -560, 0.65, 0.4);
 			scale *= bitem.scale;
 			item.scale.set(scale, scale);
 		}
