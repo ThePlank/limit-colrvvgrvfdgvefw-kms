@@ -8,7 +8,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.input.keyboard.FlxKey;
 import flixel.addons.display.FlxGridOverlay;
-import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
+import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileCircle;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
 import haxe.Json;
@@ -39,6 +39,8 @@ import flixel.util.FlxTimer;
 import openfl.Assets;
 import flxgif.FlxGifSprite;
 import flixel.addons.display.FlxBackdrop;
+import openfl.utils.ByteArray;
+import flixel.graphics.FlxGraphic;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -73,11 +75,17 @@ class TitleState extends MusicBeatState {
 	var textGroup:FlxGroup;
 	var ngSpr:FlxGifSprite;
 
+	var libingLovesMen:FlxGifSprite;
+
 	var curWacky:Array<String> = [];
+	var loadingGifs:Array<openfl.utils.Future<ByteArray>> = [];
+	var canStartIntro:Bool = false;
 
 	var wackyImage:FlxSprite;
 	var barrelDistortion = new BarrelDistortionShader();
 	var mustUpdate:Bool = false;
+
+	public static var diamond:FlxGraphic;
 
 	var titleJSON:TitleData;
 
@@ -161,11 +169,6 @@ class TitleState extends MusicBeatState {
 		}
 
 		FlxG.mouse.visible = false;
-		#if FREEPLAY
-		MusicBeatState.switchState(new FreeplayState());
-		#elseif CHARTING
-		MusicBeatState.switchState(new ChartingState());
-		#else
 		if(FlxG.save.data.flashing == null && !FlashingState.leftState) {
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
@@ -175,51 +178,33 @@ class TitleState extends MusicBeatState {
 				startIntro();
 			else {
 				new FlxTimer().start(1, function(tmr:FlxTimer) {
-					startIntro();
+					canStartIntro = true;
 				});
 			}
 		}
-		#end
 	}
 
 	var logoBl:FlxSprite;
 	var titleText:FlxSprite;
 	var him:FlxSprite;
+	var zovtonMissing:Bool = false;
 	var swagShader:ColorSwap = null;
 
 	function startIntro() {
 		if (!initialized) {
-			/*var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
+			diamond = FlxGraphic.fromClass(GraphicTransTileCircle);
 			diamond.persist = true;
 			diamond.destroyOnNoUse = false;
-
-			FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 1, new FlxPoint(0, -1), {asset: diamond, width: 32, height: 32},
-				new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
-			FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.7, new FlxPoint(0, 1),
-				{asset: diamond, width: 32, height: 32}, new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
-
-			transIn = FlxTransitionableState.defaultTransIn;
-			transOut = FlxTransitionableState.defaultTransOut;*/
-
-			// HAD TO MODIFY SOME BACKEND SHIT
-			// IF THIS PR IS HERE IF ITS ACCEPTED UR GOOD TO GO
-			// https://github.com/HaxeFlixel/flixel-addons/pull/348
-
-			// var music:FlxSound = new FlxSound();
-			// music.loadStream(Paths.music('freakyMenu'));
-			// FlxG.sound.list.add(music);
-			// music.play();
 
 			if(FlxG.sound.music == null) {
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 			}
 		}
 
-		var zovMDFive:String = haxe.crypto.Md5.encode(sys.io.File.getContent('assets/images/Zovton.png'));
-		if (zovMDFive != 'd41d8cd98f00b204e9800998ecf8427e') {
-			trace('imagine the game exploding');
-		}
+		zovtonMissing = !sys.FileSystem.exists('${Sys.getCwd()}assets/images/Zovton.png');
 
+		if (zovtonMissing)
+			trace('imagine the game exploding');
 
 		Conductor.changeBPM(titleJSON.bpm);
 		persistentUpdate = true;
@@ -246,8 +231,6 @@ class TitleState extends MusicBeatState {
 		him.cameras = [camOther];
 		add(him);
 
-		logoBl.shader = swagShader.shader;
-
 		titleText = new FlxSprite(1075, 500);
 		titleText.frames = Paths.getSparrowAtlas('enter');	
 		titleText.animation.addByPrefix('idle', "enter idle", 24);
@@ -258,6 +241,11 @@ class TitleState extends MusicBeatState {
 		titleText.animation.play('idle');
 		titleText.updateHitbox();
 		add(titleText);
+
+		logoBl.shader = swagShader.shader;
+		him.shader = swagShader.shader;
+		titleText.shader = swagShader.shader;
+		bg.shader = swagShader.shader;
 
 		var eventThing:FlxBackdrop = new FlxBackdrop(Paths.image('eventThing'), X);
 		eventThing.velocity.set(30, 0);
@@ -282,12 +270,6 @@ class TitleState extends MusicBeatState {
 		add(credGroup);
 		textGroup = new FlxGroup();
 
-		// blackScreen = new FlxGifSprite(320, 180);
-		// blackScreen.loadGif('assets/images/titleshit.gif');
-		// blackScreen.cameras = [camOther];
-		// blackScreen.antialiasing = ClientPrefs.globalAntialiasing;
-		// blackScreen.setGraphicSize(FlxG.width, FlxG.height);
-		// credGroup.add(blackScreen);
 		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		blackScreen.cameras = [camOther];
 		credGroup.add(blackScreen);
@@ -297,9 +279,22 @@ class TitleState extends MusicBeatState {
 		credTextShit.screenCenter();
 
 		credTextShit.visible = false;
+		libingLovesMen = new FlxGifSprite(0, 0);
+		loadingGifs.push(ByteArray.loadFromFile('assets/images/deltarune.gif').onComplete((arr:ByteArray) -> {
+			libingLovesMen.loadGif(arr); // prevent the game from shidding itself while loading
+			loadingGifs.shift();
+		}));
+		libingLovesMen.cameras = [camOther];
+		libingLovesMen.scale.x = 4;
+		libingLovesMen.scale.y = 2;
+		libingLovesMen.updateHitbox();
+		libingLovesMen.screenCenter();
 
 		ngSpr = new FlxGifSprite(0, FlxG.height * 0.52);
-		ngSpr.loadGif('assets/images/newgrounds.gif');
+		loadingGifs.push(ByteArray.loadFromFile('assets/images/newgrounds.gif').onComplete((arr:ByteArray) -> {
+			ngSpr.loadGif(arr); // prevent the game from shidding itself while loading
+			loadingGifs.shift();
+		}));
 		ngSpr.visible = false;
 		ngSpr.y += 750;
 		ngSpr.cameras = [camOther];
@@ -316,15 +311,17 @@ class TitleState extends MusicBeatState {
 		else
 			initialized = true;
 
-		if(ClientPrefs.flashing) {
-			blackScreenO = new FlxGifSprite(320, 180);
-			blackScreenO.loadGif('assets/images/titleshit.gif');
-			blackScreenO.cameras = [camOther];
-			blackScreenO.blend = ADD;
-			blackScreenO.antialiasing = ClientPrefs.globalAntialiasing;
-			blackScreenO.setGraphicSize(FlxG.width, FlxG.height);
-			add(blackScreenO);
-		}
+		blackScreenO = new FlxGifSprite(320, 180);
+		loadingGifs.push(ByteArray.loadFromFile('assets/images/titleshit.gif').onComplete((arr:ByteArray) -> {
+			blackScreenO.loadGif(arr); // prevent the game from shidding itself while loading
+			loadingGifs.shift();
+		}));
+		blackScreenO.cameras = [camOther];
+		blackScreenO.blend = ADD;
+		blackScreenO.antialiasing = ClientPrefs.globalAntialiasing;
+		blackScreenO.setGraphicSize(FlxG.width, FlxG.height);
+		blackScreenO.visible = (ClientPrefs.flashing && !skippedIntro);
+		add(blackScreenO);
 	}
 
 	function getIntroTextShit():Array<Array<String>> {
@@ -344,6 +341,9 @@ class TitleState extends MusicBeatState {
 	private static var playJingle:Bool = false;
 
 	override function update(elapsed:Float) {
+		if (canStartIntro && loadingGifs.length >= 0 && !initialized)
+				startIntro();
+
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
@@ -363,22 +363,31 @@ class TitleState extends MusicBeatState {
 		}
 
 		if (initialized && !transitioning && skippedIntro) {
-			if(pressedEnter) {				
-				titleText.animation.play('press');
+			if(pressedEnter) {
+				if (zovtonMissing) {
+					add(libingLovesMen);
+					libingLovesMen.player.reset(true);
+					FlxG.sound.play(Paths.sound('snd_badexplosion'), 1);
+					new FlxTimer().start(0.5, function(tmr:FlxTimer) {
+						Sys.exit(0);
+					});
+				} else {
+					titleText.animation.play('press');
 
-				new FlxTimer().start(0.2, function(tmr:FlxTimer) {  
-					titleText.animation.play('idle');
-				});
+					new FlxTimer().start(0.2, function(tmr:FlxTimer) {  
+						titleText.animation.play('idle');
+					});
 
-				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+					FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
-				transitioning = true;
-				// FlxG.sound.music.stop();
+					transitioning = true;
+					// FlxG.sound.music.stop();
 
-				new FlxTimer().start(1, function(tmr:FlxTimer) {  
-					MusicBeatState.switchState(new MainMenuState());
-					closedState = true;
-				});
+					new FlxTimer().start(1, function(tmr:FlxTimer) {  
+						MusicBeatState.switchState(new MainMenuState());
+						closedState = true;
+					});
+				}
 			}
 		}
 
@@ -517,9 +526,8 @@ class TitleState extends MusicBeatState {
 		if (!skippedIntro) { {
 				remove(ngSpr);
 				remove(credGroup);
-				if(ClientPrefs.flashing) {
+				if(ClientPrefs.flashing)
 				    remove(blackScreenO);
-				}
 				camOther.flash(FlxColor.WHITE, 4);
 			}
 			skippedIntro = true;

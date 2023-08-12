@@ -5,13 +5,18 @@ import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.addons.transition.TransitionData;
+import flixel.util.FlxColor;
+import flixel.math.FlxPoint;
+import flixel.math.FlxRect;
 
 class ClientPrefs {
 	public static var downScroll:Bool = false;
 	public static var middleScroll:Bool = false;
 	public static var opponentStrums:Bool = true;
 	public static var showFPS:Bool = true;
-	public static var flashing:Bool = true;
+	public static var flashing(default, set):Bool = true;
 	public static var globalAntialiasing:Bool = true;
 	public static var lowQuality:Bool = false;
 	public static var shaders:Bool = true;
@@ -264,5 +269,27 @@ class ClientPrefs {
 			len = copiedArray.length;
 		}
 		return copiedArray;
+	}
+
+	static private function set_flashing(val:Bool):Bool {
+		/*if (!val) {
+			FlxTransitionableState.defaultTransIn = new TransitionData(TILES, FlxColor.BLACK, 1, new FlxPoint(0, -1),
+				{asset: TitleState.diamond, width: 32, height: 32}, new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
+
+			FlxTransitionableState.defaultTransOut = new TransitionData(TILES, FlxColor.BLACK, 0.7, new FlxPoint(0, 1),
+				{asset: TitleState.diamond, width: 32, height: 32}, new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
+
+			cast(FlxG.state, FlxTransitionableState).transIn = FlxTransitionableState.defaultTransIn;
+			cast(FlxG.state, FlxTransitionableState).transOut = FlxTransitionableState.defaultTransOut;
+		} else {
+			FlxTransitionableState.defaultTransIn = new TransitionData(NONE, FlxColor.BLACK, 1, new FlxPoint(0, -1),
+				{asset: TitleState.diamond, width: 32, height: 32}, new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
+
+			FlxTransitionableState.defaultTransOut = new TransitionData(NONE, FlxColor.BLACK, 0.7, new FlxPoint(0, 1),
+				{asset: TitleState.diamond, width: 32, height: 32}, new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
+			cast(FlxG.state, FlxTransitionableState).transIn = FlxTransitionableState.defaultTransIn;
+			cast(FlxG.state, FlxTransitionableState).transOut = FlxTransitionableState.defaultTransIn;
+		} diediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediediedie*/
+		return flashing = val;
 	}
 }
