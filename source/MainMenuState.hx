@@ -19,7 +19,6 @@ import flixel.util.FlxColor;
 import lime.app.Application;
 import flixel.addons.display.FlxBackdrop;
 import sys.io.Process;
-import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxTimer;
@@ -58,7 +57,6 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camOther:FlxCamera;
 	private var camGame:FlxCamera;
-	private var camAchievement:FlxCamera;
 	
 	var optionShit:Array<{x:Int, y:Int, scale:Float, die:Array<Int>, name:String}> = [
 		{x: 0,  y: -50, scale: 1,    die: [0, 0],     name:    'play'},
@@ -76,11 +74,6 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
-		#if MODS_ALLOWED
-		Paths.pushGlobalMods();
-		#end
-		WeekData.loadTheFirstEnabledMod();
-
 		#if discord_rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
@@ -88,13 +81,10 @@ class MainMenuState extends MusicBeatState
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
 		camGame = new FlxCamera();
-		camAchievement = new FlxCamera();
-		camAchievement.bgColor.alpha = 0;
 		camOther = new FlxCamera();
 		camOther.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
-		FlxG.cameras.add(camAchievement, false);
 		FlxG.cameras.add(camOther, false);
 
 		transIn = FlxTransitionableState.defaultTransIn;
@@ -112,7 +102,7 @@ class MainMenuState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
-		if(ClientPrefs.shaders){
+		if(ClientPrefs.shaders) {
 			barrelDistortion.barrelDistortion1 = -0.15;
 			barrelDistortion.barrelDistortion2 = -0.15;
 			camGame.setFilters([new ShaderFilter(barrelDistortion)]);
@@ -156,8 +146,6 @@ class MainMenuState extends MusicBeatState
 			System.gc();
 		}, "assets/models/terrible.png", false);
 
-		// magenta.scrollFactor.set();
-
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
@@ -186,37 +174,14 @@ class MainMenuState extends MusicBeatState
 
 		changeItem();
 
-		#if ACHIEVEMENTS_ALLOWED
-		Achievements.loadAchievements();
-		var leDate = Date.now();
-		if (leDate.getDay() == 5 && leDate.getHours() >= 18) {
-			var achieveID:Int = Achievements.getAchievementIndex('friday_night_play');
-			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
-				Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
-				giveAchievement();
-				ClientPrefs.saveSettings();
-			}
-		}
-		#end
-
 		super.create();
 		FlxG.fixedTimestep = false; // fix lagging with 3d main menu
 	}
 
-	#if ACHIEVEMENTS_ALLOWED
-	// Unlocks "Freaky on a Friday Night" achievement
-	function giveAchievement() {
-		add(new AchievementObject('friday_night_play', camAchievement));
-		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
-		trace('Giving achievement "friday_night_play"');
-	}
-	#end
-
 	var selectedSomethin:Bool = false;
 
 	override function update(elapsed:Float) {
-		if (FlxG.sound.music.volume < 0.8)
-		{
+		if (FlxG.sound.music.volume < 0.8) {
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 			if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
 		}
@@ -321,6 +286,7 @@ class MainMenuState extends MusicBeatState
 	}
 }
 
+/*
 class FunnyCamera extends away3d.cameras.Camera3D {
     var oldX:Float = 0;
     var oldY:Float = 0;
@@ -353,3 +319,4 @@ class FunnyCamera extends away3d.cameras.Camera3D {
         });
     }
 }
+*/

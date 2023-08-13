@@ -201,7 +201,7 @@ class TitleState extends MusicBeatState {
 			}
 		}
 
-		zovtonMissing = !sys.FileSystem.exists('${Sys.getCwd()}assets/images/Zovton.png');
+		zovtonMissing = !sys.FileSystem.exists('${Sys.getCwd()}assets/images/Zovtan.png');
 
 		if (zovtonMissing)
 			trace('imagine the game exploding');
