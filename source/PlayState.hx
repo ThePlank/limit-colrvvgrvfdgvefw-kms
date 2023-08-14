@@ -244,7 +244,7 @@ class PlayState extends MusicBeatState
 	private var singAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
 
 	public var inCutscene:Bool = false;
-	public var skipCountdown:Bool = false;
+	public var skipCountdown:Bool = true;
 	var songLength:Float = 0;
 
 	public var boyfriendCameraOffset:Array<Float> = null;
@@ -912,7 +912,6 @@ class PlayState extends MusicBeatState
 		}
 		playbackRate = value;
 		FlxAnimationController.globalSpeed = value;
-		trace('Anim speed: ' + FlxAnimationController.globalSpeed);
 		Conductor.safeZoneOffset = (ClientPrefs.safeFrames / 60) * 1000 * value;
 		setOnLuas('playbackRate', playbackRate);
 		return value;
@@ -1168,7 +1167,7 @@ class PlayState extends MusicBeatState
 			}
 			else if (skipCountdown)
 			{
-				setSongTime(0);
+				new FlxTimer().start(Conductor.crochet / 1000 / playbackRate, (tmr) -> setSongTime(0));
 				return;
 			}
 
@@ -3428,7 +3427,8 @@ class PlayState extends MusicBeatState
 	
 		switch (curStep) {
 			case 16:
-				FlxTween.tween(this, {cameraSpeed: 1}, 15, {ease: FlxEase.expoOut});
+				isCameraOnForcedPos = true;
+				FlxTween.tween(this, {cameraSpeed: 1}, 15, {ease: FlxEase.expoOut, onComplete: (twn) -> isCameraOnForcedPos = false});
 		}
 
 	
