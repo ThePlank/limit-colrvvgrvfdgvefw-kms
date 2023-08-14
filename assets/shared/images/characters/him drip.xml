@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="him drip.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="him drip down0000" x="0" y="2186" width="545" height="890" frameX="0" frameY="-12" frameWidth="545" frameHeight="902"/>
+	<SubTexture name="him drip down0001" x="0" y="2186" width="545" height="890" frameX="0" frameY="-12" frameWidth="545" frameHeight="902"/>
+	<SubTexture name="him drip down0002" x="2679" y="3012" width="518" height="902" frameX="-8" frameY="0" frameWidth="545" frameHeight="902"/>
+	<SubTexture name="him drip down0003" x="2679" y="3012" width="518" height="902" frameX="-8" frameY="0" frameWidth="545" frameHeight="902"/>
+	<SubTexture name="him drip down0004" x="3202" y="3012" width="513" height="897" frameX="-8" frameY="-5" frameWidth="545" frameHeight="902"/>
+	<SubTexture name="him drip down0005" x="3202" y="3012" width="513" height="897" frameX="-8" frameY="-5" frameWidth="545" frameHeight="902"/>
+	<SubTexture name="him drip down0006" x="0" y="3081" width="513" height="897" frameX="-8" frameY="-5" frameWidth="545" frameHeight="902"/>
+	<SubTexture name="him drip down0007" x="0" y="3081" width="513" height="897" frameX="-8" frameY="-5" frameWidth="545" frameHeight="902"/>
+	<SubTexture name="him drip down0008" x="0" y="3081" width="513" height="897" frameX="-8" frameY="-5" frameWidth="545" frameHeight="902"/>
+	<SubTexture name="him drip down0009" x="0" y="3081" width="513" height="897" frameX="-8" frameY="-5" frameWidth="545" frameHeight="902"/>
+	<SubTexture name="him drip down0010" x="0" y="3081" width="513" height="897" frameX="-8" frameY="-5" frameWidth="545" frameHeight="902"/>
+	<SubTexture name="him drip down0011" x="0" y="3081" width="513" height="897" frameX="-8" frameY="-5" frameWidth="545" frameHeight="902"/>
+	<SubTexture name="him drip down0012" x="0" y="3081" width="513" height="897" frameX="-8" frameY="-5" frameWidth="545" frameHeight="902"/>
+	<SubTexture name="him drip down0013" x="0" y="3081" width="513" height="897" frameX="-8" frameY="-5" frameWidth="545" frameHeight="902"/>
+	<SubTexture name="him drip down0014" x="0" y="3081" width="513" height="897" frameX="-8" frameY="-5" frameWidth="545" frameHeight="902"/>
+	<SubTexture name="him drip idle0000" x="2679" y="2001" width="500" height="1006"/>
+	<SubTexture name="him drip idle0001" x="3184" y="2001" width="500" height="1006"/>
+	<SubTexture name="him drip idle0002" x="3184" y="2001" width="500" height="1006"/>
+	<SubTexture name="him drip idle0003" x="3184" y="2001" width="500" height="1006"/>
+	<SubTexture name="him drip idle0004" x="3184" y="2001" width="500" height="1006"/>
+	<SubTexture name="him drip idle0005" x="3184" y="2001" width="500" height="1006"/>
+	<SubTexture name="him drip idle0006" x="3184" y="2001" width="500" height="1006"/>
+	<SubTexture name="him drip idle0007" x="3184" y="2001" width="500" height="1006"/>
+	<SubTexture name="him drip idle0008" x="3184" y="2001" width="500" height="1006"/>
+	<SubTexture name="him drip idle0009" x="3184" y="2001" width="500" height="1006"/>
+	<SubTexture name="him drip idle0010" x="3184" y="2001" width="500" height="1006"/>
+	<SubTexture name="him drip idle0011" x="3184" y="2001" width="500" height="1006"/>
+	<SubTexture name="him drip idle0012" x="3184" y="2001" width="500" height="1006"/>
+	<SubTexture name="him drip idle0013" x="3184" y="2001" width="500" height="1006"/>
+	<SubTexture name="him drip idle0014" x="3184" y="2001" width="500" height="1006"/>
+	<SubTexture name="him drip left0000" x="797" y="999" width="733" height="993" frameX="0" frameY="-6" frameWidth="733" frameHeight="999"/>
+	<SubTexture name="him drip left0001" x="797" y="999" width="733" height="993" frameX="0" frameY="-6" frameWidth="733" frameHeight="999"/>
+	<SubTexture name="him drip left0002" x="3096" y="0" width="733" height="999"/>
+	<SubTexture name="him drip left0003" x="3096" y="0" width="733" height="999"/>
+	<SubTexture name="him drip left0004" x="3045" y="1004" width="733" height="992" frameX="0" frameY="-7" frameWidth="733" frameHeight="999"/>
+	<SubTexture name="him drip left0005" x="3045" y="1004" width="733" height="992" frameX="0" frameY="-7" frameWidth="733" frameHeight="999"/>
+	<SubTexture name="him drip left0006" x="1569" y="996" width="733" height="995" frameX="0" frameY="-4" frameWidth="733" frameHeight="999"/>
+	<SubTexture name="him drip left0007" x="1569" y="996" width="733" height="995" frameX="0" frameY="-4" frameWidth="733" frameHeight="999"/>
+	<SubTexture name="him drip left0008" x="2307" y="996" width="733" height="995" frameX="0" frameY="-4" frameWidth="733" frameHeight="999"/>
+	<SubTexture name="him drip left0009" x="2307" y="996" width="733" height="995" frameX="0" frameY="-4" frameWidth="733" frameHeight="999"/>
+	<SubTexture name="him drip left0010" x="2307" y="996" width="733" height="995" frameX="0" frameY="-4" frameWidth="733" frameHeight="999"/>
+	<SubTexture name="him drip left0011" x="2307" y="996" width="733" height="995" frameX="0" frameY="-4" frameWidth="733" frameHeight="999"/>
+	<SubTexture name="him drip left0012" x="2307" y="996" width="733" height="995" frameX="0" frameY="-4" frameWidth="733" frameHeight="999"/>
+	<SubTexture name="him drip left0013" x="2307" y="996" width="733" height="995" frameX="0" frameY="-4" frameWidth="733" frameHeight="999"/>
+	<SubTexture name="him drip left0014" x="2307" y="996" width="733" height="995" frameX="0" frameY="-4" frameWidth="733" frameHeight="999"/>
+	<SubTexture name="him drip right0000" x="0" y="0" width="792" height="1007" frameX="-1" frameY="0" frameWidth="793" frameHeight="1007"/>
+	<SubTexture name="him drip right0001" x="0" y="0" width="792" height="1007" frameX="-1" frameY="0" frameWidth="793" frameHeight="1007"/>
+	<SubTexture name="him drip right0002" x="797" y="0" width="767" height="994" frameX="0" frameY="-13" frameWidth="793" frameHeight="1007"/>
+	<SubTexture name="him drip right0003" x="797" y="0" width="767" height="994" frameX="0" frameY="-13" frameWidth="793" frameHeight="1007"/>
+	<SubTexture name="him drip right0004" x="1569" y="0" width="760" height="991" frameX="0" frameY="-16" frameWidth="793" frameHeight="1007"/>
+	<SubTexture name="him drip right0005" x="1569" y="0" width="760" height="991" frameX="0" frameY="-16" frameWidth="793" frameHeight="1007"/>
+	<SubTexture name="him drip right0006" x="2334" y="0" width="757" height="991" frameX="0" frameY="-16" frameWidth="793" frameHeight="1007"/>
+	<SubTexture name="him drip right0007" x="2334" y="0" width="757" height="991" frameX="0" frameY="-16" frameWidth="793" frameHeight="1007"/>
+	<SubTexture name="him drip right0008" x="2334" y="0" width="757" height="991" frameX="0" frameY="-16" frameWidth="793" frameHeight="1007"/>
+	<SubTexture name="him drip right0009" x="2334" y="0" width="757" height="991" frameX="0" frameY="-16" frameWidth="793" frameHeight="1007"/>
+	<SubTexture name="him drip right0010" x="2334" y="0" width="757" height="991" frameX="0" frameY="-16" frameWidth="793" frameHeight="1007"/>
+	<SubTexture name="him drip right0011" x="2334" y="0" width="757" height="991" frameX="0" frameY="-16" frameWidth="793" frameHeight="1007"/>
+	<SubTexture name="him drip right0012" x="2334" y="0" width="757" height="991" frameX="0" frameY="-16" frameWidth="793" frameHeight="1007"/>
+	<SubTexture name="him drip right0013" x="2334" y="0" width="757" height="991" frameX="0" frameY="-16" frameWidth="793" frameHeight="1007"/>
+	<SubTexture name="him drip right0014" x="2334" y="0" width="757" height="991" frameX="0" frameY="-16" frameWidth="793" frameHeight="1007"/>
+	<SubTexture name="him drip up0000" x="0" y="1012" width="585" height="1169" frameX="0" frameY="0" frameWidth="586" frameHeight="1169"/>
+	<SubTexture name="him drip up0001" x="0" y="1012" width="585" height="1169" frameX="0" frameY="0" frameWidth="586" frameHeight="1169"/>
+	<SubTexture name="him drip up0002" x="1535" y="1996" width="570" height="1148" frameX="-16" frameY="-21" frameWidth="586" frameHeight="1169"/>
+	<SubTexture name="him drip up0003" x="1535" y="1996" width="570" height="1148" frameX="-16" frameY="-21" frameWidth="586" frameHeight="1169"/>
+	<SubTexture name="him drip up0004" x="590" y="1997" width="563" height="1145" frameX="-16" frameY="-24" frameWidth="586" frameHeight="1169"/>
+	<SubTexture name="him drip up0005" x="590" y="1997" width="563" height="1145" frameX="-16" frameY="-24" frameWidth="586" frameHeight="1169"/>
+	<SubTexture name="him drip up0006" x="2110" y="1996" width="564" height="1145" frameX="-16" frameY="-24" frameWidth="586" frameHeight="1169"/>
+	<SubTexture name="him drip up0007" x="2110" y="1996" width="564" height="1145" frameX="-16" frameY="-24" frameWidth="586" frameHeight="1169"/>
+	<SubTexture name="him drip up0008" x="2110" y="1996" width="564" height="1145" frameX="-16" frameY="-24" frameWidth="586" frameHeight="1169"/>
+	<SubTexture name="him drip up0009" x="2110" y="1996" width="564" height="1145" frameX="-16" frameY="-24" frameWidth="586" frameHeight="1169"/>
+	<SubTexture name="him drip up0010" x="2110" y="1996" width="564" height="1145" frameX="-16" frameY="-24" frameWidth="586" frameHeight="1169"/>
+	<SubTexture name="him drip up0011" x="2110" y="1996" width="564" height="1145" frameX="-16" frameY="-24" frameWidth="586" frameHeight="1169"/>
+	<SubTexture name="him drip up0012" x="2110" y="1996" width="564" height="1145" frameX="-16" frameY="-24" frameWidth="586" frameHeight="1169"/>
+	<SubTexture name="him drip up0013" x="2110" y="1996" width="564" height="1145" frameX="-16" frameY="-24" frameWidth="586" frameHeight="1169"/>
+	<SubTexture name="him drip up0014" x="2110" y="1996" width="564" height="1145" frameX="-16" frameY="-24" frameWidth="586" frameHeight="1169"/>
+</TextureAtlas>
