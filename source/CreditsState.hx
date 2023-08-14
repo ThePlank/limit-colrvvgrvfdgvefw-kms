@@ -49,6 +49,21 @@ class CreditsState extends MusicBeatState
 	var bgn:FlxBackdrop;
 	var bgk:FlxBackdrop;
 	var barrelDistortion = new BarrelDistortionShader();
+
+	var iconShit:Array<(AttachedSprite, Float)->Void> = [
+		(icon, totalDelta) -> { icon.offset.y = Math.abs(Math.sin(totalDelta * 4)) * 50; }, // libing
+		(icon, totalDelta) -> { icon.angleAdd += 5; }, // plank
+		(icon, totalDelta) -> {
+				icon.offset.x = FlxG.random.int(-5, 5);
+				icon.offset.y = FlxG.random.int(-3, 3);
+				icon.angleAdd = FlxG.random.int(-2, 2);
+		}, //nick
+		(icon, totalDelta) -> {
+			icon.offset.y = Math.abs(Math.sin(totalDelta * 4)) * 50;
+			icon.offset.x = Math.cos(totalDelta * 4) * 25;
+		} // ffb
+	];
+
 	override function create()
 	{
 		camGame = new FlxCamera();
@@ -104,7 +119,7 @@ class CreditsState extends MusicBeatState
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		var saygex:Array<Array<String>> = [ //Name - Icon name - Description - Link - Antialias
+		var saygex:Array<Array<String>> = [ //Name - Icon name - Description - Link - Antialias - icon shit
 			['Skech Team'],
 			['libing',		        'theyarelimitedcolors','Director, Charter',            'https://www.youtube.com/channel/UCwH4gcjdN-gWPGunlBxAnQQ', 'true'],
 			['plankdev',	    	'plank icon real',	   'Main programmer, 3D modeler.\nMain Programmer of Hashlinked','https://twitter.com/_PlankDev', 'true'],
@@ -159,7 +174,6 @@ class CreditsState extends MusicBeatState
 				// using a FlxGroup is too much fuss!
 				iconArray.push(icon);
 				add(icon);
-				Paths.currentModDirectory = '';
 
 				if(curSelected == -1) curSelected = i;
 			}
@@ -212,18 +226,14 @@ class CreditsState extends MusicBeatState
 		if (FlxG.sound.music.volume < 0.7)
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 
+		for (i in 0...iconArray.length)
+			if (iconShit[i] != null) iconShit[i](iconArray[i], totalDelta);
+
 		//pwease make dis code gud pwank :3
 		// oki :3
 		//dis whowe time it was that shwimpwe?? owo thankies tho <3
 		bgn.alpha = FlxMath.lerp(bgn.alpha, ((curSelected == 3) ? 1 : 0), 0.01);
 		bgk.alpha = FlxMath.lerp(bgk.alpha, ((curSelected == 21) ? 1 : 0), 0.01);
-
-		iconArray[2].offset.x = FlxG.random.int(-5, 5);
-		iconArray[2].offset.y = FlxG.random.int(-3, 3);
-		iconArray[2].angleAdd = FlxG.random.int(-2, 2);
-
-		iconArray[1].angleAdd += 5;
-		iconArray[0].offset.y = Math.abs(Math.sin(totalDelta * 4)) * 50;
 
 		if(!quitting)
 		{

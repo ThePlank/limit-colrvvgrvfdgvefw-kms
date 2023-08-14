@@ -1491,10 +1491,8 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		for (section in noteData)
-		{
-			for (songNotes in section.sectionNotes)
-			{
+		for (section in noteData) {	
+			for (songNotes in section.sectionNotes) {
 				var daStrumTime:Float = songNotes[0];
 				var daNoteData:Int = Std.int(songNotes[1] % 4);
 
@@ -2561,18 +2559,10 @@ class PlayState extends MusicBeatState
 		for (cam in [camGame, camHUD]) fun(cam);
 
 	function moveCameraSection():Void {
-		if(SONG.notes[curSection] == null) return;
-
-		if (gf != null && SONG.notes[curSection].gfSection)
-		{
-			camFollow.setPosition(gf.getMidpoint().x, gf.getMidpoint().y);
-			camFollow.x += gf.cameraPosition[0] + girlfriendCameraOffset[0];
-			camFollow.y += gf.cameraPosition[1] + girlfriendCameraOffset[1];
-			callOnLuas('onMoveCamera', ['gf']);
+		if(SONG.notes[curSection] == null)
 			return;
-		}
 
-		//pwease fix musthitsection :3
+		// pwease fix musthitsection :3
 		// oki nwn
 		moveCamera(!SONG.notes[curSection].mustHitSection);
 	}
@@ -3510,9 +3500,7 @@ class PlayState extends MusicBeatState
 		if (SONG.notes[curSection] != null)
 		{
 			if (generatedMusic && !endingSong && !isCameraOnForcedPos)
-			{
 				moveCameraSection();
-			}
 
 			if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.camZooms)
 			{
