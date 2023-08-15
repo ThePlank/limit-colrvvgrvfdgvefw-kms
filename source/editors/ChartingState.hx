@@ -238,7 +238,8 @@ class ChartingState extends MusicBeatState
 
 		vortex = FlxG.save.data.chart_vortex;
 		ignoreWarnings = FlxG.save.data.ignoreWarnings;
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Zovtan'));
+		bg.setGraphicSize(FlxG.width, FlxG.height);
 		bg.scrollFactor.set();
 		bg.color = 0xFF222222;
 		add(bg);
@@ -976,7 +977,7 @@ class ChartingState extends MusicBeatState
 		noteTypeDropDown = new FlxUIDropDownMenuCustom(10, 105, FlxUIDropDownMenuCustom.makeStrIdLabelArray(displayNameList, true), function(character:String)
 		{
 			currentType = Std.parseInt(character);
-			if(curSelectedNote != null && curSelectedNote[1] > -1) {
+			if(curSelectedNote != null && !Std.isOfType(curSelectedNote[1], Array)) {
 				curSelectedNote[3] = noteTypeIntMap.get(currentType);
 				updateGrid();
 			}

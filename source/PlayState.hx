@@ -1470,25 +1470,27 @@ class PlayState extends MusicBeatState
 		var daBeats:Int = 0; // Not exactly representative of 'daBeats' lol, just how much it has looped
 
 		var songName:String = Paths.formatToSongPath(SONG.song);
-		var file:String = Paths.json(songName + '/events');
-		if (OpenFlAssets.exists(file)) {
-			var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
-			for (event in eventsData) //Event Notes
-			{
-				for (i in 0...event[1].length)
-				{
-					var newEventNote:Array<Dynamic> = [event[0], event[1][i][0], event[1][i][1], event[1][i][2]];
-					var domEvent:EventNote = {
-						strumTime: newEventNote[0] + ClientPrefs.noteOffset,
-						event: newEventNote[1],
-						value1: newEventNote[2],
-						value2: newEventNote[3]
-					};
-					eventNotes.push(domEvent);
-					eventPushed(domEvent);
-				}
-			}
-		}
+		// var file:String = Paths.json(songName + '/events');
+		// if (OpenFlAssets.exists(file)) {
+		// 	var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
+		// 	for (event in eventsData) //Event Notes
+		// 	{
+		// 		for (i in 0...event[1].length)
+		// 		{
+		// 			var newEventNote:Array<Dynamic> = [event[0], event[1][i][0], event[1][i][1], event[1][i][2]];
+		// 			var domEvent:EventNote = {
+		// 				strumTime: newEventNote[0] + ClientPrefs.noteOffset,
+		// 				event: newEventNote[1],
+		// 				value1: newEventNote[2],
+		// 				value2: newEventNote[3]
+		// 			};
+		// 			eventNotes.push(domEvent);
+		// 			eventPushed(domEvent);
+		// 		}
+		// 	}
+		// }
+		
+		// previously there was a event loop here but now events are exclusivley added with the chart due to having 2 event systems backfiring on us
 
 		for (section in noteData) {	
 			for (songNotes in section.sectionNotes) {
@@ -1571,7 +1573,21 @@ class PlayState extends MusicBeatState
 			}
 			daBeats += 1;
 		}
-		// previously there was a event loop here but now events are exclusivley added with events.json due to having 2 event systems backfiring on us
+		for (event in songData.events) //Event Notes
+		{
+			for (i in 0...event[1].length)
+			{
+				var newEventNote:Array<Dynamic> = [event[0], event[1][i][0], event[1][i][1], event[1][i][2]];
+				var subEvent:EventNote = {
+					strumTime: newEventNote[0] + ClientPrefs.noteOffset,
+					event: newEventNote[1],
+					value1: newEventNote[2],
+					value2: newEventNote[3]
+				};
+				eventNotes.push(subEvent);
+				eventPushed(subEvent);
+			}
+		}
 
 		unspawnNotes.sort(sortByTime);
 		generatedMusic = true;
