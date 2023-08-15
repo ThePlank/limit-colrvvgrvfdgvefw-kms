@@ -1,78 +1,122 @@
 {
 	"animations": [
 		{
-			"indices": [],
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
 			"fps": 24,
 			"anim": "idle",
-			"loop": false,
+			"indices": [],
 			"name": "him-idle"
 		},
 		{
-			"indices": [],
 			"offsets": [
 				134,
 				20
 			],
+			"indices": [],
 			"fps": 24,
 			"anim": "singLEFT",
 			"loop": false,
-			"name": "him-left"
+			"name": "him-left0"
 		},
 		{
-			"indices": [],
 			"offsets": [
 				-5,
 				-87
 			],
+			"indices": [],
 			"fps": 24,
 			"anim": "singDOWN",
 			"loop": false,
-			"name": "him-down"
+			"name": "him-down0"
 		},
 		{
-			"indices": [],
 			"offsets": [
 				42,
 				101
 			],
+			"indices": [],
 			"fps": 24,
 			"anim": "singUP",
 			"loop": false,
-			"name": "him-up"
+			"name": "him-up0"
 		},
 		{
-			"indices": [],
 			"offsets": [
-				-16,
-				-12
+				-20,
+				-13
 			],
+			"indices": [],
 			"fps": 24,
 			"anim": "singRIGHT",
 			"loop": false,
-			"name": "him-right"
+			"name": "him-right0"
+		},
+		{
+			"offsets": [
+				183,
+				2
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFT-alt",
+			"loop": false,
+			"name": "him-left-sick"
+		},
+		{
+			"offsets": [
+				50,
+				-82
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singDOWN-alt",
+			"loop": false,
+			"name": "him-down-sick"
+		},
+		{
+			"offsets": [
+				42,
+				102
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singUP-alt",
+			"loop": false,
+			"name": "him-up-sick"
+		},
+		{
+			"offsets": [
+				-22,
+				-13
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHT-alt",
+			"loop": false,
+			"name": "him-right-sick"
 		}
 	],
-	"camera_position": [
-		150,
-		90
+	"no_antialiasing": false,
+	"image": "characters/him",
+	"position": [
+		-20,
+		-60
 	],
+	"healthicon": "face",
 	"flip_x": false,
 	"healthbar_colors": [
 		255,
 		255,
 		255
 	],
-	"healthicon": "him",
-	"image": "characters/him",
-	"no_antialiasing": false,
-	"position": [
-		-20,
-		-60
+	"camera_position": [
+		150,
+		90
 	],
-	"scale": 0.7,
-	"sing_duration": 6.1
+	"sing_duration": 6.1,
+	"scale": 0.7
 }
