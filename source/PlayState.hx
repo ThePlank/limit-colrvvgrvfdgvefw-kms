@@ -287,6 +287,7 @@ class PlayState extends MusicBeatState
 	var canBeat:Bool = false;
 	var barrelDistortion = new BarrelDistortionShader();
 	var blendModeShit:ShaderFilter;
+	var invertShit:ShaderFilter;
 	var gaySexFilter:ShaderFilter;
 
 	var precacheList:Map<String, String> = new Map<String, String>();
@@ -1609,6 +1610,9 @@ class PlayState extends MusicBeatState
 				blendModeShit = new ShaderFilter(gasProblem);
 				gasProblem.overlayColor.value = [overlayColour.redFloat, overlayColour.greenFloat, overlayColour.blueFloat];
 
+				var gasGroblem:InvertShader = new InvertShader();
+				invertShit = new ShaderFilter(gasGroblem);
+
 				// var assProblem:HalftoneShader = new HalftoneShader();
 				// assProblem.scale.value = [0.6];
 				// gaySexFilter = new ShaderFilter(assProblem);
@@ -2549,9 +2553,9 @@ class PlayState extends MusicBeatState
 				switch(val) {
 					case 0:
 						cameraTransform(cam -> cam._filters.remove(blendModeShit));
-						// cameraTransform(cam -> cam._filters.remove(gaySexFilter));
+						cameraTransform(cam -> cam._filters.remove(invertShit));
 					case 1: cameraTransform(cam -> cam._filters.push(blendModeShit));
-					case 2: addTextToDebug('@nickngc please tell me what the fuck the other one is meant to look like', 0xFFFF00D5); // lesbian color
+					case 2: cameraTransform(cam -> cam._filters.push(invertShit));
 				}
 
 				if(!Math.isNaN(val)) {
