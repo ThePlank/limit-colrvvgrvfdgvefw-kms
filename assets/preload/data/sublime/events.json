@@ -2,22 +2,12 @@
 	"song": {
 		"events": [
 			[
-				42352.9411764706,
-				[
-					[
-						"overlay shit",
-						"2",
-						""
-					]
-				]
-			],
-			[
 				56470.5882352941,
 				[
 					[
-						"overlay shit",
-						"1",
-						""
+						"Change Character",
+						"Dad",
+						"himDrip"
 					]
 				]
 			],
@@ -25,9 +15,9 @@
 				70588.2352941177,
 				[
 					[
-						"overlay shit",
-						"0",
-						""
+						"Change Character",
+						"Dad",
+						"him"
 					]
 				]
 			]
