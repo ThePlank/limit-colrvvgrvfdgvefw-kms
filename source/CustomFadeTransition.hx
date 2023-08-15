@@ -34,6 +34,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
 		transGradient.updateHitbox();
 		transGradient.scrollFactor.set();
 		transGradient.color = 0xFF000000;
+		transGradient.visible = ClientPrefs.flashing; // lazy fix for rn
 		add(transGradient);
 
 		cisBlack = new FlxSprite().makeGraphic(width + 400, height, FlxColor.BLACK);
