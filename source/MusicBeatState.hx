@@ -176,4 +176,17 @@ class MusicBeatState extends FlxUIState
 			val = PlayState.SONG.notes[curSection].sectionBeats;
 		return val;
 	}
+
+	// this code can go die in a fire
+	override function onFocus() {
+		super.onFocus();
+		for (cam in FlxG.cameras.list)
+			cam.updateBitmapCache();
+	}
+
+	override function onFocusLost() {
+		super.onFocusLost();
+		for (cam in FlxG.cameras.list)
+			cam.updateBitmapCache();
+	}
 }

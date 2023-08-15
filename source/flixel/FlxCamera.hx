@@ -33,6 +33,7 @@ private typedef FlxDrawItem = #if FLX_DRAW_QUADS flixel.graphics.tile.FlxDrawQua
 // Yoinked from Plank Engine, go check it out https://github.com/ThePlank/PlankEngine
 // nick plank engine doesent have a gender >:( (context nick typed "him" instead of "it"
 // also i should probabbly mention that this is a implementation of Raltyro's ZCameraFix in source
+@:access(openfl.display.Sprite)
 class FlxCamera extends FlxBasic
 {
 	/**
@@ -1881,6 +1882,13 @@ class FlxCamera extends FlxBasic
 	{
 		updateFlashOffset();
 		setScale(scaleX, scaleY);
+		updateBitmapCache();
+	}
+
+	// shader coord fix made by ne_eo
+	public function updateBitmapCache():Void {
+		flashSprite.__cacheBitmap = null;
+		flashSprite.__cacheBitmapData = null;
 	}
 
 	/**
