@@ -2571,7 +2571,6 @@ class PlayState extends MusicBeatState
 				if(!Math.isNaN(val)) {
 					FlxG.camera.zoom += 0.1;
 					FlxG.camera.flash(FlxColor.WHITE, Conductor.crochet / 1000);
-					// if (ClientPrefs.shaders) cameraTransform(cam -> cam._filters.push(gaySexFilter));
 				} else
 					addTextToDebug('GO FUCK YOURSELF', 0xFFFF0000);
 		}
@@ -2603,9 +2602,8 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	function snapCamFollowToPos(x:Float, y:Float) {
+	function snapCamFollowToPos(x:Float, y:Float)
 		camFollow.setPosition(x, y);
-	}
 
 	public function finishSong(?ignoreNoteOffset:Bool = false):Void
 	{

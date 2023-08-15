@@ -21,7 +21,7 @@ class HalftoneShader extends FlxShader {
 		void main() {
 			vec2 uv = openfl_TextureCoordv.xy;
 			vec4 col = flixel_texture2D(bitmap, uv);
-			col.rgb = vec3(col.rgb * 10.0 - 5.0 + dotScreen(uv, angle, scale));
+			col.rgb = col.a * (vec3(col.rgb * 10.0 - 5.0 + dotScreen(uv, angle, scale)));
 			gl_FragColor = col;
 		}
 	')
