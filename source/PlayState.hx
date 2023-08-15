@@ -317,8 +317,8 @@ class PlayState extends MusicBeatState
 		// for lua
 		instance = this;
 
-		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
-		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
+		// debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
+		// debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
 		PauseSubState.songName = null; //Reset to default
 		playbackRate = ClientPrefs.getGameplaySetting('songspeed', 1);
 
@@ -1856,10 +1856,10 @@ class PlayState extends MusicBeatState
 			openPauseMenu();
 		}
 
-		if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
-		{
-			openChartEditor();
-		}
+		// if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
+		// {
+		// 	openChartEditor();
+		// }
 
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
@@ -1894,12 +1894,12 @@ class PlayState extends MusicBeatState
 		    iconP2.angle = FlxG.random.int(-2, 2);
 		} else iconP2.animation.curAnim.curFrame = 0;
 
-		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
-			persistentUpdate = false;
-			paused = true;
-			cancelMusicFadeTween();
-			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
-		}
+		// if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
+		// 	persistentUpdate = false;
+		// 	paused = true;
+		// 	cancelMusicFadeTween();
+		// 	MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
+		// }
 		
 		if (startedCountdown)
 		{
@@ -2676,7 +2676,6 @@ class PlayState extends MusicBeatState
 				return;
 			}
 
-
 			campaignScore += songScore;
 			campaignMisses += songMisses;
 
@@ -2686,7 +2685,7 @@ class PlayState extends MusicBeatState
 			if(FlxTransitionableState.skipNextTransIn) {
 				CustomFadeTransition.nextCamera = null;
 			}
-			MusicBeatState.switchState(new MainMenuState());
+			MusicBeatState.switchState(new CreditsState());
 			changedDifficulty = false;
 			transitioning = true;
 		}
