@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "idle",
+			"loop": false,
+			"name": "him drip idle"
+		},
+		{
+			"offsets": [
+				194,
+				20
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFT",
+			"loop": false,
+			"name": "him drip left"
+		},
+		{
+			"offsets": [
+				3,
+				-71
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singDOWN",
+			"loop": false,
+			"name": "him drip down"
+		},
+		{
+			"offsets": [
+				53,
+				113
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singUP",
+			"loop": false,
+			"name": "him drip up"
+		},
+		{
+			"offsets": [
+				-10,
+				2
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHT",
+			"loop": false,
+			"name": "him drip right"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/him drip",
+	"position": [
+		-20,
+		-60
+	],
+	"healthicon": "face",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		255,
+		255
+	],
+	"camera_position": [
+		150,
+		90
+	],
+	"sing_duration": 6.1,
+	"scale": 0.7
+}
