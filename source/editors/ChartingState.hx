@@ -3053,6 +3053,10 @@ class ChartingState extends MusicBeatState
 		FlxG.log.error("Problem saving Level data");
 	}
 
+	override function getBeatsOnSection() {
+		return getSectionBeats();
+	}
+
 	function getSectionBeats(?section:Null<Int> = null)
 	{
 		var val:Null<Float> = null;
