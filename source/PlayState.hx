@@ -308,6 +308,7 @@ class PlayState extends MusicBeatState
 	var city:FlxSprite;
 	var front:FlxSprite;
 	var transGradient:FlxSprite;
+	var foxy:FlxSprite;
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -480,8 +481,8 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'stage': //Week 1
-				sky = new FlxSprite(-800, -400).loadGraphic(Paths.image('stage/sky'));
-				sky.scale.set(0.9, 0.9);
+				sky = new FlxSprite(-900, -700).loadGraphic(Paths.image('stage/sky'));
+				sky.scale.set(1, 1);
 				sky.scrollFactor.set(0, 0);
 				sky.updateHitbox();
 				sky.antialiasing = ClientPrefs.globalAntialiasing;
@@ -527,6 +528,15 @@ class PlayState extends MusicBeatState
 				transGradient.scrollFactor.set(0, 0);
 				transGradient.cameras = [camHUD];
 				add(transGradient);
+
+				foxy = new FlxSprite(0, 0);
+				foxy.frames = Paths.getSparrowAtlas('foxy');
+				foxy.animation.addByPrefix('jumpscare', "foxy", 24);
+				foxy.animation.addByPrefix('idle', "foxy static", 24);
+				foxy.antialiasing = ClientPrefs.globalAntialiasing;
+				foxy.cameras = [camHUD];
+				foxy.updateHitbox();
+				add(foxy);
 		}
 
 		if(isPixelStage) {
@@ -3440,6 +3450,12 @@ class PlayState extends MusicBeatState
 			case 16:
 				isCameraOnForcedPos = true;
 				FlxTween.tween(this, {cameraSpeed: 1}, 15, {ease: FlxEase.expoOut, onComplete: (twn) -> isCameraOnForcedPos = false});
+			case 1556:
+				foxy.animation.play('jumpscare');
+			case 1563:
+				foxy.animation.play('idle');
+			case 1568:
+				foxy.destroy();
 		}
 
 	
