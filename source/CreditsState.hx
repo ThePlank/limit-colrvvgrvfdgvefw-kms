@@ -52,7 +52,7 @@ class CreditsState extends MusicBeatState
 
 	var iconShit:Array<(AttachedSprite, Float)->Void> = [
 		(icon, totalDelta) -> { icon.offset.y = Math.abs(Math.sin(totalDelta * 4)) * 50; }, // libing
-		(icon, totalDelta) -> { icon.angleAdd += FlxG.elapsed * 5; }, // plank
+		(icon, totalDelta) -> { icon.angleAdd += FlxG.elapsed * 15; }, // plank
 		(icon, totalDelta) -> {
 				icon.offset.x = FlxG.random.int(-5, 5);
 				icon.offset.y = FlxG.random.int(-3, 3);
