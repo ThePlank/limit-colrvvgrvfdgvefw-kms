@@ -206,7 +206,7 @@ class TitleState extends MusicBeatState {
 		if (zovtonMissing)
 			trace('imagine the game exploding');
 
-		Conductor.changeBPM(titleJSON.bpm);
+		Conductor.changeBPM(96); // h
 		persistentUpdate = true;
 
 		var bg:FlxBackdrop = new FlxBackdrop(Paths.image('cubes'), XY);

@@ -20,7 +20,7 @@ class FPS extends Sprite {
 	private var currentMemory:Float;
 	private var maxMemory:Float;
 
-	private var outlineColor:FlxColor = 0xFFFFFFFF;
+	private var outlineColor(default, set):FlxColor;
 
 	public var baseText:TextField;
 	public var outlineTexts:Array<TextField> = [];
@@ -60,6 +60,8 @@ class FPS extends Sprite {
 			otext.defaultTextFormat = this.defaultTextFormat;
 			otext.textColor = outlineColor;
 			otext.width = baseText.width;
+			otext.selectable = false;
+			otext.mouseEnabled = false;
 			outlineTexts.push(otext);
 			addChild(otext);
 		}
@@ -97,8 +99,12 @@ class FPS extends Sprite {
 				maxMemory = currentMemory;
 
 			baseText.textColor = 0xFF000000;
-			if (currentMemory > 3221225472 || currentFPS <= ClientPrefs.framerate / 2) // why 3221225472? idk.
-				baseText.textColor = 0xFFFF0000;
+			outlineColor = 0xFFFFFFFF;
+			if (currentMemory > 3221225472 || currentFPS <= ClientPrefs.framerate / 2) {
+				baseText.textColor = 0xFFFFFFFF;
+				outlineColor = 0xFF000000;
+
+			} // why 3221225472? idk.
 
 			text = 'FPS: ${currentFPS}\nMEM: ${FlxStringUtil.formatBytes(currentMemory)} / ${FlxStringUtil.formatBytes(maxMemory)}';
 		}
@@ -111,5 +117,12 @@ class FPS extends Sprite {
 			text.text = value;
 		}
 		return value;
+	}
+
+	private function set_outlineColor(value:FlxColor):FlxColor {
+		for (text in outlineTexts)
+			text.textColor = value;
+		
+		return outlineColor = value;
 	}
 }

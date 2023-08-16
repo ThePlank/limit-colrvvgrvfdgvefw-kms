@@ -52,7 +52,7 @@ class CreditsState extends MusicBeatState
 
 	var iconShit:Array<(AttachedSprite, Float)->Void> = [
 		(icon, totalDelta) -> { icon.offset.y = Math.abs(Math.sin(totalDelta * 4)) * 50; }, // libing
-		(icon, totalDelta) -> { icon.angleAdd += 5; }, // plank
+		(icon, totalDelta) -> { icon.angleAdd += FlxG.elapsed * 5; }, // plank
 		(icon, totalDelta) -> {
 				icon.offset.x = FlxG.random.int(-5, 5);
 				icon.offset.y = FlxG.random.int(-3, 3);
@@ -121,8 +121,8 @@ class CreditsState extends MusicBeatState
 
 		var saygex:Array<Array<String>> = [ //Name - Icon name - Description - Link - Antialias - icon shit
 			['Skech Team'],
-			['libing',		        'theyarelimitedcolors','Director, Charter',            'https://www.youtube.com/channel/UCwH4gcjdN-gWPGunlBxAnQQ', 'true'],
-			['plankdev',	    	'plank icon real',	   'Main programmer, 3D modeler.\nMain Programmer of Hashlinked','https://twitter.com/_PlankDev', 'true'],
+			['libing',		        'theyarelimitedcolors','director, charter',            'https://www.youtube.com/channel/UCwH4gcjdN-gWPGunlBxAnQQ', 'true'],
+			['plankdev',	    	'plank icon real',	   'main programmer and 3d modeler.\nmain programmer of hashlinked','https://twitter.com/_PlankDev', 'true'],
 			['Nick',		        'nilk',		 		   'Programmer, Artist, slave',                'discord://-/users/749249635968745502', 'false'],
 			['Flying Felt Boot',    'fefefbee',			   'Artist',								           'discord://-/users/590206534076727307', 'true'],
 			['ItsWalker412',        'gwagwalker',		   'Composer',								               'https://twitter.com/ItsWalker412', 'true'],

@@ -534,8 +534,7 @@ class PlayState extends MusicBeatState
 				foxy.animation.addByPrefix('jumpscare', "foxy", 24);
 				foxy.animation.addByPrefix('idle', "foxy static", 24);
 				foxy.antialiasing = ClientPrefs.globalAntialiasing;
-				foxy.cameras = [camHUD];
-				foxy.updateHitbox();
+				foxy.cameras = [camOther];
 				add(foxy);
 		}
 
