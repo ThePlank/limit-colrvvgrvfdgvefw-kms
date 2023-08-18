@@ -28,13 +28,17 @@ import sys.io.File;
 import sys.io.Process;
 #end
 
+import openfl.display.StageQuality;
+import openfl.filters.ShaderFilter;
+import flixel.system.FlxAssets.FlxShader;
+
 using StringTools;
 
 class Main extends Sprite
 {
 	var game = {
-		width: 1280, // WINDOW width
-		height: 720, // WINDOW height
+		width: 0, // WINDOW width
+		height: 0, // WINDOW height
 		initialState: TitleState, // initial game state
 		zoom: -1.0, // game state bounds
 		framerate: 60, // default framerate
@@ -129,6 +133,11 @@ class Main extends Sprite
 			});
 		}
 		#end
+
+		FlxG.game.setFilters([new ShaderFilter(new FlxShader())]);
+		FlxG.game.stage.quality = StageQuality.LOW;
+		FlxG.resizeWindow(1280, 720);
+        FlxG.fullscreen = true;
 	}
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
