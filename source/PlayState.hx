@@ -317,8 +317,8 @@ class PlayState extends MusicBeatState
 		// for lua
 		instance = this;
 
-		// debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
-		// debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
+		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
+		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
 		PauseSubState.songName = null; //Reset to default
 		playbackRate = ClientPrefs.getGameplaySetting('songspeed', 1);
 
@@ -1622,9 +1622,9 @@ class PlayState extends MusicBeatState
 				var gasGroblem:InvertShader = new InvertShader();
 				invertShit = new ShaderFilter(gasGroblem);
 
-				// var assProblem:HalftoneShader = new HalftoneShader();
-				// assProblem.scale.value = [0.6];
-				// gaySexFilter = new ShaderFilter(assProblem);
+				var assProblem:HalftoneShader = new HalftoneShader();
+				assProblem.scale.value = [0.6];
+				gaySexFilter = new ShaderFilter(assProblem);
 		}
 
 		if(!eventPushedMap.exists(event.event)) {
@@ -1855,13 +1855,13 @@ class PlayState extends MusicBeatState
 			openPauseMenu();
 		}
 
-		// if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
-		// {
-		// 	openChartEditor();
-		// }
+		if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
+		{
+			openChartEditor();
+		}
 
-		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
-		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
+		FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
+		FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 
 		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
 		iconP1.scale.set(mult, mult);
@@ -1893,12 +1893,12 @@ class PlayState extends MusicBeatState
 		    iconP2.angle = FlxG.random.int(-2, 2);
 		} else iconP2.animation.curAnim.curFrame = 0;
 
-		// if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
-		// 	persistentUpdate = false;
-		// 	paused = true;
-		// 	cancelMusicFadeTween();
-		// 	MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
-		// }
+		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
+			persistentUpdate = false;
+			paused = true;
+			cancelMusicFadeTween();
+			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
+		}
 		
 		if (startedCountdown)
 		{
@@ -2563,8 +2563,10 @@ class PlayState extends MusicBeatState
 					case 0:
 						cameraTransform(cam -> cam._filters.remove(blendModeShit));
 						cameraTransform(cam -> cam._filters.remove(invertShit));
+						cameraTransform(cam -> cam._filters.remove(gaySexFilter));
 					case 1: cameraTransform(cam -> cam._filters.push(blendModeShit));
 					case 2: cameraTransform(cam -> cam._filters.push(invertShit));
+					case 3: cameraTransform(cam -> cam._filters.push(gaySexFilter));
 				}
 
 				if(!Math.isNaN(val)) {
