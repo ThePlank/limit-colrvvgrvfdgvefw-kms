@@ -23,8 +23,14 @@ import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxTimer;
 import openfl.events.MouseEvent;
-import openfl.geom.Vector3D;
+import Section.SwagSection;
+import Song.SwagSong;
+import flixel.FlxBasic;
+import flixel.FlxState;
+import haxe.Json;
+
 //3d shit
+import openfl.geom.Vector3D;
 import flx3d.Flx3DView;
 import flx3d.Flx3DUtil;
 import flx3d.Flx3DCamera;
@@ -58,10 +64,10 @@ class MainMenuState extends MusicBeatState
 	private var camOther:FlxCamera;
 	private var camGame:FlxCamera;
 	
-	var optionShit:Array<{x:Int, y:Int, scale:Float, die:Array<Int>, name:String}> = [
+	var optionShit:Array<{x:Int, y:Int, scale:Float, ?die:Array<Int>, name:String}> = [
 		{x: 0,  y: -50, scale: 1,    die: [0, 0],     name:    'play'},
 		{x: 0,  y: -20, scale: 0.75, die: [-40, -30], name: 'credits'},
-		{x: 0,  y: -20, scale: 1,    die: [-10, -27], name: 'options'}
+		{x: 0,  y: -20, scale: 1,    die: [-10, -27], name: 'options'},
 	];
 
 	var magenta:FlxSprite;
@@ -74,6 +80,10 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+		if (ClientPrefs.completedSublime) {
+			optionShit.insert(3, {x: 500, y: -500, scale: 1, name:'98'}); 
+		}
+
 		#if discord_rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
@@ -92,7 +102,7 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
+		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1); //do we even use this?
 
 		var bg:FlxBackdrop = new FlxBackdrop(Paths.image('dots'), XY);
 		bg.scale.set(1.4, 1.4);
@@ -124,10 +134,7 @@ class MainMenuState extends MusicBeatState
 			ground.z = -750;
 			ground.rotationY = 90;
 			System.gc();
-			cam3D.view.scene.addChild(ground);
-			// FlxTween.tween(ground, {rotationY: 360}, 1, {type: LOOPING});
-			
-		}, "assets/models/nicecock.png", false);
+			cam3D.view.scene.addChild(ground); }, "assets/models/nicecock.png", true);
 
 
 		cam3D.addModel(Paths.obj("popup"), function(event) { 
@@ -142,9 +149,7 @@ class MainMenuState extends MusicBeatState
 				popups.push(popup);
 				cam3D.view.scene.addChild(popup);
 			}
-
-			System.gc();
-		}, "assets/models/terrible.png", false);
+			System.gc(); }, "assets/models/terrible.png", true);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
@@ -190,16 +195,18 @@ class MainMenuState extends MusicBeatState
 		for (popup in popups) {
 			popup.x = FlxMath.lerp(popup.x, (popups.indexOf(popup) - curSelected) * 190, lerpVal);
 			popup.z = FlxMath.lerp(popup.z, ((popups.indexOf(popup) - curSelected) * 110) + -780, lerpVal);
+
 			var anal:Vector3D = cam3D.view.camera.project(popup.scenePosition);
 			var item:FlxSprite = menuItems.members[popups.indexOf(popup)];
 			var bitem = optionShit[popups.indexOf(popup)];
+
 			item.setPosition((anal.x * FlxG.width / 1.9) + FlxG.width / 2, (anal.y * FlxG.height) + FlxG.height / 2);
 			item.offset.set(item.frameWidth / 2, (item.frameHeight / 2) + bitem.y);
-			if (item.animation.curAnim.name == 'selected')
-				item.offset.add(bitem.die[0], bitem.die[1]);
+			if (item.animation.curAnim.name == 'selected') item.offset.add(bitem.die[0], bitem.die[1]);
+
 			var scale:Float = FlxMath.remapToRange(popup.scenePosition.z, -780, -560, 0.65, 0.4);
 			scale *= bitem.scale;
-			item.scale.set(scale, scale);
+			item.scale.set(scale, scale); //make 98 unselectable with keyboard pls
 		}
 
 
@@ -212,6 +219,14 @@ class MainMenuState extends MusicBeatState
 			if (controls.UI_RIGHT_P) {
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
+			}
+
+			if (FlxG.keys.pressed.SPACE) {
+				ClientPrefs.completedSublime = false;
+			}
+
+			if (FlxG.keys.pressed.SHIFT) {
+				ClientPrefs.completedSublime = true; //hee hee
 			}
 
 			if (controls.BACK) {
@@ -243,6 +258,9 @@ class MainMenuState extends MusicBeatState
 									MusicBeatState.switchState(new CreditsState());
 								case 'options':
 									LoadingState.loadAndSwitchState(new options.OptionsState());
+								case '98':
+									PlayState.SONG = Song.loadFromJson('sublime', 'sublime');
+									LoadingState.loadAndSwitchState(new PlayState());
 							}
 							new FlxTimer().start(1, function(tmr:FlxTimer) {
 								FlxG.fixedTimestep = true;

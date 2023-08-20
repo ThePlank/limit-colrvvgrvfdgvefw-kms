@@ -2685,6 +2685,7 @@ class PlayState extends MusicBeatState
 				CustomFadeTransition.nextCamera = null;
 			}
 			MusicBeatState.switchState(new CreditsState());
+			ClientPrefs.completedSublime = true;
 			changedDifficulty = false;
 			transitioning = true;
 		}

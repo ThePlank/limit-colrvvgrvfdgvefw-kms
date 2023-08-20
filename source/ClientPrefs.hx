@@ -30,6 +30,7 @@ class ClientPrefs {
 	public static var noReset:Bool = false;
 	public static var controllerMode:Bool = false;
 	public static var comboStacking = true;
+	public static var completedSublime:Bool = false;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
@@ -117,7 +118,8 @@ class ClientPrefs {
 		FlxG.save.data.gameplaySettings = gameplaySettings;
 		FlxG.save.data.controllerMode = controllerMode;
 		FlxG.save.data.comboStacking = comboStacking;
-	
+		FlxG.save.data.completedSublime = completedSublime;
+
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
@@ -227,6 +229,10 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.comboStacking != null)
 			comboStacking = FlxG.save.data.comboStacking;
+
+		if (FlxG.save.data.completedSublime != null) {
+			completedSublime = FlxG.save.data.completedSublime;
+		}
 
 		var save:FlxSave = new FlxSave();
 		save.bind('controls_v2', CoolUtil.getSavePath());
